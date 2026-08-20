@@ -1,116 +1,36 @@
 import { useState } from 'react'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
+import { Header } from './components/Header'
+import { Modal } from './components/ui/Modal'
+import { navLinks } from './data/nav'
+
+const placeholderText = 'Тимчасова секція. Контент буде додано на наступному етапі.'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [loginOpen, setLoginOpen] = useState(false)
+  const [priceOpen, setPriceOpen] = useState(false)
 
   return (
     <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+      <Header onLoginClick={() => setLoginOpen(true)} onPriceClick={() => setPriceOpen(true)} />
 
-      <div className="ticks"></div>
+      <main id="top">
+        {navLinks.map((link) => (
+          <section key={link.href} id={link.href.slice(1)} className="min-h-[70vh] border-b border-hairline">
+            <div className="mx-auto max-w-[1280px] px-6 py-16">
+              <h2 className="font-display text-3xl font-bold text-ink">{link.label}</h2>
+              <p className="mt-3 text-ink-muted">{placeholderText}</p>
+            </div>
+          </section>
+        ))}
+      </main>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+      <Modal open={loginOpen} onClose={() => setLoginOpen(false)} title="Увійти в кабінет">
+        <p>Форма входу буде додана на наступному етапі.</p>
+      </Modal>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
+      <Modal open={priceOpen} onClose={() => setPriceOpen(false)} title="Запросити прайс">
+        <p>Форма запиту прайсу буде додана на наступному етапі.</p>
+      </Modal>
     </>
   )
 }
