@@ -56,9 +56,29 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Fixel Text Fallback";
+  src: local("Arial"), local("Helvetica Neue"), local("Liberation Sans");
+  font-style: normal;
+  size-adjust: 102.6%;
+  ascent-override: 70%;
+  descent-override: 19.5%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Fixel Display Fallback";
+  src: local("Arial Bold"), local("Arial"), local("Helvetica Neue");
+  font-style: normal;
+  size-adjust: 99.3%;
+  ascent-override: 72%;
+  descent-override: 1.5%;
+  line-gap-override: 0%;
+}
+
 @theme {
-  --font-display: "Fixel Display", system-ui, sans-serif;
-  --font-sans: "Fixel Text", system-ui, sans-serif;
+  --font-display: "Fixel Display", "Fixel Display Fallback", system-ui, sans-serif;
+  --font-sans: "Fixel Text", "Fixel Text Fallback", system-ui, sans-serif;
   --color-brand: #1A6837;
   --color-brand-dark: #145029;
   --color-brand-soft: #EAF2ED;
@@ -128,6 +148,10 @@ body {
 p,
 li {
   text-wrap: pretty;
+}
+
+.measure {
+  max-width: 65ch;
 }
 
 h1,
