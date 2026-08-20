@@ -62,23 +62,23 @@ function Hero({ onPriceClick }: HeroProps) {
             <motion.div {...rise(0.12)} className="mt-10 grid max-w-[27rem] grid-cols-2 gap-x-8 gap-y-6">
               <div>
                 <span className="flex h-11 w-11 items-center justify-center rounded-full bg-brand-soft ring-1 ring-brand/10"><Tag size={22} weight="light" aria-hidden="true" className="text-brand" /></span>
-                <p className="mt-3 text-body-sm font-semibold text-ink">Гнучкі ціни</p>
-                <p className="mt-1 text-caption text-ink-muted">Під обсяг вашого закладу</p>
+                <p className="mt-3 text-body font-semibold text-ink">Гнучкі ціни</p>
+                <p className="mt-1 text-body-sm text-ink-muted">Під обсяг вашого закладу</p>
               </div>
               <div>
                 <span className="flex h-11 w-11 items-center justify-center rounded-full bg-brand-soft ring-1 ring-brand/10"><Truck size={22} weight="light" aria-hidden="true" className="text-brand" /></span>
-                <p className="mt-3 text-body-sm font-semibold text-ink">Стабільні поставки</p>
-                <p className="mt-1 text-caption text-ink-muted">Графік без зривів</p>
+                <p className="mt-3 text-body font-semibold text-ink">Стабільні поставки</p>
+                <p className="mt-1 text-body-sm text-ink-muted">Графік без зривів</p>
               </div>
               <div>
                 <span className="flex h-11 w-11 items-center justify-center rounded-full bg-brand-soft ring-1 ring-brand/10"><Handshake size={22} weight="light" aria-hidden="true" className="text-brand" /></span>
-                <p className="mt-3 text-body-sm font-semibold text-ink">Персональний підхід</p>
-                <p className="mt-1 text-caption text-ink-muted">Свій менеджер</p>
+                <p className="mt-3 text-body font-semibold text-ink">Персональний підхід</p>
+                <p className="mt-1 text-body-sm text-ink-muted">Свій менеджер</p>
               </div>
               <div>
                 <span className="flex h-11 w-11 items-center justify-center rounded-full bg-brand-soft ring-1 ring-brand/10"><Certificate size={22} weight="light" aria-hidden="true" className="text-brand" /></span>
-                <p className="mt-3 text-body-sm font-semibold text-ink">Халяль стандарти</p>
-                <p className="mt-1 text-caption text-ink-muted">Підтверджена якість</p>
+                <p className="mt-3 text-body font-semibold text-ink">Халяль стандарти</p>
+                <p className="mt-1 text-body-sm text-ink-muted">Підтверджена якість</p>
               </div>
             </motion.div>
 

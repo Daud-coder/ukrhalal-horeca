@@ -142,28 +142,28 @@ export function PriceRequestForm({ onDone }: PriceRequestFormProps) {
         <div className="space-y-2">
           <label htmlFor="price-name" className="block text-body-sm font-medium text-ink">Ваше імʼя</label>
           <input ref={nameRef} id="price-name" name="name" value={name} onChange={(event) => setName(event.target.value)} onBlur={() => handleBlur('name')} maxLength={80} autoComplete="name" className={fieldClassName('name')} aria-invalid={errors.name ? true : undefined} aria-describedby={errors.name ? 'price-name-error' : undefined} />
-          {errors.name && <p id="price-name-error" role="alert" className="text-caption text-red-700">{errors.name}</p>}
+          {errors.name && <p id="price-name-error" role="alert" className="text-body-sm text-red-700">{errors.name}</p>}
         </div>
 
         <div className="space-y-2">
           <label htmlFor="price-company" className="block text-body-sm font-medium text-ink">Назва закладу</label>
           <input ref={companyRef} id="price-company" name="company" value={company} onChange={(event) => setCompany(event.target.value)} onBlur={() => handleBlur('company')} maxLength={120} autoComplete="organization" className={fieldClassName('company')} aria-invalid={errors.company ? true : undefined} aria-describedby={errors.company ? 'price-company-error' : undefined} />
-          {errors.company && <p id="price-company-error" role="alert" className="text-caption text-red-700">{errors.company}</p>}
+          {errors.company && <p id="price-company-error" role="alert" className="text-body-sm text-red-700">{errors.company}</p>}
         </div>
 
         <div className="space-y-2">
           <label htmlFor="price-phone" className="block text-body-sm font-medium text-ink">Телефон</label>
           <input ref={phoneRef} id="price-phone" name="phone" type="tel" inputMode="tel" value={phone} onChange={(event) => setPhone(event.target.value)} onBlur={() => handleBlur('phone')} maxLength={20} autoComplete="tel" className={fieldClassName('phone')} aria-invalid={errors.phone ? true : undefined} aria-describedby={errors.phone ? 'price-phone-error' : undefined} />
-          {errors.phone && <p id="price-phone-error" role="alert" className="text-caption text-red-700">{errors.phone}</p>}
+          {errors.phone && <p id="price-phone-error" role="alert" className="text-body-sm text-red-700">{errors.phone}</p>}
         </div>
 
         <div className="space-y-2">
           <label htmlFor="price-email" className="block text-body-sm font-medium text-ink">Email</label>
           <input ref={emailRef} id="price-email" name="email" type="email" inputMode="email" value={email} onChange={(event) => setEmail(event.target.value)} onBlur={() => handleBlur('email')} maxLength={120} autoComplete="email" className={fieldClassName('email')} aria-invalid={errors.email ? true : undefined} aria-describedby={errors.email ? 'price-email-error' : 'price-email-hint'} />
           {errors.email ? (
-            <p id="price-email-error" role="alert" className="text-caption text-red-700">{errors.email}</p>
+            <p id="price-email-error" role="alert" className="text-body-sm text-red-700">{errors.email}</p>
           ) : (
-            <p id="price-email-hint" className="text-caption text-ink-muted">Необовʼязково. Надішлемо прайс ще й поштою.</p>
+            <p id="price-email-hint" className="text-body-sm text-ink-muted">Необовʼязково. Надішлемо прайс ще й поштою.</p>
           )}
         </div>
 
@@ -172,12 +172,12 @@ export function PriceRequestForm({ onDone }: PriceRequestFormProps) {
             <input ref={consentRef} id="price-consent" name="consent" type="checkbox" checked={consent} onChange={(event) => setConsent(event.target.checked)} onBlur={() => handleBlur('consent')} className="mt-1 h-5 w-5 shrink-0 cursor-pointer accent-brand caret-brand disabled:cursor-not-allowed" aria-invalid={errors.consent ? true : undefined} aria-describedby={errors.consent ? 'price-consent-error' : undefined} />
             <label htmlFor="price-consent" className="text-body-sm font-medium text-ink">Погоджуюсь на обробку персональних даних</label>
           </div>
-          {errors.consent && <p id="price-consent-error" role="alert" className="text-caption text-red-700">{errors.consent}</p>}
+          {errors.consent && <p id="price-consent-error" role="alert" className="text-body-sm text-red-700">{errors.consent}</p>}
         </div>
       </fieldset>
 
       <div aria-live="polite" className="mt-5">
-        {status === 'error' && <p role="alert" className="mb-3 text-caption text-red-700">{submitError}</p>}
+        {status === 'error' && <p role="alert" className="mb-3 text-body-sm text-red-700">{submitError}</p>}
         <Button type="submit" variant="primary" size="md" disabled={disabled}>
           {status === 'sending' ? 'Надсилаємо...' : status === 'error' ? 'Спробувати ще раз' : 'Надіслати заявку'}
         </Button>

@@ -21,7 +21,7 @@ function ProductCard({ slug, title, blurb, image }: ProductCardProps) {
         </div>
         <div className="p-4">
           <h3 className="font-display text-title font-bold text-ink">{title}</h3>
-          <p className="mt-1 text-caption text-ink-muted">{blurb}</p>
+          <p className="mt-1 text-body-sm text-ink-muted">{blurb}</p>
         </div>
       </div>
     </a>
