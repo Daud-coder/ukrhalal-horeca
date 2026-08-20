@@ -1,4 +1,4 @@
-import { ArrowRight, Certificate, Handshake, Tag, Truck } from '@phosphor-icons/react'
+import { ArrowRight } from '@phosphor-icons/react'
 import { motion, useReducedMotion } from 'motion/react'
 import { featuredCategories } from '../data/categories'
 import HeroCategoryCard from './HeroCategoryCard'
@@ -13,7 +13,7 @@ function Hero({ onPriceClick }: HeroProps) {
   const rise = (delay: number) => reduce ? {} : { initial: { opacity: 0, transform: 'translateY(12px)' }, animate: { opacity: 1, transform: 'translateY(0px)' }, transition: { duration: 0.5, delay, ease: [0.32, 0.72, 0, 1] as const } }
 
   return (
-    <section className="relative min-h-[calc(100dvh-72px)] overflow-hidden">
+    <section className="relative min-h-[calc(100dvh-72px)] overflow-hidden lg:min-h-[620px] lg:h-[min(calc(100dvh-72px),47.5vw)]">
       <div className="pointer-events-none absolute inset-0">
         <img
           src="/images/hero-kitchen.webp"
@@ -23,13 +23,26 @@ function Hero({ onPriceClick }: HeroProps) {
           fetchPriority="high"
           decoding="async"
           aria-hidden="true"
-          className="h-full w-full object-cover object-right"
+          className="h-full w-full object-cover object-center"
+        />
+        <img
+          src="/images/hero-kitchen-blur.webp"
+          alt=""
+          aria-hidden="true"
+          width="2400"
+          height="1140"
+          decoding="async"
+          className="absolute inset-0 h-full w-full object-cover object-center"
+          style={{
+            maskImage: 'linear-gradient(100deg, #000 0%, #000 40%, rgba(0,0,0,0.55) 56%, transparent 72%)',
+            WebkitMaskImage: 'linear-gradient(100deg, #000 0%, #000 40%, rgba(0,0,0,0.55) 56%, transparent 72%)',
+          }}
         />
         <div
           className="absolute inset-0"
           style={{
             background:
-              'linear-gradient(100deg, #FFFFFF 0%, #FFFFFF 20%, rgba(255,255,255,0.93) 34%, rgba(255,255,255,0.55) 50%, rgba(255,255,255,0.08) 66%, rgba(255,255,255,0) 78%)',
+              'linear-gradient(100deg, rgba(255,255,255,0.90) 0%, rgba(255,255,255,0.86) 24%, rgba(255,255,255,0.66) 42%, rgba(255,255,255,0.28) 58%, rgba(255,255,255,0.04) 72%, rgba(255,255,255,0) 82%)',
           }}
         />
         <div
@@ -53,36 +66,13 @@ function Hero({ onPriceClick }: HeroProps) {
             </motion.div>
 
             <motion.div {...rise(0.06)}>
-              <p className="mt-6 max-w-[46ch] text-body-lg text-ink-muted">
+              <p className="mt-6 max-w-[34ch] text-body-lg font-medium text-ink">
                 М'ясо для ресторанів, кафе, готелів та кейтерингу. Від надійного постачальника по Києву,
                 Київській області та Україні.
               </p>
             </motion.div>
 
-            <motion.div {...rise(0.12)} className="mt-10 grid max-w-[27rem] grid-cols-2 gap-x-8 gap-y-6">
-              <div>
-                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-brand-soft ring-1 ring-brand/10"><Tag size={22} weight="light" aria-hidden="true" className="text-brand" /></span>
-                <p className="mt-3 text-body font-semibold text-ink">Гнучкі ціни</p>
-                <p className="mt-1 text-body-sm text-ink-muted">Під обсяг вашого закладу</p>
-              </div>
-              <div>
-                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-brand-soft ring-1 ring-brand/10"><Truck size={22} weight="light" aria-hidden="true" className="text-brand" /></span>
-                <p className="mt-3 text-body font-semibold text-ink">Стабільні поставки</p>
-                <p className="mt-1 text-body-sm text-ink-muted">Графік без зривів</p>
-              </div>
-              <div>
-                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-brand-soft ring-1 ring-brand/10"><Handshake size={22} weight="light" aria-hidden="true" className="text-brand" /></span>
-                <p className="mt-3 text-body font-semibold text-ink">Персональний підхід</p>
-                <p className="mt-1 text-body-sm text-ink-muted">Свій менеджер</p>
-              </div>
-              <div>
-                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-brand-soft ring-1 ring-brand/10"><Certificate size={22} weight="light" aria-hidden="true" className="text-brand" /></span>
-                <p className="mt-3 text-body font-semibold text-ink">Халяль стандарти</p>
-                <p className="mt-1 text-body-sm text-ink-muted">Підтверджена якість</p>
-              </div>
-            </motion.div>
-
-            <motion.div {...rise(0.18)} className="mt-10 flex flex-col gap-5 sm:flex-row">
+            <motion.div {...rise(0.12)} className="mt-10 flex flex-col gap-5 sm:flex-row">
               <Button size="md" onClick={onPriceClick}>Запросити прайс</Button>
               <Button as="a" href="#products" variant="link" size="md" iconRight={<ArrowRight size={20} weight="light" aria-hidden="true" />}>
                 Каталог продукції

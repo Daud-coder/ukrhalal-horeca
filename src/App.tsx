@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { Fragment, useState } from 'react'
+import Advantages from './components/Advantages'
 import { Header } from './components/Header'
 import Hero from './components/Hero'
 import ProductsSection from './components/ProductsSection'
@@ -23,7 +24,10 @@ function App() {
 
         {navLinks.map((link) =>
           link.href === '#products' ? (
-            <ProductsSection key={link.href} />
+            <Fragment key={link.href}>
+              <ProductsSection />
+              <Advantages />
+            </Fragment>
           ) : (
             <section key={link.href} id={link.href.slice(1)} className="min-h-[70vh] border-b border-hairline">
               <div className="mx-auto max-w-[1280px] px-6 py-16">
