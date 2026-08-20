@@ -34,15 +34,15 @@ function Hero({ onPriceClick }: HeroProps) {
           decoding="async"
           className="absolute inset-0 h-full w-full object-cover object-center"
           style={{
-            maskImage: 'linear-gradient(100deg, #000 0%, #000 40%, rgba(0,0,0,0.55) 56%, transparent 72%)',
-            WebkitMaskImage: 'linear-gradient(100deg, #000 0%, #000 40%, rgba(0,0,0,0.55) 56%, transparent 72%)',
+            maskImage: 'linear-gradient(100deg, #000 0%, #000 22%, rgba(0,0,0,0.55) 42%, rgba(0,0,0,0.18) 56%, transparent 68%)',
+            WebkitMaskImage: 'linear-gradient(100deg, #000 0%, #000 22%, rgba(0,0,0,0.55) 42%, rgba(0,0,0,0.18) 56%, transparent 68%)',
           }}
         />
         <div
           className="absolute inset-0"
           style={{
             background:
-              'linear-gradient(100deg, rgba(255,255,255,0.90) 0%, rgba(255,255,255,0.86) 24%, rgba(255,255,255,0.66) 42%, rgba(255,255,255,0.28) 58%, rgba(255,255,255,0.04) 72%, rgba(255,255,255,0) 82%)',
+              'linear-gradient(100deg, rgba(255,255,255,0.84) 0%, rgba(255,255,255,0.76) 26%, rgba(255,255,255,0.46) 44%, rgba(255,255,255,0.16) 60%, rgba(255,255,255,0.02) 74%, rgba(255,255,255,0) 84%)',
           }}
         />
         <div
@@ -80,9 +80,9 @@ function Hero({ onPriceClick }: HeroProps) {
             </motion.div>
           </div>
 
-          <div className="flex flex-col items-start gap-4 lg:items-end">
+          <div className="flex flex-col items-start gap-4 lg:items-end lg:self-start">
             {featuredCategories.map((category, index) => (
-              <motion.div {...rise(0.24 + index * 0.06)} key={category.slug} className={index % 2 === 1 ? 'w-full lg:mr-16' : 'w-full'}>
+              <motion.div {...rise(0.24 + index * 0.06)} key={category.slug} className={index % 2 === 1 ? 'w-full lg:w-auto lg:mr-6' : 'w-full lg:w-auto'}>
                 <HeroCategoryCard title={category.title} image={category.image} href="#products" />
               </motion.div>
             ))}
