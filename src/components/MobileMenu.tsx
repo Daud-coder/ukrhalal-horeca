@@ -11,7 +11,27 @@ type MobileMenuProps = {
 }
 
 export function MobileMenu({ open, onClose, onLoginClick, onPriceClick }: MobileMenuProps) {
+  const [render, setRender] = useState(open)
   const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    let frame: number | undefined
+    let showFallback: number | undefined
+    let closeTimer: number | undefined
+    if (open) {
+      setRender(true)
+      frame = requestAnimationFrame(() => setMounted(true))
+      showFallback = window.setTimeout(() => setMounted(true), 60)
+    } else {
+      setMounted(false)
+      closeTimer = window.setTimeout(() => setRender(false), 200)
+    }
+    return () => {
+      if (frame !== undefined) cancelAnimationFrame(frame)
+      if (showFallback !== undefined) window.clearTimeout(showFallback)
+      if (closeTimer !== undefined) window.clearTimeout(closeTimer)
+    }
+  }, [open])
 
   useEffect(() => {
     if (!open) return () => undefined
@@ -20,18 +40,16 @@ export function MobileMenu({ open, onClose, onLoginClick, onPriceClick }: Mobile
       if (event.key === 'Escape') onClose()
     }
     document.body.style.overflow = 'hidden'
-    setMounted(true)
     document.addEventListener('keydown', handleKeyDown)
     return () => {
-      setMounted(false)
       document.body.style.overflow = previousOverflow
       document.removeEventListener('keydown', handleKeyDown)
     }
   }, [onClose, open])
 
-  if (!open) return null
+  if (!render) return null
   return (
-    <div className="fixed inset-0 flex min-h-dvh flex-col bg-white/80 px-6 py-5 backdrop-blur-2xl" style={{ zIndex: LAYER.mobileMenu }}>
+    <div className={`fixed inset-0 flex min-h-dvh flex-col bg-white/80 px-6 py-5 backdrop-blur-2xl transition-opacity duration-200 ease-drawer motion-reduce:transition-none ${mounted ? 'opacity-100' : 'opacity-0'}`} style={{ zIndex: LAYER.mobileMenu }}>
       <div className="flex items-center justify-between">
         <img src="/logo/ukrhalal-horeca.png" alt="УкрХаляль HoReCa" width="880" height="612" className="h-[38px] w-auto" />
         <button type="button" aria-label="Закрити меню" onClick={onClose} className="p-2">

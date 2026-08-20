@@ -35,16 +35,16 @@ function ProductsSection() {
     <section id="products" className="bg-white py-24">
       <div className="mx-auto max-w-[1280px] px-6">
         <motion.div
-          initial={reduce ? false : { opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={reduce ? false : { opacity: 0, transform: 'translateY(16px)' }}
+          whileInView={{ opacity: 1, transform: 'translateY(0px)' }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.5, delay: 0, ease: [0.32, 0.72, 0, 1] }}
         >
           <h2 className="font-display text-h2 font-bold text-ink md:text-h2-lg">HoReCa продукція</h2>
         </motion.div>
         <motion.div
-          initial={reduce ? false : { opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={reduce ? false : { opacity: 0, transform: 'translateY(16px)' }}
+          whileInView={{ opacity: 1, transform: 'translateY(0px)' }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.5, delay: 0.06, ease: [0.32, 0.72, 0, 1] }}
         >
@@ -57,8 +57,8 @@ function ProductsSection() {
           {categories.map((category, index) => (
             <motion.div
               key={category.slug}
-              initial={reduce ? false : { opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={reduce ? false : { opacity: 0, transform: 'translateY(16px)' }}
+              whileInView={{ opacity: 1, transform: 'translateY(0px)' }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.5, delay: Math.min(index, 4) * 0.05, ease: [0.32, 0.72, 0, 1] }}
             >

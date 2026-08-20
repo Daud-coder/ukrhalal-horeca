@@ -10,7 +10,7 @@ type HeroProps = {
 
 function Hero({ onPriceClick }: HeroProps) {
   const reduce = useReducedMotion()
-  const rise = (delay: number) => reduce ? {} : { initial: { opacity: 0, y: 12 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.5, delay, ease: [0.32, 0.72, 0, 1] as const } }
+  const rise = (delay: number) => reduce ? {} : { initial: { opacity: 0, transform: 'translateY(12px)' }, animate: { opacity: 1, transform: 'translateY(0px)' }, transition: { duration: 0.5, delay, ease: [0.32, 0.72, 0, 1] as const } }
 
   return (
     <section className="relative min-h-[calc(100dvh-72px)] overflow-hidden">
