@@ -35,7 +35,7 @@ export function Header({ onLoginClick, onPriceClick }: HeaderProps) {
           </a>
           <nav aria-label="Основна навігація" className="hidden nav:block">
             <ul className="flex items-center gap-6">
-              {navLinks.map((link) => <li key={link.href}><a href={link.href} className="whitespace-nowrap text-sm font-medium text-ink transition-[color] duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-brand motion-reduce:transition-none">{link.label}</a></li>)}
+              {navLinks.map((link) => <li key={link.href}><a href={link.href} className="whitespace-nowrap text-body-sm font-medium text-ink transition-[color] duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-brand motion-reduce:transition-none">{link.label}</a></li>)}
             </ul>
           </nav>
           <div className="hidden shrink-0 items-center gap-3 nav:flex">

@@ -20,7 +20,7 @@ function HeroCategoryCard({ title, image, href }: HeroCategoryCardProps) {
           <img src={image} alt="" width="48" height="48" className="h-11 w-11 object-contain" />
         </span>
 
-        <span className="min-w-0 flex-1 font-display text-[17px] font-bold tracking-tight text-ink">
+        <span className="min-w-0 flex-1 font-display text-title font-bold text-ink">
           {title}
         </span>
 

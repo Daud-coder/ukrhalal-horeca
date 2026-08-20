@@ -26,8 +26,8 @@ const variantClasses = {
 }
 
 const sizeClasses = {
-  sm: 'text-sm',
-  md: 'text-base',
+  sm: 'text-body-sm',
+  md: 'text-body',
 }
 
 const coreSizeClasses = {

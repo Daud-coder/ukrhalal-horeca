@@ -43,7 +43,7 @@ export function MobileMenu({ open, onClose, onLoginClick, onPriceClick }: Mobile
       </div>
       <nav aria-label="Мобільна навігація" className="mt-8">
         <ul className="space-y-5">
-          {navLinks.map((link, index) => <li key={link.href}><a href={link.href} onClick={onClose} style={{ transitionDelay: `${80 + index * 60}ms` }} className={`block font-display text-2xl font-semibold text-ink transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-brand motion-reduce:transform-none motion-reduce:opacity-100 motion-reduce:transition-none ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>{link.label}</a></li>)}
+          {navLinks.map((link, index) => <li key={link.href}><a href={link.href} onClick={onClose} style={{ transitionDelay: `${80 + index * 60}ms` }} className={`block font-display text-h3 font-semibold text-ink transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-brand motion-reduce:transform-none motion-reduce:opacity-100 motion-reduce:transition-none ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>{link.label}</a></li>)}
         </ul>
       </nav>
       <div className="mt-auto flex flex-col gap-3 pt-8">

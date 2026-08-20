@@ -77,7 +77,7 @@ export function Modal({ open, onClose, title, children }: ModalProps) {
       <div ref={panelRef} role="dialog" aria-modal="true" aria-labelledby={titleId} tabIndex={-1} className="w-full max-w-lg rounded-[2rem] bg-white/85 p-1.5 ring-1 ring-ink/[0.06] shadow-[0_40px_80px_-32px_rgba(16,32,26,0.55)]">
         <div className="rounded-[calc(2rem-0.375rem)] bg-white p-7 shadow-[inset_0_1px_0_rgba(255,255,255,0.9)]">
           <div className="flex items-start justify-between gap-6">
-            <h2 id={titleId} className="font-display text-2xl font-semibold text-ink">{title}</h2>
+            <h2 id={titleId} className="font-display text-h3 font-semibold text-ink">{title}</h2>
             <button type="button" aria-label="Закрити" onClick={onClose} className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-surface-alt text-ink transition-[transform] duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-brand-soft active:scale-[0.97] motion-reduce:transform-none motion-reduce:transition-none">
               <X size={24} weight="light" aria-hidden="true" />
             </button>
