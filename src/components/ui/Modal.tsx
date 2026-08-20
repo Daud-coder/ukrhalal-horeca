@@ -1,5 +1,5 @@
 import { X } from '@phosphor-icons/react'
-import { useEffect, useId, useRef, type ReactNode } from 'react'
+import { useEffect, useId, useRef, useState, type ReactNode } from 'react'
 import { createPortal } from 'react-dom'
 
 type ModalProps = { open: boolean; onClose: () => void; title: string; children: ReactNode }
@@ -11,9 +11,33 @@ const focusableSelector = [
 ].join(',')
 
 export function Modal({ open, onClose, title, children }: ModalProps) {
+  const [render, setRender] = useState(open)
+  const [shown, setShown] = useState(false)
   const panelRef = useRef<HTMLDivElement>(null)
   const previousFocusRef = useRef<HTMLElement | null>(null)
   const titleId = `modal-${useId().replace(/:/g, '')}`
+
+  useEffect(() => {
+    let animationFrame: number | undefined
+    let showFallback: number | undefined
+    let closeTimer: number | undefined
+    if (open) {
+      setRender(true)
+      animationFrame = requestAnimationFrame(() => setShown(true))
+      // Страховка: якщо кадри анімації придушені (вкладка у фоні), rAF може не
+      // спрацювати, і діалог лишиться прозорим, продовжуючи блокувати сторінку.
+      // Таймер гарантує показ навіть тоді.
+      showFallback = window.setTimeout(() => setShown(true), 60)
+    } else {
+      setShown(false)
+      closeTimer = window.setTimeout(() => setRender(false), 160)
+    }
+    return () => {
+      if (animationFrame !== undefined) cancelAnimationFrame(animationFrame)
+      if (showFallback !== undefined) window.clearTimeout(showFallback)
+      if (closeTimer !== undefined) window.clearTimeout(closeTimer)
+    }
+  }, [open])
 
   useEffect(() => {
     if (!open) return () => undefined
@@ -29,8 +53,11 @@ export function Modal({ open, onClose, title, children }: ModalProps) {
     }
   }, [open])
 
+  // Залежність саме від render, а не від open: панель монтується на один рендер
+  // пізніше за open, і якщо чіплятися за open, ефект спрацює тоді, коли panelRef
+  // ще порожній, і діалог відкриється без фокуса.
   useEffect(() => {
-    if (!open) return () => undefined
+    if (!open || !render) return () => undefined
     previousFocusRef.current = document.activeElement as HTMLElement | null
     // Фокус переводимо синхронно: на момент useEffect панель уже в DOM, чекати кадр
     // не потрібно, а відкладений через requestAnimationFrame виклик скасовувався
@@ -40,7 +67,7 @@ export function Modal({ open, onClose, title, children }: ModalProps) {
     return () => {
       previousFocusRef.current?.focus()
     }
-  }, [open])
+  }, [open, render])
 
   useEffect(() => {
     if (!open) return () => undefined
@@ -69,16 +96,16 @@ export function Modal({ open, onClose, title, children }: ModalProps) {
     return () => document.removeEventListener('keydown', handleKeyDown)
   }, [onClose, open])
 
-  if (!open) return null
+  if (!render) return null
   return createPortal(
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-ink/50 p-6 backdrop-blur" onMouseDown={(event) => {
+    <div className={`fixed inset-0 z-50 flex items-center justify-center bg-ink/50 p-6 backdrop-blur transition-opacity duration-200 ease-out motion-reduce:transition-none ${shown ? 'opacity-100' : 'opacity-0'}`} onMouseDown={(event) => {
       if (event.target === event.currentTarget) onClose()
     }}>
-      <div ref={panelRef} role="dialog" aria-modal="true" aria-labelledby={titleId} tabIndex={-1} className="w-full max-w-lg rounded-[2rem] bg-white/85 p-1.5 ring-1 ring-ink/[0.06] shadow-[0_40px_80px_-32px_rgba(16,32,26,0.55)]">
+      <div ref={panelRef} role="dialog" aria-modal="true" aria-labelledby={titleId} tabIndex={-1} className={`w-full max-w-lg rounded-[2rem] bg-white/85 p-1.5 ring-1 ring-ink/[0.06] shadow-[0_40px_80px_-32px_rgba(16,32,26,0.55)] transition-[transform,opacity] duration-220 ease-out motion-reduce:transition-none motion-reduce:transform-none ${shown ? 'scale-100 translate-y-0 opacity-100' : 'scale-[0.96] translate-y-2 opacity-0'}`}>
         <div className="rounded-[calc(2rem-0.375rem)] bg-white p-7 shadow-[inset_0_1px_0_rgba(255,255,255,0.9)]">
           <div className="flex items-start justify-between gap-6">
             <h2 id={titleId} className="font-display text-h3 font-semibold text-ink">{title}</h2>
-            <button type="button" aria-label="Закрити" onClick={onClose} className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-surface-alt text-ink transition-[transform] duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-brand-soft active:scale-[0.97] motion-reduce:transform-none motion-reduce:transition-none">
+            <button type="button" aria-label="Закрити" onClick={onClose} className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-surface-alt text-ink transition-[transform] duration-200 ease-drawer hover:bg-brand-soft active:scale-[0.97] motion-reduce:transform-none motion-reduce:transition-none">
               <X size={24} weight="light" aria-hidden="true" />
             </button>
           </div>

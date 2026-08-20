@@ -50,7 +50,7 @@ const iconVariantClasses = {
 export function Button(props: ButtonProps) {
   const { variant = 'primary', size = 'md', children, iconRight, className = '' } = props
   const classes = [
-    'group inline-flex rounded-full p-1.5 font-semibold whitespace-nowrap transition-[transform,box-shadow] duration-[160ms] ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-0.5 active:scale-[0.97] motion-reduce:transform-none motion-reduce:transition-none',
+    'group inline-flex rounded-full p-1.5 font-semibold whitespace-nowrap transition-[transform,box-shadow] duration-[160ms] ease-drawer hover:-translate-y-0.5 active:scale-[0.97] motion-reduce:hover:translate-y-0 motion-reduce:transition-none',
     variantClasses[variant],
     sizeClasses[size],
     className,
@@ -59,7 +59,7 @@ export function Button(props: ButtonProps) {
     <span className={`inline-flex items-center justify-center gap-2 rounded-[calc(9999px-0.375rem)] ${coreSizeClasses[size]} ${coreVariantClasses[variant]}`}>
       <span className="whitespace-nowrap">{children}</span>
       {iconRight && (
-        <span className={`flex ${size === 'sm' ? 'h-7 w-7' : 'h-8 w-8'} shrink-0 items-center justify-center rounded-full ${iconVariantClasses[variant]} transition-[transform] duration-[160ms] ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-0.5 motion-reduce:transform-none motion-reduce:transition-none`}>
+        <span className={`flex ${size === 'sm' ? 'h-7 w-7' : 'h-8 w-8'} shrink-0 items-center justify-center rounded-full ${iconVariantClasses[variant]} transition-[transform] duration-[160ms] ease-drawer group-hover:translate-x-0.5 motion-reduce:transform-none motion-reduce:transition-none`}>
           {iconRight}
         </span>
       )}
