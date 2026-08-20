@@ -29,14 +29,14 @@ export function Header({ onLoginClick, onPriceClick }: HeaderProps) {
 
   return (
     <>
-      <header className={`sticky top-0 ${scrolled ? 'h-[60px] border-b border-hairline bg-white/94 backdrop-blur' : 'h-[72px] bg-white'}`} style={{ zIndex: Z_INDEX }}>
+      <header className={`sticky top-0 transition-[height] duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] motion-reduce:transition-none ${scrolled ? 'h-[60px] bg-white/94 shadow-[0_1px_0_rgba(16,32,26,0.06),0_12px_28px_-24px_rgba(16,32,26,0.5)] backdrop-blur' : 'h-[72px] bg-white'}`} style={{ zIndex: Z_INDEX }}>
         <div className="mx-auto flex h-full max-w-[1280px] items-center justify-between gap-6 px-6">
           <a href="#top" aria-label="На початок сторінки" className="shrink-0">
-            <img src="/logo/ukrhalal-horeca.png" alt="УкрХаляль HoReCa" width="880" height="612" className={`${scrolled ? 'h-[38px]' : 'h-[44px]'} w-auto`} />
+            <img src="/logo/ukrhalal-horeca.png" alt="УкрХаляль HoReCa" width="880" height="612" className={`${scrolled ? 'h-[38px]' : 'h-[44px]'} w-auto transition-[height] duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] motion-reduce:transition-none`} />
           </a>
           <nav aria-label="Основна навігація" className="hidden nav:block">
             <ul className="flex items-center gap-6">
-              {navLinks.map((link) => <li key={link.href}><a href={link.href} className="whitespace-nowrap text-sm font-medium text-ink hover:text-brand">{link.label}</a></li>)}
+              {navLinks.map((link) => <li key={link.href}><a href={link.href} className="whitespace-nowrap text-sm font-medium text-ink transition-[color] duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-brand motion-reduce:transition-none">{link.label}</a></li>)}
             </ul>
           </nav>
           <div className="hidden shrink-0 items-center gap-3 nav:flex">
@@ -44,7 +44,7 @@ export function Header({ onLoginClick, onPriceClick }: HeaderProps) {
             <Button size="sm" variant="outline" onClick={onPriceClick}>Запросити прайс</Button>
           </div>
           <button type="button" aria-label="Відкрити меню" onClick={() => setMenuOpen(true)} className="rounded-[var(--radius-btn)] p-2 text-ink hover:bg-brand-soft nav:hidden">
-            <List size={30} aria-hidden="true" />
+            <List size={30} weight="light" aria-hidden="true" />
           </button>
         </div>
       </header>

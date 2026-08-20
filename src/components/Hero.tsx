@@ -37,10 +37,10 @@ function Hero({ onPriceClick }: HeroProps) {
         />
       </div>
 
-      <div className="relative mx-auto max-w-[1280px] px-6 pb-20 pt-16">
+      <div className="relative mx-auto max-w-[1280px] px-6 pb-28 pt-20">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
           <div>
-            <h1 className="font-display text-5xl font-extrabold leading-[1.05] tracking-tight md:text-6xl lg:text-7xl">
+            <h1 className="text-balance font-display text-5xl font-extrabold leading-[1.05] tracking-tight md:text-6xl lg:text-7xl">
               <span className="text-brand">УКРХАЛЯЛЬ</span>
               <br />
               <span className="text-ink">HoReCa B2B</span>
@@ -53,22 +53,22 @@ function Hero({ onPriceClick }: HeroProps) {
 
             <div className="mt-10 grid max-w-[27rem] grid-cols-2 gap-x-8 gap-y-6">
               <div>
-                <Tag size={26} aria-hidden="true" className="text-brand" />
+                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-brand-soft ring-1 ring-brand/10"><Tag size={22} weight="light" aria-hidden="true" className="text-brand" /></span>
                 <p className="mt-3 text-sm font-semibold text-ink">Гнучкі ціни</p>
                 <p className="mt-1 text-xs text-ink-muted">Під обсяг вашого закладу</p>
               </div>
               <div>
-                <Truck size={26} aria-hidden="true" className="text-brand" />
+                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-brand-soft ring-1 ring-brand/10"><Truck size={22} weight="light" aria-hidden="true" className="text-brand" /></span>
                 <p className="mt-3 text-sm font-semibold text-ink">Стабільні поставки</p>
                 <p className="mt-1 text-xs text-ink-muted">Графік без зривів</p>
               </div>
               <div>
-                <Handshake size={26} aria-hidden="true" className="text-brand" />
+                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-brand-soft ring-1 ring-brand/10"><Handshake size={22} weight="light" aria-hidden="true" className="text-brand" /></span>
                 <p className="mt-3 text-sm font-semibold text-ink">Персональний підхід</p>
                 <p className="mt-1 text-xs text-ink-muted">Свій менеджер</p>
               </div>
               <div>
-                <Certificate size={26} aria-hidden="true" className="text-brand" />
+                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-brand-soft ring-1 ring-brand/10"><Certificate size={22} weight="light" aria-hidden="true" className="text-brand" /></span>
                 <p className="mt-3 text-sm font-semibold text-ink">Халяль стандарти</p>
                 <p className="mt-1 text-xs text-ink-muted">Підтверджена якість</p>
               </div>
