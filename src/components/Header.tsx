@@ -1,4 +1,3 @@
-import { List } from '@phosphor-icons/react'
 import { useEffect, useState } from 'react'
 import { useScrolled } from '../hooks/useScrolled'
 import { MobileMenu } from './MobileMenu'
@@ -29,10 +28,10 @@ export function Header({ onLoginClick, onPriceClick }: HeaderProps) {
 
   return (
     <>
-      <header className={`sticky top-0 transition-[height] duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] motion-reduce:transition-none ${scrolled ? 'h-[60px] bg-white/94 shadow-[0_1px_0_rgba(16,32,26,0.06),0_12px_28px_-24px_rgba(16,32,26,0.5)] backdrop-blur' : 'h-[72px] bg-white'}`} style={{ zIndex: Z_INDEX }}>
-        <div className="mx-auto flex h-full max-w-[1280px] items-center justify-between gap-6 px-6">
+      <header className={`pointer-events-none sticky top-0 px-4 ${scrolled ? 'pt-3' : 'pt-5'}`} style={{ zIndex: Z_INDEX }}>
+        <div className={`pointer-events-auto mx-auto flex w-max max-w-[calc(100vw-2rem)] items-center gap-4 rounded-full bg-white/75 py-2 pl-5 pr-2 ring-1 ring-ink/[0.07] shadow-[0_18px_45px_-20px_rgba(16,32,26,0.4)] backdrop-blur-xl transition-[background-color,box-shadow,padding] duration-400 ease-[cubic-bezier(0.32,0.72,0,1)] motion-reduce:transition-none ${scrolled ? 'bg-white/90 shadow-[0_22px_55px_-20px_rgba(16,32,26,0.5)]' : ''}`}>
           <a href="#top" aria-label="На початок сторінки" className="shrink-0">
-            <img src="/logo/ukrhalal-horeca.png" alt="УкрХаляль HoReCa" width="880" height="612" className={`${scrolled ? 'h-[38px]' : 'h-[44px]'} w-auto transition-[height] duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] motion-reduce:transition-none`} />
+            <img src="/logo/ukrhalal-horeca.png" alt="УкрХаляль HoReCa" width="880" height="612" className={`${scrolled ? 'h-[34px]' : 'h-[40px]'} w-auto transition-[height] duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] motion-reduce:transition-none`} />
           </a>
           <nav aria-label="Основна навігація" className="hidden nav:block">
             <ul className="flex items-center gap-6">
@@ -43,8 +42,11 @@ export function Header({ onLoginClick, onPriceClick }: HeaderProps) {
             <Button size="sm" onClick={onLoginClick}>Увійти в кабінет</Button>
             <Button size="sm" variant="outline" onClick={onPriceClick}>Запросити прайс</Button>
           </div>
-          <button type="button" aria-label="Відкрити меню" onClick={() => setMenuOpen(true)} className="rounded-[var(--radius-btn)] p-2 text-ink hover:bg-brand-soft nav:hidden">
-            <List size={30} weight="light" aria-hidden="true" />
+          <button type="button" aria-label={menuOpen ? 'Закрити меню' : 'Відкрити меню'} aria-expanded={menuOpen} onClick={() => setMenuOpen(true)} className="p-2 nav:hidden">
+            <span className="relative block h-5 w-6">
+              <span className={`absolute left-0 top-[7px] h-[2px] w-6 rounded-full bg-ink transition-transform duration-400 ease-[cubic-bezier(0.32,0.72,0,1)] motion-reduce:transition-none ${menuOpen ? 'rotate-45' : '-translate-y-1'}`} />
+              <span className={`absolute left-0 h-[2px] w-6 rounded-full bg-ink transition-transform duration-400 ease-[cubic-bezier(0.32,0.72,0,1)] motion-reduce:transition-none ${menuOpen ? '-rotate-45' : 'translate-y-1'}`} />
+            </span>
           </button>
         </div>
       </header>
