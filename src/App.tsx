@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Header } from './components/Header'
+import Hero from './components/Hero'
 import { Modal } from './components/ui/Modal'
 import { navLinks } from './data/nav'
 
@@ -14,6 +15,8 @@ function App() {
       <Header onLoginClick={() => setLoginOpen(true)} onPriceClick={() => setPriceOpen(true)} />
 
       <main id="top">
+        <Hero onPriceClick={() => setPriceOpen(true)} />
+
         {navLinks.map((link) => (
           <section key={link.href} id={link.href.slice(1)} className="min-h-[70vh] border-b border-hairline">
             <div className="mx-auto max-w-[1280px] px-6 py-16">
