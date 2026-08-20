@@ -59,7 +59,7 @@ export function Button(props: ButtonProps) {
     <span className={`inline-flex items-center justify-center gap-2 rounded-[calc(9999px-0.375rem)] ${coreSizeClasses[size]} ${coreVariantClasses[variant]}`}>
       <span className="whitespace-nowrap">{children}</span>
       {iconRight && (
-        <span className={`flex ${size === 'sm' ? 'h-7 w-7' : 'h-8 w-8'} shrink-0 items-center justify-center rounded-full ${iconVariantClasses[variant]} transition-[transform] duration-[160ms] ease-drawer group-hover:translate-x-0.5 motion-reduce:transform-none motion-reduce:transition-none`}>
+        <span className={`flex ${size === 'sm' ? 'h-7 w-7' : 'h-8 w-8'} shrink-0 items-center justify-center rounded-full ${iconVariantClasses[variant]} transition-[transform] duration-[160ms] ease-drawer group-hover:translate-x-0.5 group-hover:-translate-y-px group-hover:scale-105 motion-reduce:transform-none motion-reduce:transition-none`}>
           {iconRight}
         </span>
       )}

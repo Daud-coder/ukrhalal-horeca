@@ -84,7 +84,7 @@ function Hero({ onPriceClick }: HeroProps) {
 
             <motion.div {...rise(0.18)} className="mt-10 flex flex-col gap-5 sm:flex-row">
               <Button size="md" onClick={onPriceClick}>Запросити прайс</Button>
-              <Button as="a" href="#products" variant="link" size="md" iconRight={<ArrowRight size={20} aria-hidden="true" />}>
+              <Button as="a" href="#products" variant="link" size="md" iconRight={<ArrowRight size={20} weight="light" aria-hidden="true" />}>
                 Каталог продукції
               </Button>
             </motion.div>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Z_INDEX } from './Header'
+import { LAYER } from '../constants/layers'
 import { Button } from './ui/Button'
 import { navLinks } from '../data/nav'
 
@@ -31,7 +31,7 @@ export function MobileMenu({ open, onClose, onLoginClick, onPriceClick }: Mobile
 
   if (!open) return null
   return (
-    <div className="fixed inset-0 flex min-h-dvh flex-col bg-white/80 px-6 py-5 backdrop-blur-2xl" style={{ zIndex: Z_INDEX }}>
+    <div className="fixed inset-0 flex min-h-dvh flex-col bg-white/80 px-6 py-5 backdrop-blur-2xl" style={{ zIndex: LAYER.mobileMenu }}>
       <div className="flex items-center justify-between">
         <img src="/logo/ukrhalal-horeca.png" alt="УкрХаляль HoReCa" width="880" height="612" className="h-[38px] w-auto" />
         <button type="button" aria-label="Закрити меню" onClick={onClose} className="p-2">

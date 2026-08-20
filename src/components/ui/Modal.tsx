@@ -1,6 +1,7 @@
 import { X } from '@phosphor-icons/react'
 import { useEffect, useId, useRef, useState, type ReactNode } from 'react'
 import { createPortal } from 'react-dom'
+import { LAYER } from '../../constants/layers'
 
 type ModalProps = { open: boolean; onClose: () => void; title: string; children: ReactNode }
 
@@ -98,7 +99,7 @@ export function Modal({ open, onClose, title, children }: ModalProps) {
 
   if (!render) return null
   return createPortal(
-    <div className={`fixed inset-0 z-50 flex items-center justify-center bg-ink/50 p-6 backdrop-blur transition-opacity duration-200 ease-out motion-reduce:transition-none ${shown ? 'opacity-100' : 'opacity-0'}`} onMouseDown={(event) => {
+    <div className={`fixed inset-0 flex items-center justify-center bg-ink/50 p-6 backdrop-blur transition-opacity duration-200 ease-out motion-reduce:transition-none ${shown ? 'opacity-100' : 'opacity-0'}`} style={{ zIndex: LAYER.modal }} onMouseDown={(event) => {
       if (event.target === event.currentTarget) onClose()
     }}>
       <div ref={panelRef} role="dialog" aria-modal="true" aria-labelledby={titleId} tabIndex={-1} className={`w-full max-w-lg rounded-[2rem] bg-white/85 p-1.5 ring-1 ring-ink/[0.06] shadow-[0_40px_80px_-32px_rgba(16,32,26,0.55)] transition-[transform,opacity] duration-220 ease-out motion-reduce:transition-none motion-reduce:transform-none ${shown ? 'scale-100 translate-y-0 opacity-100' : 'scale-[0.96] translate-y-2 opacity-0'}`}>

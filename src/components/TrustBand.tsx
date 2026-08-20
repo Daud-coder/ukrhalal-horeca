@@ -26,7 +26,7 @@ function TrustBand() {
   const reduce = useReducedMotion()
 
   return (
-    <section className="border-y border-hairline bg-surface-alt py-10">
+    <section className="border-y border-hairline bg-surface-alt py-16">
       <div className="mx-auto grid max-w-[1280px] grid-cols-1 gap-8 px-6 md:grid-cols-3">
         {trustItems.map(({ icon: Icon, title, description, tabular }, index) => (
           <motion.div

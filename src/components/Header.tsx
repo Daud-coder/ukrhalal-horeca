@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
+import { LAYER } from '../constants/layers'
 import { useScrolled } from '../hooks/useScrolled'
 import { MobileMenu } from './MobileMenu'
 import { Button } from './ui/Button'
 import { navLinks } from '../data/nav'
 
-export const Z_INDEX = 40
 const NAV_BREAKPOINT = 1180
 
 type HeaderProps = { onLoginClick: () => void; onPriceClick: () => void }
@@ -28,7 +28,7 @@ export function Header({ onLoginClick, onPriceClick }: HeaderProps) {
 
   return (
     <>
-      <header className={`pointer-events-none sticky top-0 px-4 ${scrolled ? 'pt-3' : 'pt-5'}`} style={{ zIndex: Z_INDEX }}>
+      <header className={`pointer-events-none sticky top-0 px-4 ${scrolled ? 'pt-3' : 'pt-5'}`} style={{ zIndex: LAYER.header }}>
         <div className={`pointer-events-auto mx-auto flex w-max max-w-[calc(100vw-2rem)] items-center gap-4 rounded-full bg-white/75 py-2 pl-5 pr-2 ring-1 ring-ink/[0.07] shadow-[0_18px_45px_-20px_rgba(16,32,26,0.4)] backdrop-blur-xl transition-[background-color,box-shadow] duration-250 ease-drawer motion-reduce:transition-none ${scrolled ? 'bg-white/90 shadow-[0_22px_55px_-20px_rgba(16,32,26,0.5)]' : ''}`}>
           <a href="#top" aria-label="На початок сторінки" className="shrink-0">
             <img src="/logo/ukrhalal-horeca.png" alt="УкрХаляль HoReCa" width="880" height="612" className={`h-[40px] w-auto origin-left transition-transform duration-250 ease-drawer motion-reduce:transition-none ${scrolled ? 'scale-[0.85]' : 'scale-100'}`} />
