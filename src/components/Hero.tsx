@@ -82,15 +82,10 @@ function Hero({ onPriceClick }: HeroProps) {
             </div>
           </div>
 
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col items-start gap-4 lg:items-end">
             {featuredCategories.map((category, index) => (
-              <div key={category.slug} className={index % 2 === 1 ? 'lg:ml-12' : 'lg:mr-12'}>
-                <HeroCategoryCard
-                  title={category.title}
-                  blurb={category.blurb}
-                  image={category.image}
-                  href="#products"
-                />
+              <div key={category.slug} className={index % 2 === 1 ? 'w-full lg:mr-16' : 'w-full'}>
+                <HeroCategoryCard title={category.title} image={category.image} href="#products" />
               </div>
             ))}
           </div>
