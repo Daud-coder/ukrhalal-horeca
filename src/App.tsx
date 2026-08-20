@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Header } from './components/Header'
 import Hero from './components/Hero'
 import ProductsSection from './components/ProductsSection'
+import { PriceRequestForm } from './components/PriceRequestForm'
 import TrustBand from './components/TrustBand'
 import { Modal } from './components/ui/Modal'
 import { navLinks } from './data/nav'
@@ -39,7 +40,7 @@ function App() {
       </Modal>
 
       <Modal open={priceOpen} onClose={() => setPriceOpen(false)} title="Запросити прайс">
-        <p className="measure text-body">Форма запиту прайсу буде додана на наступному етапі.</p>
+        <PriceRequestForm onDone={() => setPriceOpen(false)} />
       </Modal>
     </>
   )
