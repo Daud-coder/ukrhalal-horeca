@@ -42,7 +42,7 @@ function Hero({ onPriceClick }: HeroProps) {
           className="absolute inset-0"
           style={{
             background:
-              'linear-gradient(100deg, rgba(255,255,255,0.84) 0%, rgba(255,255,255,0.76) 26%, rgba(255,255,255,0.46) 44%, rgba(255,255,255,0.16) 60%, rgba(255,255,255,0.02) 74%, rgba(255,255,255,0) 84%)',
+              'linear-gradient(100deg, rgba(255,255,255,0.52) 0%, rgba(255,255,255,0.45) 20%, rgba(255,255,255,0.26) 38%, rgba(255,255,255,0.09) 54%, rgba(255,255,255,0.01) 68%, rgba(255,255,255,0) 78%)',
           }}
         />
         <div
@@ -59,7 +59,7 @@ function Hero({ onPriceClick }: HeroProps) {
           <div>
             <motion.div {...rise(0)}>
               <h1 className="text-balance font-display text-display font-extrabold md:text-display-md lg:text-display-lg">
-                <span className="text-brand">УКРХАЛЯЛЬ</span>
+                <span className="text-brand-dark">УКРХАЛЯЛЬ</span>
                 <br />
                 <span className="text-ink">HoReCa B2B</span>
               </h1>
