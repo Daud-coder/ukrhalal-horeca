@@ -1,4 +1,4 @@
-import { ArrowUpRight, FacebookLogo, InstagramLogo, TiktokLogo } from '@phosphor-icons/react'
+import { ArrowUpRight } from '@phosphor-icons/react'
 import { motion } from 'motion/react'
 import { contacts } from '../data/contacts'
 import { useReveal } from '../hooks/useReveal'
@@ -9,12 +9,8 @@ const socialPlaceholders = [
     key: 'instagram',
     label: 'Instagram',
     badge: (
-      <span
-        className="grid size-9 shrink-0 place-items-center rounded-full"
-        style={{ background: 'linear-gradient(45deg, #f9ce34 0%, #ee2a7b 50%, #6228d7 100%)' }}
-        aria-hidden="true"
-      >
-        <InstagramLogo size={18} weight="fill" className="text-white" />
+      <span className="grid size-10 shrink-0 place-items-center overflow-hidden rounded-[22%]" aria-hidden="true">
+        <img src={withBase('/social/instagram.jpeg')} alt="" className="h-full w-full scale-110 object-cover" />
       </span>
     ),
   },
@@ -22,10 +18,8 @@ const socialPlaceholders = [
     key: 'tiktok',
     label: 'TikTok',
     badge: (
-      <span className="relative grid size-9 shrink-0 place-items-center rounded-full bg-black" aria-hidden="true">
-        <TiktokLogo size={17} weight="fill" className="absolute text-[#00f2ea]" style={{ transform: 'translate(-1.2px,-1.2px)' }} />
-        <TiktokLogo size={17} weight="fill" className="absolute text-[#ff0050]" style={{ transform: 'translate(1.2px,1.2px)' }} />
-        <TiktokLogo size={17} weight="fill" className="relative text-white" />
+      <span className="grid size-9 shrink-0 place-items-center overflow-hidden rounded-[22%]" aria-hidden="true">
+        <img src={withBase('/social/tiktok.jpeg')} alt="" className="h-full w-full scale-110 object-cover" />
       </span>
     ),
   },
@@ -33,8 +27,8 @@ const socialPlaceholders = [
     key: 'facebook',
     label: 'Facebook',
     badge: (
-      <span className="grid size-9 shrink-0 place-items-center rounded-full bg-[#1877F2]" aria-hidden="true">
-        <FacebookLogo size={18} weight="fill" className="text-white" />
+      <span className="grid size-8 shrink-0 place-items-center overflow-hidden rounded-[22%]" aria-hidden="true">
+        <img src={withBase('/social/facebook.jpeg')} alt="" className="h-full w-full scale-110 object-cover" />
       </span>
     ),
   },
