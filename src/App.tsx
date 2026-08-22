@@ -1,14 +1,13 @@
-import { Fragment, useState } from 'react'
+import { useState } from 'react'
+import AboutSection from './components/AboutSection'
 import Advantages from './components/Advantages'
+import ContactSection from './components/ContactSection'
 import { Header } from './components/Header'
 import Hero from './components/Hero'
 import ProductsSection from './components/ProductsSection'
 import { PriceRequestForm } from './components/PriceRequestForm'
-import TrustBand from './components/TrustBand'
 import { Modal } from './components/ui/Modal'
 import { navLinks } from './data/nav'
-
-const placeholderText = 'Тимчасова секція. Контент буде додано на наступному етапі.'
 
 function App() {
   const [loginOpen, setLoginOpen] = useState(false)
@@ -20,23 +19,15 @@ function App() {
 
       <main id="top">
         <Hero onPriceClick={() => setPriceOpen(true)} />
-        <TrustBand />
+        <Advantages />
+        <AboutSection />
 
-        {navLinks.map((link) =>
-          link.href === '#products' ? (
-            <Fragment key={link.href}>
-              <ProductsSection />
-              <Advantages />
-            </Fragment>
-          ) : (
-            <section key={link.href} id={link.href.slice(1)} className="min-h-[70vh] border-b border-hairline">
-              <div className="mx-auto max-w-[1280px] px-6 py-16">
-                <h2 className="font-display text-h2 font-bold text-ink md:text-h2-lg">{link.label}</h2>
-                <p className="measure mt-3 text-body text-ink-muted">{placeholderText}</p>
-              </div>
-            </section>
-          ),
-        )}
+        {navLinks.map((link) => {
+          if (link.href === '#about' || link.href === '#advantages') return null
+          if (link.href === '#products') return <ProductsSection key={link.href} />
+          if (link.href === '#contact') return <ContactSection key={link.href} />
+          return null
+        })}
       </main>
 
       <Modal open={loginOpen} onClose={() => setLoginOpen(false)} title="Увійти в кабінет">

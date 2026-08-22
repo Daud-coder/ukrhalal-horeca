@@ -1,92 +1,62 @@
-import { ArrowRight } from '@phosphor-icons/react'
+import { ArrowRight, ForkKnife, MapPin, Truck } from '@phosphor-icons/react'
 import { motion, useReducedMotion } from 'motion/react'
-import { featuredCategories } from '../data/categories'
-import HeroCategoryCard from './HeroCategoryCard'
-import { Button } from './ui/Button'
 
-type HeroProps = {
-  onPriceClick: () => void
-}
+type HeroProps = { onPriceClick: () => void }
+
+const categoryLinks = ['Яловичина', 'Баранина', 'Курка', 'Стейки', 'Індичка', 'Ковбасні вироби', 'Напівфабрикати']
+const railItems = [
+  { label: 'HORECA', Icon: ForkKnife },
+  { label: 'КИЇВ ТА ОБЛАСТЬ', Icon: MapPin },
+  { label: 'ОПТОВІ ПОСТАВКИ', Icon: Truck },
+]
 
 function Hero({ onPriceClick }: HeroProps) {
   const reduce = useReducedMotion()
   const rise = (delay: number) => reduce ? {} : { initial: { opacity: 0, transform: 'translateY(12px)' }, animate: { opacity: 1, transform: 'translateY(0px)' }, transition: { duration: 0.5, delay, ease: [0.32, 0.72, 0, 1] as const } }
 
   return (
-    <section className="relative min-h-[calc(100dvh-72px)] overflow-hidden lg:min-h-[620px] lg:h-[min(calc(100dvh-72px),47.5vw)]">
+    <section className="relative flex min-h-[100dvh] overflow-hidden bg-ink text-white lg:min-h-[720px]">
       <div className="pointer-events-none absolute inset-0">
-        <img
-          src="/images/hero-kitchen.webp"
-          alt=""
-          width="2400"
-          height="1140"
-          fetchPriority="high"
-          decoding="async"
-          aria-hidden="true"
-          className="h-full w-full object-cover object-center"
-        />
-        <img
-          src="/images/hero-kitchen-blur.webp"
-          alt=""
-          aria-hidden="true"
-          width="2400"
-          height="1140"
-          decoding="async"
-          className="absolute inset-0 h-full w-full object-cover object-center"
-          style={{
-            maskImage: 'linear-gradient(100deg, #000 0%, #000 22%, rgba(0,0,0,0.55) 42%, rgba(0,0,0,0.18) 56%, transparent 68%)',
-            WebkitMaskImage: 'linear-gradient(100deg, #000 0%, #000 22%, rgba(0,0,0,0.55) 42%, rgba(0,0,0,0.18) 56%, transparent 68%)',
-          }}
-        />
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              'linear-gradient(100deg, rgba(255,255,255,0.52) 0%, rgba(255,255,255,0.45) 20%, rgba(255,255,255,0.26) 38%, rgba(255,255,255,0.09) 54%, rgba(255,255,255,0.01) 68%, rgba(255,255,255,0) 78%)',
-          }}
-        />
-        <div
-          className="absolute inset-0 lg:hidden"
-          style={{
-            background:
-              'linear-gradient(180deg, rgba(255,255,255,0.94) 0%, rgba(255,255,255,0.80) 55%, rgba(255,255,255,0.55) 100%)',
-          }}
-        />
+        <img src="/images/hero-industrial-v5.png" alt="" width="1672" height="941" fetchPriority="high" decoding="async" aria-hidden="true" className="h-full w-full object-cover object-[62%_center] sm:object-center" />
+        <div className="absolute inset-0 bg-[linear-gradient(270deg,rgba(7,18,13,0.78)_0%,rgba(7,18,13,0.42)_24%,rgba(7,18,13,0)_44%),linear-gradient(90deg,rgba(7,18,13,0.42)_0%,rgba(7,18,13,0.28)_42%,rgba(7,18,13,0.08)_74%,rgba(7,18,13,0.04)_100%)] max-md:bg-[linear-gradient(180deg,rgba(7,18,13,0.58)_0%,rgba(7,18,13,0.42)_58%,rgba(7,18,13,0.65)_100%)]" />
       </div>
 
-      <div className="relative mx-auto max-w-[1280px] px-6 pb-28 pt-20">
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
-          <div>
-            <motion.div {...rise(0)}>
-              <h1 className="text-balance font-display text-display font-extrabold md:text-display-md lg:text-display-lg">
-                <span className="text-brand-dark">УКРХАЛЯЛЬ</span>
-                <br />
-                <span className="text-ink">HoReCa B2B</span>
-              </h1>
-            </motion.div>
-
-            <motion.div {...rise(0.06)}>
-              <p className="mt-6 max-w-[34ch] text-body-lg font-medium text-ink">
-                М'ясо для ресторанів, кафе, готелів та кейтерингу. Від надійного постачальника по Києву,
-                Київській області та Україні.
-              </p>
-            </motion.div>
-
-            <motion.div {...rise(0.12)} className="mt-10 flex flex-col gap-5 sm:flex-row">
-              <Button size="md" onClick={onPriceClick}>Запросити прайс</Button>
-              <Button as="a" href="#products" variant="link" size="md" iconRight={<ArrowRight size={20} weight="light" aria-hidden="true" />}>
-                Каталог продукції
-              </Button>
+      <div className="relative flex w-full flex-col px-5 pb-0 pt-32 sm:px-6 md:pt-36 lg:px-8 lg:pt-40">
+        <div className="relative flex flex-1 flex-col justify-center gap-12 pb-12 md:block lg:pb-24">
+          <div className="min-w-0 md:max-w-[62%]">
+            <motion.p {...rise(0)} className="relative -top-6 text-[clamp(1.5rem,2.2vw,2rem)] font-black italic leading-none tracking-[0.09em] text-[#2f9855] drop-shadow-[0_2px_12px_rgba(4,18,11,0.98)]">УКРХАЛЯЛЬ · HoReCa</motion.p>
+            <motion.h1 {...rise(0.06)} className="mt-5 max-w-[780px] font-display text-[clamp(2.65rem,5.4vw,4.9rem)] font-semibold uppercase leading-[1.02] tracking-[-0.035em] text-white">М’ЯСО <span className="inline-block whitespace-nowrap tracking-[0.015em]">ДЛЯ</span> ПРОФЕСІЙНОЇ <span className="block">КУХНІ</span></motion.h1>
+            <motion.p {...rise(0.12)} className="mt-7 max-w-[46ch] border-l-2 border-[#63c779] pl-4 text-[clamp(1.1rem,1.55vw,1.35rem)] font-medium leading-[1.55] text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.72)]">М’ясо та м’ясні вироби для ресторанів, кафе, готелів і кейтерингу. За стандартами Халяль.</motion.p>
+            <motion.div {...rise(0.18)} className="mt-8 flex flex-col gap-3 min-[420px]:flex-row">
+              <button type="button" onClick={onPriceClick} className="inline-flex min-h-12 items-center justify-center rounded-[6px] bg-brand px-6 py-3 font-semibold text-white transition-[background-color,transform] duration-200 hover:-translate-y-px hover:bg-brand-dark focus-visible:outline-white motion-reduce:transform-none">Отримати прайс</button>
+              <a href="#contact" className="group inline-flex min-h-12 items-center justify-center gap-3 border-b border-brand px-1 py-3 font-semibold text-white transition-[border-color,color] duration-200 hover:border-white hover:text-brand focus-visible:outline-white">
+                Отримати консультацію
+                <ArrowRight size={18} weight="light" aria-hidden="true" className="transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transform-none" />
+              </a>
             </motion.div>
           </div>
 
-          <div className="flex flex-col items-start gap-4 lg:items-end lg:self-start">
-            {featuredCategories.map((category, index) => (
-              <motion.div {...rise(0.24 + index * 0.06)} key={category.slug} className={index % 2 === 1 ? 'w-full lg:w-auto lg:mr-6' : 'w-full lg:w-auto'}>
-                <HeroCategoryCard title={category.title} image={category.image} href="#products" />
-              </motion.div>
-            ))}
-          </div>
+          <nav aria-label="Категорії продукції" className="min-w-0 md:absolute md:right-[-16px] md:top-0 md:w-[260px] lg:w-[320px]">
+            <ul className="grid grid-cols-1 gap-x-8 min-[560px]:grid-cols-2 md:grid-cols-1">
+              {categoryLinks.map((label, index) => (
+                <motion.li {...rise(0.24 + index * 0.045)} key={label}>
+                  <a href="#products" className="group flex min-h-12 items-center justify-between gap-4 border-b border-white/40 py-3 font-display text-[clamp(1.1rem,1.9vw,1.55rem)] font-medium tracking-[-0.02em] text-white drop-shadow-[0_2px_6px_rgba(0,0,0,0.95)] transition-[color,border-color] duration-200 hover:border-[#63c779] hover:text-white focus-visible:border-[#63c779] focus-visible:text-white focus-visible:outline-white">
+                    <span className="origin-left transition-transform duration-200 ease-out group-hover:scale-[1.055] group-focus-visible:scale-[1.055] motion-reduce:transform-none">{label}</span>
+                    <ArrowRight size={18} weight="light" aria-hidden="true" className="shrink-0 text-white transition-[color,transform] duration-200 group-hover:translate-x-1 group-hover:text-[#63c779] group-focus-visible:translate-x-1 group-focus-visible:text-[#63c779] motion-reduce:transform-none" />
+                  </a>
+                </motion.li>
+              ))}
+            </ul>
+          </nav>
+        </div>
+
+        <div className="grid border-t border-white/25 sm:grid-cols-3">
+          {railItems.map(({ label, Icon }, index) => (
+            <div key={label} className={`flex min-h-14 items-center gap-3 py-4 text-caption font-semibold tracking-[0.08em] text-white/78 sm:px-5 ${index > 0 ? 'border-t border-white/20 sm:border-l sm:border-t-0' : ''}`}>
+              <Icon size={17} weight="light" aria-hidden="true" className="shrink-0 text-brand" />
+              <span>{label}</span>
+            </div>
+          ))}
         </div>
       </div>
     </section>

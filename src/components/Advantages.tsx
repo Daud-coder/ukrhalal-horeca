@@ -1,76 +1,64 @@
-import { Certificate, Handshake, Tag, Truck } from '@phosphor-icons/react'
+import { ArrowRight } from '@phosphor-icons/react'
 import { motion, useReducedMotion } from 'motion/react'
+
+const advantages = [
+  { title: 'ЗАМОВЛЕННЯ СЬОГОДНІ — ДОСТАВКА ЗАВТРА', description: 'Доставляємо з понеділка по суботу.', emphasized: true },
+  { title: 'БЕЗКОШТОВНА ДОСТАВКА ПО КИЄВУ', description: 'Для ресторанів, кафе, готелів та інших закладів.', emphasized: true },
+  { title: 'ПЕРСОНАЛЬНИЙ СУПРОВІД МЕНЕДЖЕРА', description: 'Допомагаємо підібрати продукцію, формат обробки та ступінь зачищення.' },
+  { title: 'ІНДИВІДУАЛЬНІ УМОВИ ТА ПРАЙС', description: 'Враховуємо асортимент, обсяг замовлень і формат співпраці.', emphasized: true },
+  { title: 'СТАБІЛЬНА ЯКІСТЬ', description: 'Передбачуваний результат від поставки до поставки.' },
+  { title: 'ДОКУМЕНТИ ТА ХАЛЯЛЬ', description: 'Прозоре походження та необхідний супровід продукції.' },
+]
 
 function Advantages() {
   const reduce = useReducedMotion()
+  const reveal = (delay = 0) => ({
+    initial: reduce ? false : { opacity: 0, transform: 'translateY(16px)' },
+    whileInView: { opacity: 1, transform: 'translateY(0px)' },
+    viewport: { once: true, amount: 0.25 },
+    transition: { duration: 0.5, delay, ease: [0.32, 0.72, 0, 1] as const },
+  })
 
   return (
-    <section id="advantages" className="bg-white py-24">
-      <div className="mx-auto max-w-[1280px] px-6">
-        <motion.div
-          initial={reduce ? false : { opacity: 0, transform: 'translateY(16px)' }}
-          whileInView={{ opacity: 1, transform: 'translateY(0px)' }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.5, delay: 0, ease: [0.32, 0.72, 0, 1] }}
-        >
-          <h2 className="font-display text-h2 font-bold text-ink md:text-h2-lg">Переваги співпраці</h2>
-        </motion.div>
+    <section
+      id="advantages"
+      className="overflow-hidden bg-[#f4efe5]"
+    >
+      <div className="bg-[#f4efe5]">
+        <div className="mx-auto grid max-w-[1440px] lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)]">
+          <motion.div {...reveal()} className="flex flex-col px-6 py-14 sm:px-10 md:py-16 lg:px-[clamp(2.5rem,5vw,5.5rem)] lg:pb-[4rem] lg:pt-[6rem]">
+            <p className="text-caption font-semibold tracking-[0.28em] text-[#164f37]">ЧОМУ НАМ ДОВІРЯЮТЬ</p>
+            <span className="mt-5 h-px w-24 bg-[#b08a4a]" aria-hidden="true" />
+            <h2 className="mt-9 max-w-[8.7ch] text-[clamp(4rem,7vw,7.8rem)] font-light uppercase leading-[0.82] tracking-[0.005em] text-[#10201a]" style={{ fontFamily: "'Alumni Sans', sans-serif" }}>
+              ПОСТАЧАННЯ, НА ЯКЕ МОЖНА РОЗРАХОВУВАТИ
+            </h2>
+            <p className="mt-8 max-w-[32rem] text-body-lg text-ink-muted">Для ресторанів, кафе, готелів і кейтерингу.</p>
+            <a href="#terms" className="group mt-8 inline-flex min-h-12 w-fit items-center gap-5 bg-[#113f2c] px-6 py-3 text-body-sm font-semibold tracking-[0.12em] text-white transition-colors duration-200 hover:bg-[#1a6837]">
+              УМОВИ СПІВПРАЦІ
+              <ArrowRight size={19} weight="light" aria-hidden="true" className="text-[#c69b53] transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transform-none motion-reduce:transition-none" />
+            </a>
+          </motion.div>
 
-        <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          <motion.div
-            key="Гнучкі ціни"
-            initial={reduce ? false : { opacity: 0, transform: 'translateY(16px)' }}
-            whileInView={{ opacity: 1, transform: 'translateY(0px)' }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.5, delay: 0 * 0.06, ease: [0.32, 0.72, 0, 1] }}
-          >
-            <div className="border-t border-hairline pt-6">
-              <Tag size={26} weight="light" aria-hidden="true" className="text-brand" />
-              <h3 className="mt-4 font-display text-title font-bold text-ink">Гнучкі ціни</h3>
-              <p className="mt-2 text-body-sm text-ink-muted">Під обсяг вашого закладу</p>
-            </div>
-          </motion.div>
-          <motion.div
-            key="Стабільні поставки"
-            initial={reduce ? false : { opacity: 0, transform: 'translateY(16px)' }}
-            whileInView={{ opacity: 1, transform: 'translateY(0px)' }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.5, delay: 1 * 0.06, ease: [0.32, 0.72, 0, 1] }}
-          >
-            <div className="border-t border-hairline pt-6">
-              <Truck size={26} weight="light" aria-hidden="true" className="text-brand" />
-              <h3 className="mt-4 font-display text-title font-bold text-ink">Стабільні поставки</h3>
-              <p className="mt-2 text-body-sm text-ink-muted">Графік без зривів</p>
-            </div>
-          </motion.div>
-          <motion.div
-            key="Персональний підхід"
-            initial={reduce ? false : { opacity: 0, transform: 'translateY(16px)' }}
-            whileInView={{ opacity: 1, transform: 'translateY(0px)' }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.5, delay: 2 * 0.06, ease: [0.32, 0.72, 0, 1] }}
-          >
-            <div className="border-t border-hairline pt-6">
-              <Handshake size={26} weight="light" aria-hidden="true" className="text-brand" />
-              <h3 className="mt-4 font-display text-title font-bold text-ink">Персональний підхід</h3>
-              <p className="mt-2 text-body-sm text-ink-muted">Свій менеджер</p>
-            </div>
-          </motion.div>
-          <motion.div
-            key="Халяль стандарти"
-            initial={reduce ? false : { opacity: 0, transform: 'translateY(16px)' }}
-            whileInView={{ opacity: 1, transform: 'translateY(0px)' }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.5, delay: 3 * 0.06, ease: [0.32, 0.72, 0, 1] }}
-          >
-            <div className="border-t border-hairline pt-6">
-              <Certificate size={26} weight="light" aria-hidden="true" className="text-brand" />
-              <h3 className="mt-4 font-display text-title font-bold text-ink">Халяль стандарти</h3>
-              <p className="mt-2 text-body-sm text-ink-muted">Підтверджена якість</p>
-            </div>
-          </motion.div>
+          <div className="grid px-6 pb-14 sm:px-10 lg:grid-cols-2 lg:px-[clamp(2rem,4vw,4.5rem)] lg:py-[clamp(2.5rem,4vw,4.5rem)]">
+            {advantages.map((item, index) => (
+              <motion.article
+                {...reveal(index * 0.06)}
+                key={item.title}
+                className={`border-[#285b45] py-8 lg:min-h-[200px] lg:px-[clamp(1.5rem,2.5vw,3rem)] lg:py-8 ${index > 0 ? 'border-t' : ''} ${index === 1 ? 'lg:border-t-0' : ''} ${index % 2 === 1 ? 'lg:border-l' : ''}`}
+              >
+                <p className="tabular text-[clamp(3.2rem,4.2vw,5.25rem)] font-light leading-[0.8] tracking-[-0.02em] text-[#175239]" style={{ fontFamily: "'Alumni Sans', sans-serif" }}>
+                  {String(index + 1).padStart(2, '0')}
+                </p>
+                <h3 className="mt-6 max-w-[22rem] text-[clamp(1.35rem,1.65vw,1.7rem)] font-semibold uppercase leading-[0.98] tracking-[0.005em] text-ink" style={{ fontFamily: "'Alumni Sans', sans-serif" }}>
+                  {item.title}
+                </h3>
+                <p className="mt-4 max-w-[24rem] text-body-sm text-ink-muted">{item.description}</p>
+              </motion.article>
+            ))}
+          </div>
         </div>
       </div>
+      <div className="h-44 bg-cover bg-center sm:h-52 lg:h-[clamp(10rem,14vw,14rem)]" style={{ backgroundImage: "url('/images/advantages-steaks-board.png')" }} role="img" aria-label="М’ясні вирізки на дерев’яній дошці" />
     </section>
   )
 }

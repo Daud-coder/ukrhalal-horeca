@@ -1,6 +1,10 @@
 export const contacts = {
-  phoneDisplay: 'TODO: +380 XX XXX XX XX',
-  phoneHref: 'tel:TODO:+38000000000',
+  phoneDisplay: '+3093 303 59 49',
+  phoneHref: 'tel:+30933035949',
+  phones: [
+    { display: '+3093 303 59 49', href: 'tel:+30933035949' },
+    { display: '+38093 192 01 55', href: 'tel:+380931920155' },
+  ],
   email: 'TODO: info@ukrhalal.ua',
   telegram: 'TODO: https://t.me/ukrhalal',
   whatsapp: 'TODO: https://wa.me/380XXXXXXXXX',

@@ -20,9 +20,9 @@ type AnchorElementProps = SharedProps & AnchorHTMLAttributes<HTMLAnchorElement> 
 export type ButtonProps = ButtonElementProps | AnchorElementProps
 
 const variantClasses = {
-  primary: 'bg-brand text-white ring-1 ring-ink/[0.06] shadow-[0_14px_30px_-14px_rgba(26,104,55,0.65)] hover:shadow-[0_18px_34px_-14px_rgba(26,104,55,0.78)]',
-  outline: 'bg-white/70 text-brand ring-1 ring-brand/35 hover:bg-brand-soft hover:ring-brand/60',
-  link: 'bg-transparent text-brand ring-1 ring-ink/[0.06]',
+  primary: 'bg-brand text-white border border-brand shadow-[0_5px_14px_-8px_rgba(20,80,41,0.7)] hover:bg-brand-dark hover:border-brand-dark',
+  outline: 'bg-white text-ink-muted border border-hairline hover:border-brand/35 hover:text-brand',
+  link: 'bg-transparent text-brand border border-transparent hover:bg-white/60',
 }
 
 const sizeClasses = {
@@ -31,14 +31,14 @@ const sizeClasses = {
 }
 
 const coreSizeClasses = {
-  sm: 'px-5 py-2.5',
-  md: 'px-7 py-3.5',
+  sm: 'px-4 py-2',
+  md: 'px-6 py-3',
 }
 
 const coreVariantClasses = {
-  primary: 'bg-brand shadow-[inset_0_1px_0_rgba(255,255,255,0.9)]',
-  outline: 'bg-white/70 shadow-[inset_0_1px_0_rgba(255,255,255,0.9)] group-hover:bg-brand-soft',
-  link: 'bg-transparent shadow-[inset_0_1px_0_rgba(255,255,255,0.9)]',
+  primary: 'bg-transparent',
+  outline: 'bg-transparent',
+  link: 'bg-transparent',
 }
 
 const iconVariantClasses = {
@@ -50,13 +50,13 @@ const iconVariantClasses = {
 export function Button(props: ButtonProps) {
   const { variant = 'primary', size = 'md', children, iconRight, className = '' } = props
   const classes = [
-    'group inline-flex rounded-full p-1.5 font-semibold whitespace-nowrap transition-[transform,box-shadow] duration-[160ms] ease-drawer hover:-translate-y-0.5 active:scale-[0.97] motion-reduce:hover:translate-y-0 motion-reduce:transition-none',
+    'group inline-flex rounded-btn font-semibold whitespace-nowrap transition-[color,background-color,border-color,transform] duration-[160ms] ease-drawer hover:-translate-y-px active:scale-[0.98] motion-reduce:hover:translate-y-0 motion-reduce:transition-none',
     variantClasses[variant],
     sizeClasses[size],
     className,
   ].filter(Boolean).join(' ')
   const content = (
-    <span className={`inline-flex items-center justify-center gap-2 rounded-[calc(9999px-0.375rem)] ${coreSizeClasses[size]} ${coreVariantClasses[variant]}`}>
+    <span className={`inline-flex items-center justify-center gap-2 rounded-[8px] ${coreSizeClasses[size]} ${coreVariantClasses[variant]}`}>
       <span className="whitespace-nowrap">{children}</span>
       {iconRight && (
         <span className={`flex ${size === 'sm' ? 'h-7 w-7' : 'h-8 w-8'} shrink-0 items-center justify-center rounded-full ${iconVariantClasses[variant]} transition-[transform] duration-[160ms] ease-drawer group-hover:translate-x-0.5 group-hover:-translate-y-px group-hover:scale-105 motion-reduce:transform-none motion-reduce:transition-none`}>

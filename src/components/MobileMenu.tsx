@@ -49,9 +49,9 @@ export function MobileMenu({ open, onClose, onLoginClick, onPriceClick }: Mobile
 
   if (!render) return null
   return (
-    <div className={`fixed inset-0 flex min-h-dvh flex-col bg-white/80 px-6 py-5 backdrop-blur-2xl transition-opacity duration-200 ease-drawer motion-reduce:transition-none ${mounted ? 'opacity-100' : 'opacity-0'}`} style={{ zIndex: LAYER.mobileMenu }}>
+    <div className={`fixed inset-0 flex min-h-dvh flex-col bg-white px-6 py-5 transition-opacity duration-200 ease-drawer motion-reduce:transition-none ${mounted ? 'opacity-100' : 'opacity-0'}`} style={{ zIndex: LAYER.mobileMenu }}>
       <div className="flex items-center justify-between">
-        <img src="/logo/ukrhalal-horeca.png" alt="УкрХаляль HoReCa" width="880" height="612" className="h-[38px] w-auto" />
+        <img src="/logo/ukrhalal-horeca.png" alt="УкрХаляль HoReCa" width="880" height="612" className="h-auto w-[124px]" />
         <button type="button" aria-label="Закрити меню" onClick={onClose} className="p-2">
           <span className="relative block h-5 w-6">
             <span className="absolute left-0 top-[7px] h-[2px] w-6 rotate-45 rounded-full bg-ink transition-transform duration-250 ease-drawer motion-reduce:transition-none" />
@@ -65,8 +65,8 @@ export function MobileMenu({ open, onClose, onLoginClick, onPriceClick }: Mobile
         </ul>
       </nav>
       <div className="mt-auto flex flex-col gap-3 pt-8">
-        <Button style={{ transitionDelay: `${40 + navLinks.length * 40}ms` }} className={`transition-[transform,opacity] duration-320 ease-drawer motion-reduce:transform-none motion-reduce:opacity-100 motion-reduce:transition-none ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`} onClick={() => { onClose(); onLoginClick() }}>Увійти в кабінет</Button>
-        <Button variant="outline" style={{ transitionDelay: `${40 + (navLinks.length + 1) * 40}ms` }} className={`transition-[transform,opacity] duration-320 ease-drawer motion-reduce:transform-none motion-reduce:opacity-100 motion-reduce:transition-none ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`} onClick={() => { onClose(); onPriceClick() }}>Запросити прайс</Button>
+        <Button style={{ transitionDelay: `${40 + navLinks.length * 40}ms` }} className={`!rounded-[6px] transition-[transform,opacity] duration-320 ease-drawer motion-reduce:transform-none motion-reduce:opacity-100 motion-reduce:transition-none ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`} onClick={() => { onClose(); onPriceClick() }}>Отримати прайс</Button>
+        <Button variant="outline" style={{ transitionDelay: `${40 + (navLinks.length + 1) * 40}ms` }} className={`transition-[transform,opacity] duration-320 ease-drawer motion-reduce:transform-none motion-reduce:opacity-100 motion-reduce:transition-none ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`} onClick={() => { onClose(); onLoginClick() }}>Увійти в кабінет</Button>
       </div>
     </div>
   )

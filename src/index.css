@@ -67,6 +67,30 @@
 }
 
 @font-face {
+  font-family: "Alumni Sans";
+  src: url("/fonts/alumni-sans/AlumniSans-Light.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Alumni Sans";
+  src: url("/fonts/alumni-sans/AlumniSans-Medium.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Alumni Sans";
+  src: url("/fonts/alumni-sans/AlumniSans-SemiBold.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
   font-family: "Fixel Display Fallback";
   src: local("Arial Bold"), local("Arial"), local("Helvetica Neue");
   font-style: normal;
@@ -174,4 +198,21 @@ h4 {
 ::selection {
   background: var(--color-brand);
   color: #fff;
+}
+
+@media (min-width: 1024px) {
+  .about-year-slot {
+    height: clamp(22.5rem, 31vw, 27rem);
+    overflow: visible;
+  }
+
+  .about-year {
+    display: inline-block;
+    width: max-content;
+    font-size: clamp(19rem, 25vw, 23.5rem);
+    line-height: 0.76;
+    transform: scaleX(0.54) scaleY(1.7);
+    transform-origin: left top;
+    white-space: nowrap;
+  }
 }

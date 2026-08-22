@@ -1,53 +1,143 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from 'react'
 import { LAYER } from '../constants/layers'
 import { useScrolled } from '../hooks/useScrolled'
-import { MobileMenu } from './MobileMenu'
-import { Button } from './ui/Button'
+import { contacts } from '../data/contacts'
 import { navLinks } from '../data/nav'
+import { MobileMenu } from './MobileMenu'
 
 const NAV_BREAKPOINT = 1180
-
+const headerNavLinks = navLinks.filter((link) => link.href !== '#contact')
+const messengerItems = [
+  { label: 'Telegram', href: contacts.telegram },
+  { label: 'WhatsApp', href: contacts.whatsapp },
+  { label: 'Viber', href: contacts.viber },
+].map((item) => ({ ...item, enabled: !/^TODO:/i.test(item.href.trim()) }))
 type HeaderProps = { onLoginClick: () => void; onPriceClick: () => void }
 
 export function Header({ onLoginClick, onPriceClick }: HeaderProps) {
   const scrolled = useScrolled()
   const [menuOpen, setMenuOpen] = useState(false)
+  const [messengersOpen, setMessengersOpen] = useState(false)
+  const messengersRef = useRef<HTMLDivElement>(null)
+  const messengersButtonRef = useRef<HTMLButtonElement>(null)
+  const messengersMenuRef = useRef<HTMLDivElement>(null)
 
-  // Меню існує тільки для вузьких екранів. Коли користувач повертає телефон або
-  // розтягує вікно, його треба саме розмонтувати: інакше блокування скролу на body
-  // залишиться висіти. matchMedia спрацьовує і на зміну розміру, і на поворот екрана.
   useEffect(() => {
     const query = window.matchMedia(`(min-width: ${NAV_BREAKPOINT}px)`)
-    const closeOnDesktop = () => {
+    const handleBreakpointChange = () => {
       if (query.matches) setMenuOpen(false)
+      else setMessengersOpen(false)
     }
-    closeOnDesktop()
-    query.addEventListener('change', closeOnDesktop)
-    return () => query.removeEventListener('change', closeOnDesktop)
+    handleBreakpointChange()
+    query.addEventListener('change', handleBreakpointChange)
+    return () => query.removeEventListener('change', handleBreakpointChange)
   }, [])
+
+  useEffect(() => {
+    if (!messengersOpen) return () => undefined
+
+    const focusFrame = requestAnimationFrame(() => {
+      const firstLink = messengersMenuRef.current?.querySelector<HTMLElement>('[role="menuitem"]:not([aria-disabled="true"])')
+      ;(firstLink ?? messengersMenuRef.current)?.focus()
+    })
+    const handlePointerDown = (event: PointerEvent) => {
+      if (!messengersRef.current?.contains(event.target as Node)) setMessengersOpen(false)
+    }
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape') return
+      setMessengersOpen(false)
+      messengersButtonRef.current?.focus()
+    }
+
+    document.addEventListener('pointerdown', handlePointerDown)
+    document.addEventListener('keydown', handleKeyDown)
+    return () => {
+      cancelAnimationFrame(focusFrame)
+      document.removeEventListener('pointerdown', handlePointerDown)
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [messengersOpen])
+
+  const handleMessengerMenuKeyDown = (event: ReactKeyboardEvent<HTMLDivElement>) => {
+    if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return
+    const items = Array.from(event.currentTarget.querySelectorAll<HTMLElement>('[role="menuitem"]:not([aria-disabled="true"])'))
+    if (!items.length) return
+
+    event.preventDefault()
+    const currentIndex = items.indexOf(document.activeElement as HTMLElement)
+    const nextIndex = event.key === 'Home'
+      ? 0
+      : event.key === 'End'
+        ? items.length - 1
+        : event.key === 'ArrowRight'
+          ? (currentIndex + 1) % items.length
+          : (currentIndex - 1 + items.length) % items.length
+    items[nextIndex]?.focus()
+  }
 
   return (
     <>
-      <header className={`pointer-events-none sticky top-0 px-4 ${scrolled ? 'pt-3' : 'pt-5'}`} style={{ zIndex: LAYER.header }}>
-        <div className={`pointer-events-auto mx-auto flex w-max max-w-[calc(100vw-2rem)] items-center gap-4 rounded-full bg-white/75 py-2 pl-5 pr-2 ring-1 ring-ink/[0.07] shadow-[0_18px_45px_-20px_rgba(16,32,26,0.4)] backdrop-blur-xl transition-[background-color,box-shadow] duration-250 ease-drawer motion-reduce:transition-none ${scrolled ? 'bg-white/90 shadow-[0_22px_55px_-20px_rgba(16,32,26,0.5)]' : ''}`}>
-          <a href="#top" aria-label="На початок сторінки" className="shrink-0">
-            <img src="/logo/ukrhalal-horeca.png" alt="УкрХаляль HoReCa" width="880" height="612" className={`h-[40px] w-auto origin-left transition-transform duration-250 ease-drawer motion-reduce:transition-none ${scrolled ? 'scale-[0.85]' : 'scale-100'}`} />
-          </a>
-          <nav aria-label="Основна навігація" className="hidden nav:block">
-            <ul className="flex items-center gap-6">
-              {navLinks.map((link) => <li key={link.href}><a href={link.href} className="whitespace-nowrap text-body-sm font-medium text-ink transition-[color] duration-200 ease-drawer hover:text-brand motion-reduce:transition-none">{link.label}</a></li>)}
-            </ul>
-          </nav>
-          <div className="hidden shrink-0 items-center gap-3 nav:flex">
-            <Button size="sm" onClick={onLoginClick}>Увійти в кабінет</Button>
-            <Button size="sm" variant="outline" onClick={onPriceClick}>Запросити прайс</Button>
+      <header className="pointer-events-none sticky top-0 h-0" style={{ zIndex: LAYER.header }}>
+        <div className={`pointer-events-auto border-b transition-[background-color,border-color] duration-250 motion-reduce:transition-none ${scrolled ? 'border-white/20 bg-ink/95' : 'border-white/20 bg-transparent'}`}>
+          <div className="mx-auto flex h-[92px] max-w-[1280px] items-center gap-7 px-5 sm:px-6 lg:px-8">
+            <a href="#top" aria-label="На початок сторінки" className="relative flex h-[76px] w-[122px] shrink-0 items-center justify-center focus-visible:outline-offset-4">
+              <img
+                src="/logo/ukrhalal-illuminated.png"
+                alt=""
+                width="900"
+                height="595"
+                className="h-auto w-full object-contain [filter:drop-shadow(0_0_3px_rgba(255,255,255,0.98))_drop-shadow(0_0_10px_rgba(255,248,220,0.82))_drop-shadow(0_0_22px_rgba(255,248,220,0.42))]"
+              />
+            </a>
+            <nav aria-label="Основна навігація" className="ml-auto hidden nav:block">
+              <ul className="flex items-center gap-6">
+                {headerNavLinks.map((link) => <li key={link.href}><a href={link.href} className="inline-flex min-h-9 items-center whitespace-nowrap rounded-[6px] bg-brand/65 px-3 py-2 text-body-sm font-medium text-white transition-[background-color,transform] duration-200 hover:-translate-y-px hover:bg-brand focus-visible:bg-brand focus-visible:outline-offset-3 motion-reduce:transform-none">{link.label}</a></li>)}
+              </ul>
+            </nav>
+            <div className="hidden shrink-0 items-center gap-3 nav:flex">
+              <button type="button" onClick={onLoginClick} className="min-h-9 rounded-[6px] bg-brand/65 px-3 py-2 text-body-sm font-semibold text-white transition-[background-color,transform] duration-200 hover:-translate-y-px hover:bg-brand focus-visible:bg-brand motion-reduce:transform-none">Увійти в кабінет</button>
+              <div ref={messengersRef} className="relative">
+                <button
+                  ref={messengersButtonRef}
+                  type="button"
+                  aria-expanded={messengersOpen}
+                  aria-controls="desktop-messengers-menu"
+                  aria-haspopup="menu"
+                  onClick={() => setMessengersOpen((open) => !open)}
+                  className="min-h-9 rounded-[6px] bg-brand/65 px-3 py-2 text-body-sm font-semibold text-white transition-[background-color,transform] duration-200 hover:-translate-y-px hover:bg-brand focus-visible:bg-brand motion-reduce:transform-none"
+                >
+                  Месенджери
+                </button>
+                {messengersOpen && (
+                  <div
+                    ref={messengersMenuRef}
+                    id="desktop-messengers-menu"
+                    role="menu"
+                    aria-label="Месенджери"
+                    tabIndex={-1}
+                    onKeyDown={handleMessengerMenuKeyDown}
+                    className="absolute right-0 top-full mt-2 flex items-center gap-1 rounded-[8px] border border-hairline bg-white p-1.5 shadow-[0_12px_30px_-16px_rgba(16,32,26,0.45)] focus:outline-none"
+                  >
+                    {messengerItems.map((item) => item.enabled ? (
+                      <a key={item.label} href={item.href} role="menuitem" className="whitespace-nowrap rounded-[5px] px-2.5 py-2 text-body-sm font-medium text-brand transition-colors hover:bg-brand-soft focus-visible:bg-brand-soft">
+                        {item.label}
+                      </a>
+                    ) : (
+                      <span key={item.label} role="menuitem" aria-disabled="true" className="cursor-not-allowed whitespace-nowrap rounded-[5px] px-2.5 py-2 text-body-sm font-medium text-ink-muted/55">
+                        {item.label}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+            <button type="button" aria-label={menuOpen ? 'Закрити меню' : 'Відкрити меню'} aria-expanded={menuOpen} onClick={() => setMenuOpen(true)} className="ml-auto rounded-[4px] p-2 nav:hidden">
+              <span className="relative block h-5 w-6">
+                <span className={`absolute left-0 top-[7px] h-[2px] w-6 transition-[background-color,transform] duration-250 ease-drawer motion-reduce:transition-none ${scrolled ? 'bg-ink' : 'bg-white'} ${menuOpen ? 'rotate-45' : '-translate-y-1'}`} />
+                <span className={`absolute left-0 h-[2px] w-6 transition-[background-color,transform] duration-250 ease-drawer motion-reduce:transition-none ${scrolled ? 'bg-ink' : 'bg-white'} ${menuOpen ? '-rotate-45' : 'translate-y-1'}`} />
+              </span>
+            </button>
           </div>
-          <button type="button" aria-label={menuOpen ? 'Закрити меню' : 'Відкрити меню'} aria-expanded={menuOpen} onClick={() => setMenuOpen(true)} className="p-2 nav:hidden">
-            <span className="relative block h-5 w-6">
-              <span className={`absolute left-0 top-[7px] h-[2px] w-6 rounded-full bg-ink transition-transform duration-250 ease-drawer motion-reduce:transition-none ${menuOpen ? 'rotate-45' : '-translate-y-1'}`} />
-              <span className={`absolute left-0 h-[2px] w-6 rounded-full bg-ink transition-transform duration-250 ease-drawer motion-reduce:transition-none ${menuOpen ? '-rotate-45' : 'translate-y-1'}`} />
-            </span>
-          </button>
         </div>
       </header>
       <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} onLoginClick={onLoginClick} onPriceClick={onPriceClick} />

@@ -37,7 +37,7 @@ function TrustBand() {
             transition={{ duration: 0.5, delay: index * 0.06, ease: [0.32, 0.72, 0, 1] }}
             className="flex items-center gap-4"
           >
-            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-brand-soft ring-1 ring-brand/10">
+            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[14px] border border-brand/10 bg-brand-soft">
               <Icon size={24} weight="light" aria-hidden="true" className="text-brand" />
             </span>
             <div>
