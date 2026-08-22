@@ -2,6 +2,7 @@ import { ArrowUpRight, FacebookLogo, InstagramLogo, TiktokLogo } from '@phosphor
 import { motion } from 'motion/react'
 import { contacts } from '../data/contacts'
 import { useReveal } from '../hooks/useReveal'
+import { withBase } from '../lib/asset'
 
 const socialPlaceholders = [
   {
@@ -62,7 +63,7 @@ function ContactSection() {
                 Обслуговуємо <span className="text-[#b78b3e]">200+</span> закладів по всій Україні
               </p>
               <img
-                src="/images/ukraine-map-cutout.webp"
+                src={withBase('/images/ukraine-map-cutout.webp')}
                 alt="Карта України з контурним підсвічуванням"
                 className="relative z-10 w-full max-w-[540px] object-contain drop-shadow-[0_22px_38px_rgba(0,0,0,0.55)] drop-shadow-[0_0_40px_rgba(183,139,62,0.22)]"
                 loading="lazy"

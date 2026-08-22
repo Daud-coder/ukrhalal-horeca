@@ -1,6 +1,7 @@
 import { ArrowRight, ForkKnife, MapPin, Truck } from '@phosphor-icons/react'
 import { motion, useReducedMotion } from 'motion/react'
 import { EASE_DRAWER } from '../hooks/useReveal'
+import { withBase } from '../lib/asset'
 
 type HeroProps = { onPriceClick: () => void }
 
@@ -18,7 +19,7 @@ function Hero({ onPriceClick }: HeroProps) {
   return (
     <section className="relative flex min-h-[100dvh] overflow-hidden bg-ink text-white lg:min-h-[720px]">
       <div className="pointer-events-none absolute inset-0">
-        <img src="/images/hero-industrial-v5.png" alt="" width="1672" height="941" fetchPriority="high" decoding="async" aria-hidden="true" className="h-full w-full object-cover object-[62%_center] sm:object-center" />
+        <img src={withBase('/images/hero-industrial-v5.png')} alt="" width="1672" height="941" fetchPriority="high" decoding="async" aria-hidden="true" className="h-full w-full object-cover object-[62%_center] sm:object-center" />
         <div className="absolute inset-0 bg-[linear-gradient(270deg,rgba(7,18,13,0.78)_0%,rgba(7,18,13,0.42)_24%,rgba(7,18,13,0)_44%),linear-gradient(90deg,rgba(7,18,13,0.42)_0%,rgba(7,18,13,0.28)_42%,rgba(7,18,13,0.08)_74%,rgba(7,18,13,0.04)_100%)] max-md:bg-[linear-gradient(180deg,rgba(7,18,13,0.58)_0%,rgba(7,18,13,0.42)_58%,rgba(7,18,13,0.65)_100%)]" />
       </div>
 

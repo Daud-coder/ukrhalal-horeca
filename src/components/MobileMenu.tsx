@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { LAYER } from '../constants/layers'
+import { withBase } from '../lib/asset'
 import { Button } from './ui/Button'
 import { navLinks } from '../data/nav'
 
@@ -51,7 +52,7 @@ export function MobileMenu({ open, onClose, onLoginClick, onPriceClick }: Mobile
   return (
     <div className={`fixed inset-0 flex min-h-dvh flex-col bg-white px-6 py-5 transition-opacity duration-200 ease-drawer motion-reduce:transition-none ${mounted ? 'opacity-100' : 'opacity-0'}`} style={{ zIndex: LAYER.mobileMenu }}>
       <div className="flex items-center justify-between">
-        <img src="/logo/ukrhalal-horeca.png" alt="УкрХаляль HoReCa" width="880" height="612" className="h-auto w-[124px]" />
+        <img src={withBase('/logo/ukrhalal-horeca.png')} alt="УкрХаляль HoReCa" width="880" height="612" className="h-auto w-[124px]" />
         <button type="button" aria-label="Закрити меню" onClick={onClose} className="p-2">
           <span className="relative block h-5 w-6">
             <span className="absolute left-0 top-[7px] h-[2px] w-6 rotate-45 rounded-full bg-ink transition-transform duration-250 ease-drawer motion-reduce:transition-none" />

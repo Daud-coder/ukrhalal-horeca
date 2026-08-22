@@ -1,6 +1,7 @@
 import { ArrowRight } from '@phosphor-icons/react'
 import { motion } from 'motion/react'
 import { useReveal } from '../hooks/useReveal'
+import { withBase } from '../lib/asset'
 
 const advantages = [
   { title: 'ЗАМОВЛЕННЯ СЬОГОДНІ — ДОСТАВКА ЗАВТРА', description: 'Доставляємо з понеділка по суботу.', emphasized: true },
@@ -53,7 +54,7 @@ function Advantages() {
           </div>
         </div>
       </div>
-      <div className="h-44 bg-cover bg-center sm:h-52 lg:h-[clamp(10rem,14vw,14rem)]" style={{ backgroundImage: "url('/images/advantages-steaks-board.png')" }} role="img" aria-label="М’ясні вирізки на дерев’яній дошці" />
+      <div className="h-44 bg-cover bg-center sm:h-52 lg:h-[clamp(10rem,14vw,14rem)]" style={{ backgroundImage: `url('${withBase('/images/advantages-steaks-board.png')}')` }} role="img" aria-label="М’ясні вирізки на дерев’яній дошці" />
     </section>
   )
 }

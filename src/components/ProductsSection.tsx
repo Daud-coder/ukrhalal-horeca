@@ -2,6 +2,7 @@ import { ArrowUpRight } from '@phosphor-icons/react'
 import { motion } from 'motion/react'
 import { categories, type Category } from '../data/categories'
 import { useReveal } from '../hooks/useReveal'
+import { withBase } from '../lib/asset'
 
 type ProductCardProps = Pick<Category, 'title' | 'image'>
 
@@ -9,7 +10,7 @@ function ProductCard({ title, image }: ProductCardProps) {
   return (
     <a href="#contact" className="group block active:scale-[0.99] transition-transform duration-150 focus-visible:z-10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#b78b3e] motion-reduce:transform-none" aria-label={`${title} — отримати консультацію`}>
       <div className="aspect-[1.68/1] overflow-hidden bg-[#e6e1d8]">
-        <img src={image} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-220 group-hover:scale-[1.025] motion-reduce:transition-none motion-reduce:group-hover:scale-100" />
+        <img src={withBase(image)} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-220 group-hover:scale-[1.025] motion-reduce:transition-none motion-reduce:group-hover:scale-100" />
       </div>
       <div className="mt-2 flex min-h-[62px] items-center justify-between gap-4 border-y border-[#17392c] px-3 py-2 md:min-h-[68px]">
         <div className="min-w-0 flex-1 overflow-hidden">

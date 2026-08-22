@@ -3,6 +3,7 @@ import { useEffect, useRef, useState, type KeyboardEvent as ReactKeyboardEvent }
 import { LAYER } from '../constants/layers'
 import { useScrolled } from '../hooks/useScrolled'
 import { EASE_OUT } from '../hooks/useReveal'
+import { withBase } from '../lib/asset'
 import { contacts } from '../data/contacts'
 import { navLinks } from '../data/nav'
 import { MobileMenu } from './MobileMenu'
@@ -85,7 +86,7 @@ export function Header({ onLoginClick, onPriceClick }: HeaderProps) {
           <div className="mx-auto flex h-[92px] max-w-[1280px] items-center gap-7 px-5 sm:px-6 lg:px-8">
             <a href="#top" aria-label="На початок сторінки" className="relative flex h-[76px] w-[122px] shrink-0 items-center justify-center focus-visible:outline-offset-4">
               <img
-                src="/logo/ukrhalal-illuminated.png"
+                src={withBase('/logo/ukrhalal-illuminated.png')}
                 alt=""
                 width="900"
                 height="595"

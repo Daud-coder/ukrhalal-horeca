@@ -1,5 +1,6 @@
 import { motion } from 'motion/react'
 import { useReveal } from '../hooks/useReveal'
+import { withBase } from '../lib/asset'
 
 const milestones = [
   {
@@ -102,7 +103,7 @@ function AboutSection() {
             {partners.map((partner) => (
               <div key={partner.src} className="flex h-[70px] items-center justify-center overflow-hidden bg-transparent sm:h-[78px]">
                 <img
-                  src={partner.src}
+                  src={withBase(partner.src)}
                   alt={partner.alt}
                   className="max-h-full max-w-full bg-transparent object-contain"
                   loading="lazy"
@@ -114,7 +115,7 @@ function AboutSection() {
 
         <motion.figure {...reveal(0.25)} className="relative min-h-[280px] overflow-hidden sm:min-h-[340px] lg:min-h-[300px] lg:[clip-path:polygon(12%_0,100%_0,100%_100%,0_100%)]">
           <img
-            src="/images/about-delivery-v2.jpg"
+            src={withBase('/images/about-delivery-v2.jpg')}
             alt="Передача вакуумованої м’ясної продукції УкрХаляль професійній кухні"
             className="absolute inset-0 h-full w-full object-cover object-center"
             loading="lazy"
