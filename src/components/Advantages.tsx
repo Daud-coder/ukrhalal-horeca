@@ -1,5 +1,6 @@
 import { ArrowRight } from '@phosphor-icons/react'
-import { motion, useReducedMotion } from 'motion/react'
+import { motion } from 'motion/react'
+import { useReveal } from '../hooks/useReveal'
 
 const advantages = [
   { title: 'ЗАМОВЛЕННЯ СЬОГОДНІ — ДОСТАВКА ЗАВТРА', description: 'Доставляємо з понеділка по суботу.', emphasized: true },
@@ -11,13 +12,7 @@ const advantages = [
 ]
 
 function Advantages() {
-  const reduce = useReducedMotion()
-  const reveal = (delay = 0) => ({
-    initial: reduce ? false : { opacity: 0, transform: 'translateY(16px)' },
-    whileInView: { opacity: 1, transform: 'translateY(0px)' },
-    viewport: { once: true, amount: 0.25 },
-    transition: { duration: 0.5, delay, ease: [0.32, 0.72, 0, 1] as const },
-  })
+  const reveal = useReveal(0.25)
 
   return (
     <section

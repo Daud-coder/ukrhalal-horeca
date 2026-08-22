@@ -1,4 +1,5 @@
-import { motion, useReducedMotion } from 'motion/react'
+import { motion } from 'motion/react'
+import { useReveal } from '../hooks/useReveal'
 
 const milestones = [
   {
@@ -34,13 +35,7 @@ const partners = [
 ]
 
 function AboutSection() {
-  const reduce = useReducedMotion()
-  const reveal = (delay = 0) => ({
-    initial: reduce ? false : { opacity: 0, transform: 'translateY(14px)' },
-    whileInView: { opacity: 1, transform: 'translateY(0px)' },
-    viewport: { once: true, amount: 0.18 },
-    transition: { duration: 0.5, delay, ease: [0.32, 0.72, 0, 1] as const },
-  })
+  const reveal = useReveal()
 
   return (
     <section id="about" className="scroll-mt-[92px] overflow-hidden bg-[#f4efe5] text-[#10201a]">
@@ -50,7 +45,7 @@ function AboutSection() {
           <p className="mt-5 text-xs font-semibold tracking-[0.34em] text-[#102a20]">ПРО КОМПАНІЮ</p>
         </motion.div>
 
-        <div className="mt-7 grid gap-10 lg:grid-cols-[0.68fr_1.18fr_1.22fr] lg:gap-[clamp(1.75rem,2.5vw,3rem)]">
+        <div className="mt-7 grid gap-10 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1.18fr)_minmax(0,1.22fr)] lg:gap-[clamp(1.75rem,2.5vw,3rem)]">
           <motion.div {...reveal(0.05)} className="about-year-slot self-start" aria-label="2011 рік">
             <p
               className="about-year tabular text-[clamp(9rem,14vw,16rem)] font-extralight leading-[0.76] tracking-[-0.07em] text-[#0d2d21]"
@@ -61,7 +56,7 @@ function AboutSection() {
             </p>
           </motion.div>
 
-          <motion.div {...reveal(0.1)} className="self-start lg:-translate-x-[clamp(3rem,5vw,4.5rem)] lg:pt-2">
+          <motion.div {...reveal(0.1)} className="self-start lg:pt-2">
             <h2
               className="max-w-[14ch] text-[clamp(3rem,3.55vw,4rem)] font-light uppercase leading-[0.94] tracking-[-0.025em] text-[#111c17]"
               style={{ fontFamily: "'Alumni Sans', sans-serif" }}

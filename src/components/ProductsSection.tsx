@@ -1,13 +1,15 @@
 import { ArrowUpRight } from '@phosphor-icons/react'
+import { motion } from 'motion/react'
 import { categories, type Category } from '../data/categories'
+import { useReveal } from '../hooks/useReveal'
 
 type ProductCardProps = Pick<Category, 'title' | 'image'>
 
 function ProductCard({ title, image }: ProductCardProps) {
   return (
-    <a href="#contact" className="group block focus-visible:z-10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#b78b3e]" aria-label={`${title} — отримати консультацію`}>
+    <a href="#contact" className="group block active:scale-[0.99] transition-transform duration-150 focus-visible:z-10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#b78b3e] motion-reduce:transform-none" aria-label={`${title} — отримати консультацію`}>
       <div className="aspect-[1.68/1] overflow-hidden bg-[#e6e1d8]">
-        <img src={image} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.025] motion-reduce:transition-none motion-reduce:group-hover:scale-100" />
+        <img src={image} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-220 group-hover:scale-[1.025] motion-reduce:transition-none motion-reduce:group-hover:scale-100" />
       </div>
       <div className="mt-2 flex min-h-[62px] items-center justify-between gap-4 border-y border-[#17392c] px-3 py-2 md:min-h-[68px]">
         <div className="min-w-0 flex-1 overflow-hidden">
@@ -20,10 +22,12 @@ function ProductCard({ title, image }: ProductCardProps) {
 }
 
 function ProductsSection() {
+  const reveal = useReveal()
+
   return (
     <section id="products" className="scroll-mt-24 bg-[#f3eee4] py-14 text-[#103328] md:py-20 lg:py-24">
       <div className="mx-auto w-full max-w-[1500px] px-5 sm:px-7 lg:px-10">
-        <div className="grid gap-8 lg:grid-cols-[minmax(0,1.78fr)_minmax(280px,0.52fr)] lg:items-end lg:gap-14">
+        <motion.div {...reveal()} className="grid gap-8 lg:grid-cols-[minmax(0,1.78fr)_minmax(280px,0.52fr)] lg:items-end lg:gap-14">
           <div>
             <div className="flex items-center gap-4 text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-[#a77b32]">
               <span className="h-px w-12 bg-[#b8883b]" aria-hidden="true" />
@@ -38,13 +42,13 @@ function ProductsSection() {
           <p className="max-w-[430px] border-l border-[#b8883b] py-1 pl-6 text-[clamp(1rem,1.35vw,1.28rem)] leading-[1.55] text-[#3f4d47] lg:mb-2">
             Відібрані відруби та м’ясні вироби для стабільної якості страв у ресторанах, готелях і закладах громадського харчування.
           </p>
-        </div>
+        </motion.div>
 
         <div className="mt-12 grid gap-x-[14px] gap-y-[18px] sm:grid-cols-2 lg:mt-12 lg:grid-cols-4">
           {categories.map((category, index) => (
-            <div key={category.slug} className={`relative ${index % 2 !== 1 ? 'after:absolute after:-right-[7px] after:inset-y-0 after:w-px after:bg-[#17392c] sm:after:content-[\"\"]' : ''} ${index % 4 !== 3 ? 'lg:after:absolute lg:after:-right-[7px] lg:after:inset-y-0 lg:after:w-px lg:after:bg-[#17392c] lg:after:content-[\"\"]' : 'lg:after:content-none'}`}>
+            <motion.div {...reveal(index * 0.05)} key={category.slug} className={`relative ${index % 2 !== 1 ? 'after:absolute after:-right-[7px] after:inset-y-0 after:w-px after:bg-[#17392c] sm:after:content-[\"\"]' : ''} ${index % 4 !== 3 ? 'lg:after:absolute lg:after:-right-[7px] lg:after:inset-y-0 lg:after:w-px lg:after:bg-[#17392c] lg:after:content-[\"\"]' : 'lg:after:content-none'}`}>
               <ProductCard {...category} />
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

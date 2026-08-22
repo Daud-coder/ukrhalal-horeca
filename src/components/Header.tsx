@@ -1,6 +1,8 @@
+import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { useEffect, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from 'react'
 import { LAYER } from '../constants/layers'
 import { useScrolled } from '../hooks/useScrolled'
+import { EASE_OUT } from '../hooks/useReveal'
 import { contacts } from '../data/contacts'
 import { navLinks } from '../data/nav'
 import { MobileMenu } from './MobileMenu'
@@ -15,6 +17,7 @@ const messengerItems = [
 type HeaderProps = { onLoginClick: () => void; onPriceClick: () => void }
 
 export function Header({ onLoginClick, onPriceClick }: HeaderProps) {
+  const reduce = useReducedMotion()
   const scrolled = useScrolled()
   const [menuOpen, setMenuOpen] = useState(false)
   const [messengersOpen, setMessengersOpen] = useState(false)
@@ -91,11 +94,11 @@ export function Header({ onLoginClick, onPriceClick }: HeaderProps) {
             </a>
             <nav aria-label="Основна навігація" className="ml-auto hidden nav:block">
               <ul className="flex items-center gap-6">
-                {headerNavLinks.map((link) => <li key={link.href}><a href={link.href} className="inline-flex min-h-9 items-center whitespace-nowrap rounded-[6px] bg-brand/65 px-3 py-2 text-body-sm font-medium text-white transition-[background-color,transform] duration-200 hover:-translate-y-px hover:bg-brand focus-visible:bg-brand focus-visible:outline-offset-3 motion-reduce:transform-none">{link.label}</a></li>)}
+                {headerNavLinks.map((link) => <li key={link.href}><a href={link.href} className="inline-flex min-h-9 items-center whitespace-nowrap rounded-[6px] bg-brand/65 px-3 py-2 text-body-sm font-medium text-white transition-[background-color,transform] duration-200 hover:-translate-y-px hover:bg-brand active:scale-[0.98] focus-visible:bg-brand focus-visible:outline-offset-3 motion-reduce:transform-none">{link.label}</a></li>)}
               </ul>
             </nav>
             <div className="hidden shrink-0 items-center gap-3 nav:flex">
-              <button type="button" onClick={onLoginClick} className="min-h-9 rounded-[6px] bg-brand/65 px-3 py-2 text-body-sm font-semibold text-white transition-[background-color,transform] duration-200 hover:-translate-y-px hover:bg-brand focus-visible:bg-brand motion-reduce:transform-none">Увійти в кабінет</button>
+              <button type="button" onClick={onLoginClick} className="min-h-9 rounded-[6px] bg-brand/65 px-3 py-2 text-body-sm font-semibold text-white transition-[background-color,transform] duration-200 hover:-translate-y-px hover:bg-brand active:scale-[0.98] focus-visible:bg-brand motion-reduce:transform-none">Увійти в кабінет</button>
               <div ref={messengersRef} className="relative">
                 <button
                   ref={messengersButtonRef}
@@ -104,31 +107,38 @@ export function Header({ onLoginClick, onPriceClick }: HeaderProps) {
                   aria-controls="desktop-messengers-menu"
                   aria-haspopup="menu"
                   onClick={() => setMessengersOpen((open) => !open)}
-                  className="min-h-9 rounded-[6px] bg-brand/65 px-3 py-2 text-body-sm font-semibold text-white transition-[background-color,transform] duration-200 hover:-translate-y-px hover:bg-brand focus-visible:bg-brand motion-reduce:transform-none"
+                  className="min-h-9 rounded-[6px] bg-brand/65 px-3 py-2 text-body-sm font-semibold text-white transition-[background-color,transform] duration-200 hover:-translate-y-px hover:bg-brand active:scale-[0.98] focus-visible:bg-brand motion-reduce:transform-none"
                 >
                   Месенджери
                 </button>
-                {messengersOpen && (
-                  <div
-                    ref={messengersMenuRef}
-                    id="desktop-messengers-menu"
-                    role="menu"
-                    aria-label="Месенджери"
-                    tabIndex={-1}
-                    onKeyDown={handleMessengerMenuKeyDown}
-                    className="absolute right-0 top-full mt-2 flex items-center gap-1 rounded-[8px] border border-hairline bg-white p-1.5 shadow-[0_12px_30px_-16px_rgba(16,32,26,0.45)] focus:outline-none"
-                  >
-                    {messengerItems.map((item) => item.enabled ? (
-                      <a key={item.label} href={item.href} role="menuitem" className="whitespace-nowrap rounded-[5px] px-2.5 py-2 text-body-sm font-medium text-brand transition-colors hover:bg-brand-soft focus-visible:bg-brand-soft">
-                        {item.label}
-                      </a>
-                    ) : (
-                      <span key={item.label} role="menuitem" aria-disabled="true" className="cursor-not-allowed whitespace-nowrap rounded-[5px] px-2.5 py-2 text-body-sm font-medium text-ink-muted/55">
-                        {item.label}
-                      </span>
-                    ))}
-                  </div>
-                )}
+                <AnimatePresence>
+                  {messengersOpen && (
+                    <motion.div
+                      ref={messengersMenuRef}
+                      id="desktop-messengers-menu"
+                      role="menu"
+                      aria-label="Месенджери"
+                      tabIndex={-1}
+                      onKeyDown={handleMessengerMenuKeyDown}
+                      initial={reduce ? { opacity: 0 } : { opacity: 0, transform: 'scale(0.95)' }}
+                      animate={{ opacity: 1, transform: 'scale(1)' }}
+                      exit={reduce ? { opacity: 0 } : { opacity: 0, transform: 'scale(0.95)' }}
+                      transition={{ duration: 0.16, ease: EASE_OUT }}
+                      style={{ transformOrigin: 'top right' }}
+                      className="absolute right-0 top-full mt-2 flex items-center gap-1 rounded-[8px] border border-hairline bg-white p-1.5 shadow-[0_12px_30px_-16px_rgba(16,32,26,0.45)] focus:outline-none"
+                    >
+                      {messengerItems.map((item) => item.enabled ? (
+                        <a key={item.label} href={item.href} role="menuitem" className="whitespace-nowrap rounded-[5px] px-2.5 py-2 text-body-sm font-medium text-brand transition-colors hover:bg-brand-soft focus-visible:bg-brand-soft">
+                          {item.label}
+                        </a>
+                      ) : (
+                        <span key={item.label} role="menuitem" aria-disabled="true" className="cursor-not-allowed whitespace-nowrap rounded-[5px] px-2.5 py-2 text-body-sm font-medium text-ink-muted/55">
+                          {item.label}
+                        </span>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             </div>
             <button type="button" aria-label={menuOpen ? 'Закрити меню' : 'Відкрити меню'} aria-expanded={menuOpen} onClick={() => setMenuOpen(true)} className="ml-auto rounded-[4px] p-2 nav:hidden">

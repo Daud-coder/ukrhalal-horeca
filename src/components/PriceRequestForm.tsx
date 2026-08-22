@@ -1,7 +1,11 @@
 import { CheckCircle } from '@phosphor-icons/react'
+import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { useRef, useState, type FormEvent } from 'react'
+import { EASE_OUT } from '../hooks/useReveal'
 import { submitLead, type SubmitResult } from '../lib/submitLead'
 import { Button } from './ui/Button'
+
+const errorClass = 'field-error text-body-sm text-red-700'
 
 type PriceRequestFormProps = {
   onDone: () => void
@@ -47,6 +51,7 @@ function validateField(field: FieldName, values: { name: string; company: string
 }
 
 export function PriceRequestForm({ onDone }: PriceRequestFormProps) {
+  const reduce = useReducedMotion()
   const [name, setName] = useState('')
   const [company, setCompany] = useState('')
   const [phone, setPhone] = useState('')
@@ -76,7 +81,7 @@ export function PriceRequestForm({ onDone }: PriceRequestFormProps) {
   }
 
   const fieldClassName = (field: FieldName) => [
-    'w-full rounded-[var(--radius-btn)] bg-white px-4 py-3 text-body text-ink caret-brand ring-1 ring-hairline outline-none focus:ring-2 focus:ring-brand disabled:cursor-not-allowed disabled:opacity-60',
+    'w-full rounded-[var(--radius-btn)] bg-white px-4 py-3 text-body text-ink caret-brand ring-1 ring-hairline outline-none transition-shadow duration-150 focus:ring-2 focus:ring-brand disabled:cursor-not-allowed disabled:opacity-60',
     errors[field] ? 'ring-2 ring-red-600 focus:ring-red-600' : '',
   ].filter(Boolean).join(' ')
 
@@ -121,67 +126,75 @@ export function PriceRequestForm({ onDone }: PriceRequestFormProps) {
     setStatus('error')
   }
 
-  if (status === 'success') {
-    return (
-      <div className="flex flex-col items-start gap-4">
-        <CheckCircle size={48} weight="light" aria-hidden="true" className="text-brand" />
-        <div className="space-y-2">
-          <h3 className="font-display text-h3 font-semibold text-ink">Заявку прийнято</h3>
-          <p className="text-body text-ink-muted">Менеджер звʼяжеться з вами протягом робочого дня.</p>
-        </div>
-        <Button type="button" variant="primary" size="md" onClick={onDone}>Зрозуміло</Button>
-      </div>
-    )
-  }
-
   const disabled = status === 'sending'
+  const exitMotion = reduce ? undefined : { opacity: 0, transform: 'translateY(-6px)' }
 
   return (
-    <form onSubmit={handleSubmit} noValidate>
-      <fieldset disabled={disabled} className="space-y-4">
-        <div className="space-y-2">
-          <label htmlFor="price-name" className="block text-body-sm font-medium text-ink">Ваше імʼя</label>
-          <input ref={nameRef} id="price-name" name="name" value={name} onChange={(event) => setName(event.target.value)} onBlur={() => handleBlur('name')} maxLength={80} autoComplete="name" className={fieldClassName('name')} aria-invalid={errors.name ? true : undefined} aria-describedby={errors.name ? 'price-name-error' : undefined} />
-          {errors.name && <p id="price-name-error" role="alert" className="text-body-sm text-red-700">{errors.name}</p>}
-        </div>
-
-        <div className="space-y-2">
-          <label htmlFor="price-company" className="block text-body-sm font-medium text-ink">Назва закладу</label>
-          <input ref={companyRef} id="price-company" name="company" value={company} onChange={(event) => setCompany(event.target.value)} onBlur={() => handleBlur('company')} maxLength={120} autoComplete="organization" className={fieldClassName('company')} aria-invalid={errors.company ? true : undefined} aria-describedby={errors.company ? 'price-company-error' : undefined} />
-          {errors.company && <p id="price-company-error" role="alert" className="text-body-sm text-red-700">{errors.company}</p>}
-        </div>
-
-        <div className="space-y-2">
-          <label htmlFor="price-phone" className="block text-body-sm font-medium text-ink">Телефон</label>
-          <input ref={phoneRef} id="price-phone" name="phone" type="tel" inputMode="tel" value={phone} onChange={(event) => setPhone(event.target.value)} onBlur={() => handleBlur('phone')} maxLength={20} autoComplete="tel" className={fieldClassName('phone')} aria-invalid={errors.phone ? true : undefined} aria-describedby={errors.phone ? 'price-phone-error' : undefined} />
-          {errors.phone && <p id="price-phone-error" role="alert" className="text-body-sm text-red-700">{errors.phone}</p>}
-        </div>
-
-        <div className="space-y-2">
-          <label htmlFor="price-email" className="block text-body-sm font-medium text-ink">Email</label>
-          <input ref={emailRef} id="price-email" name="email" type="email" inputMode="email" value={email} onChange={(event) => setEmail(event.target.value)} onBlur={() => handleBlur('email')} maxLength={120} autoComplete="email" className={fieldClassName('email')} aria-invalid={errors.email ? true : undefined} aria-describedby={errors.email ? 'price-email-error' : 'price-email-hint'} />
-          {errors.email ? (
-            <p id="price-email-error" role="alert" className="text-body-sm text-red-700">{errors.email}</p>
-          ) : (
-            <p id="price-email-hint" className="text-body-sm text-ink-muted">Необовʼязково. Надішлемо прайс ще й поштою.</p>
-          )}
-        </div>
-
-        <div className="space-y-2">
-          <div className="flex items-start gap-3">
-            <input ref={consentRef} id="price-consent" name="consent" type="checkbox" checked={consent} onChange={(event) => setConsent(event.target.checked)} onBlur={() => handleBlur('consent')} className="mt-1 h-5 w-5 shrink-0 cursor-pointer accent-brand caret-brand disabled:cursor-not-allowed" aria-invalid={errors.consent ? true : undefined} aria-describedby={errors.consent ? 'price-consent-error' : undefined} />
-            <label htmlFor="price-consent" className="text-body-sm font-medium text-ink">Погоджуюсь на обробку персональних даних</label>
+    <AnimatePresence mode="wait" initial={false}>
+      {status === 'success' ? (
+        <motion.div
+          key="success"
+          initial={reduce ? false : { opacity: 0, transform: 'translateY(8px) scale(0.98)' }}
+          animate={{ opacity: 1, transform: 'translateY(0px) scale(1)' }}
+          exit={exitMotion}
+          transition={{ duration: 0.28, ease: EASE_OUT }}
+          className="flex flex-col items-start gap-4"
+        >
+          <CheckCircle size={48} weight="light" aria-hidden="true" className="text-brand" />
+          <div className="space-y-2">
+            <h3 className="font-display text-h3 font-semibold text-ink">Заявку прийнято</h3>
+            <p className="text-body text-ink-muted">Менеджер звʼяжеться з вами протягом робочого дня.</p>
           </div>
-          {errors.consent && <p id="price-consent-error" role="alert" className="text-body-sm text-red-700">{errors.consent}</p>}
-        </div>
-      </fieldset>
+          <Button type="button" variant="primary" size="md" onClick={onDone}>Зрозуміло</Button>
+        </motion.div>
+      ) : (
+        <motion.form key="form" onSubmit={handleSubmit} noValidate exit={exitMotion} transition={{ duration: 0.2, ease: EASE_OUT }}>
+          <fieldset disabled={disabled} className="space-y-4">
+            <div className="space-y-2">
+              <label htmlFor="price-name" className="block text-body-sm font-medium text-ink">Ваше імʼя</label>
+              <input ref={nameRef} id="price-name" name="name" value={name} onChange={(event) => setName(event.target.value)} onBlur={() => handleBlur('name')} maxLength={80} autoComplete="name" className={fieldClassName('name')} aria-invalid={errors.name ? true : undefined} aria-describedby={errors.name ? 'price-name-error' : undefined} />
+              {errors.name && <p id="price-name-error" role="alert" className={errorClass}>{errors.name}</p>}
+            </div>
 
-      <div aria-live="polite" className="mt-5">
-        {status === 'error' && <p role="alert" className="mb-3 text-body-sm text-red-700">{submitError}</p>}
-        <Button type="submit" variant="primary" size="md" disabled={disabled}>
-          {status === 'sending' ? 'Надсилаємо...' : status === 'error' ? 'Спробувати ще раз' : 'Надіслати заявку'}
-        </Button>
-      </div>
-    </form>
+            <div className="space-y-2">
+              <label htmlFor="price-company" className="block text-body-sm font-medium text-ink">Назва закладу</label>
+              <input ref={companyRef} id="price-company" name="company" value={company} onChange={(event) => setCompany(event.target.value)} onBlur={() => handleBlur('company')} maxLength={120} autoComplete="organization" className={fieldClassName('company')} aria-invalid={errors.company ? true : undefined} aria-describedby={errors.company ? 'price-company-error' : undefined} />
+              {errors.company && <p id="price-company-error" role="alert" className={errorClass}>{errors.company}</p>}
+            </div>
+
+            <div className="space-y-2">
+              <label htmlFor="price-phone" className="block text-body-sm font-medium text-ink">Телефон</label>
+              <input ref={phoneRef} id="price-phone" name="phone" type="tel" inputMode="tel" value={phone} onChange={(event) => setPhone(event.target.value)} onBlur={() => handleBlur('phone')} maxLength={20} autoComplete="tel" className={fieldClassName('phone')} aria-invalid={errors.phone ? true : undefined} aria-describedby={errors.phone ? 'price-phone-error' : undefined} />
+              {errors.phone && <p id="price-phone-error" role="alert" className={errorClass}>{errors.phone}</p>}
+            </div>
+
+            <div className="space-y-2">
+              <label htmlFor="price-email" className="block text-body-sm font-medium text-ink">Email</label>
+              <input ref={emailRef} id="price-email" name="email" type="email" inputMode="email" value={email} onChange={(event) => setEmail(event.target.value)} onBlur={() => handleBlur('email')} maxLength={120} autoComplete="email" className={fieldClassName('email')} aria-invalid={errors.email ? true : undefined} aria-describedby={errors.email ? 'price-email-error' : 'price-email-hint'} />
+              {errors.email ? (
+                <p id="price-email-error" role="alert" className={errorClass}>{errors.email}</p>
+              ) : (
+                <p id="price-email-hint" className="text-body-sm text-ink-muted">Необовʼязково. Надішлемо прайс ще й поштою.</p>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <div className="flex items-start gap-3">
+                <input ref={consentRef} id="price-consent" name="consent" type="checkbox" checked={consent} onChange={(event) => setConsent(event.target.checked)} onBlur={() => handleBlur('consent')} className="mt-1 h-5 w-5 shrink-0 cursor-pointer accent-brand caret-brand disabled:cursor-not-allowed" aria-invalid={errors.consent ? true : undefined} aria-describedby={errors.consent ? 'price-consent-error' : undefined} />
+                <label htmlFor="price-consent" className="text-body-sm font-medium text-ink">Погоджуюсь на обробку персональних даних</label>
+              </div>
+              {errors.consent && <p id="price-consent-error" role="alert" className={errorClass}>{errors.consent}</p>}
+            </div>
+          </fieldset>
+
+          <div aria-live="polite" className="mt-5">
+            {status === 'error' && <p role="alert" className={`mb-3 ${errorClass}`}>{submitError}</p>}
+            <Button type="submit" variant="primary" size="md" disabled={disabled}>
+              {status === 'sending' ? 'Надсилаємо...' : status === 'error' ? 'Спробувати ще раз' : 'Надіслати заявку'}
+            </Button>
+          </div>
+        </motion.form>
+      )}
+    </AnimatePresence>
   )
 }

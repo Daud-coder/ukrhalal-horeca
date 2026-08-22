@@ -1,5 +1,6 @@
 import { ArrowRight, ForkKnife, MapPin, Truck } from '@phosphor-icons/react'
 import { motion, useReducedMotion } from 'motion/react'
+import { EASE_DRAWER } from '../hooks/useReveal'
 
 type HeroProps = { onPriceClick: () => void }
 
@@ -12,7 +13,7 @@ const railItems = [
 
 function Hero({ onPriceClick }: HeroProps) {
   const reduce = useReducedMotion()
-  const rise = (delay: number) => reduce ? {} : { initial: { opacity: 0, transform: 'translateY(12px)' }, animate: { opacity: 1, transform: 'translateY(0px)' }, transition: { duration: 0.5, delay, ease: [0.32, 0.72, 0, 1] as const } }
+  const rise = (delay: number) => reduce ? {} : { initial: { opacity: 0, transform: 'translateY(12px)' }, animate: { opacity: 1, transform: 'translateY(0px)' }, transition: { duration: 0.5, delay, ease: EASE_DRAWER } }
 
   return (
     <section className="relative flex min-h-[100dvh] overflow-hidden bg-ink text-white lg:min-h-[720px]">
@@ -28,7 +29,7 @@ function Hero({ onPriceClick }: HeroProps) {
             <motion.h1 {...rise(0.06)} className="mt-5 max-w-[780px] font-display text-[clamp(2.65rem,5.4vw,4.9rem)] font-semibold uppercase leading-[1.02] tracking-[-0.035em] text-white">М’ЯСО <span className="inline-block whitespace-nowrap tracking-[0.015em]">ДЛЯ</span> ПРОФЕСІЙНОЇ <span className="block">КУХНІ</span></motion.h1>
             <motion.p {...rise(0.12)} className="mt-7 max-w-[46ch] border-l-2 border-[#63c779] pl-4 text-[clamp(1.1rem,1.55vw,1.35rem)] font-medium leading-[1.55] text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.72)]">М’ясо та м’ясні вироби для ресторанів, кафе, готелів і кейтерингу. За стандартами Халяль.</motion.p>
             <motion.div {...rise(0.18)} className="mt-8 flex flex-col gap-3 min-[420px]:flex-row">
-              <button type="button" onClick={onPriceClick} className="inline-flex min-h-12 items-center justify-center rounded-[6px] bg-brand px-6 py-3 font-semibold text-white transition-[background-color,transform] duration-200 hover:-translate-y-px hover:bg-brand-dark focus-visible:outline-white motion-reduce:transform-none">Отримати прайс</button>
+              <button type="button" onClick={onPriceClick} className="inline-flex min-h-12 items-center justify-center rounded-[6px] bg-brand px-6 py-3 font-semibold text-white transition-[background-color,transform] duration-200 hover:-translate-y-px hover:bg-brand-dark active:scale-[0.98] focus-visible:outline-white motion-reduce:transform-none">Отримати прайс</button>
               <a href="#contact" className="group inline-flex min-h-12 items-center justify-center gap-3 border-b border-brand px-1 py-3 font-semibold text-white transition-[border-color,color] duration-200 hover:border-white hover:text-brand focus-visible:outline-white">
                 Отримати консультацію
                 <ArrowRight size={18} weight="light" aria-hidden="true" className="transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transform-none" />

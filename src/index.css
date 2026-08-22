@@ -200,6 +200,27 @@ h4 {
   color: #fff;
 }
 
+@keyframes field-error-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.field-error {
+  animation: field-error-in 200ms var(--ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .field-error {
+    animation: none;
+  }
+}
+
 @media (min-width: 1024px) {
   .about-year-slot {
     height: clamp(22.5rem, 31vw, 27rem);
@@ -209,9 +230,9 @@ h4 {
   .about-year {
     display: inline-block;
     width: max-content;
-    font-size: clamp(19rem, 25vw, 23.5rem);
+    font-size: clamp(20rem, 26vw, 25rem);
     line-height: 0.76;
-    transform: scaleX(0.54) scaleY(1.7);
+    transform: scaleX(0.44) scaleY(1.38);
     transform-origin: left top;
     white-space: nowrap;
   }
