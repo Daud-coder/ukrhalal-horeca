@@ -1,4 +1,5 @@
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
+import { TelegramLogo, WhatsappLogo } from '@phosphor-icons/react'
 import { useEffect, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from 'react'
 import { LAYER } from '../constants/layers'
 import { useScrolled } from '../hooks/useScrolled'
@@ -7,13 +8,14 @@ import { withBase } from '../lib/asset'
 import { contacts } from '../data/contacts'
 import { navLinks } from '../data/nav'
 import { MobileMenu } from './MobileMenu'
+import { ViberLogo } from './icons/ViberLogo'
 
 const NAV_BREAKPOINT = 1180
 const headerNavLinks = navLinks.filter((link) => link.href !== '#contact')
 const messengerItems = [
-  { label: 'Telegram', href: contacts.telegram },
-  { label: 'WhatsApp', href: contacts.whatsapp },
-  { label: 'Viber', href: contacts.viber },
+  { label: 'Telegram', href: contacts.telegram, icon: <TelegramLogo size={20} weight="fill" className="shrink-0 text-[#229ED9]" aria-hidden="true" /> },
+  { label: 'WhatsApp', href: contacts.whatsapp, icon: <WhatsappLogo size={20} weight="fill" className="shrink-0 text-[#25D366]" aria-hidden="true" /> },
+  { label: 'Viber', href: contacts.viber, icon: <ViberLogo size={20} className="shrink-0 text-[#7360F2]" aria-hidden="true" /> },
 ].map((item) => ({ ...item, enabled: !/^TODO:/i.test(item.href.trim()) }))
 type HeaderProps = { onLoginClick: () => void; onPriceClick: () => void }
 
@@ -63,7 +65,7 @@ export function Header({ onLoginClick, onPriceClick }: HeaderProps) {
   }, [messengersOpen])
 
   const handleMessengerMenuKeyDown = (event: ReactKeyboardEvent<HTMLDivElement>) => {
-    if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return
+    if (!['ArrowUp', 'ArrowDown', 'Home', 'End'].includes(event.key)) return
     const items = Array.from(event.currentTarget.querySelectorAll<HTMLElement>('[role="menuitem"]:not([aria-disabled="true"])'))
     if (!items.length) return
 
@@ -73,7 +75,7 @@ export function Header({ onLoginClick, onPriceClick }: HeaderProps) {
       ? 0
       : event.key === 'End'
         ? items.length - 1
-        : event.key === 'ArrowRight'
+        : event.key === 'ArrowDown'
           ? (currentIndex + 1) % items.length
           : (currentIndex - 1 + items.length) % items.length
     items[nextIndex]?.focus()
@@ -126,15 +128,15 @@ export function Header({ onLoginClick, onPriceClick }: HeaderProps) {
                       exit={reduce ? { opacity: 0 } : { opacity: 0, transform: 'scale(0.95)' }}
                       transition={{ duration: 0.16, ease: EASE_OUT }}
                       style={{ transformOrigin: 'top right' }}
-                      className="absolute right-0 top-full mt-2 flex items-center gap-1 rounded-[8px] border border-hairline bg-white p-1.5 shadow-[0_12px_30px_-16px_rgba(16,32,26,0.45)] focus:outline-none"
+                      className="absolute right-0 top-full mt-2 flex flex-col items-stretch gap-1 rounded-[8px] border border-hairline bg-white p-1.5 shadow-[0_12px_30px_-16px_rgba(16,32,26,0.45)] focus:outline-none"
                     >
                       {messengerItems.map((item) => item.enabled ? (
-                        <a key={item.label} href={item.href} role="menuitem" className="whitespace-nowrap rounded-[5px] px-2.5 py-2 text-body-sm font-medium text-brand transition-colors hover:bg-brand-soft focus-visible:bg-brand-soft">
-                          {item.label}
+                        <a key={item.label} href={item.href} role="menuitem" aria-label={item.label} className="flex items-center justify-center rounded-[5px] px-2.5 py-2 text-brand transition-colors hover:bg-brand-soft focus-visible:bg-brand-soft">
+                          {item.icon}
                         </a>
                       ) : (
-                        <span key={item.label} role="menuitem" aria-disabled="true" className="cursor-not-allowed whitespace-nowrap rounded-[5px] px-2.5 py-2 text-body-sm font-medium text-ink-muted/55">
-                          {item.label}
+                        <span key={item.label} role="menuitem" aria-disabled="true" aria-label={item.label} className="flex cursor-not-allowed items-center justify-center rounded-[5px] px-2.5 py-2 text-ink-muted/55">
+                          {item.icon}
                         </span>
                       ))}
                     </motion.div>

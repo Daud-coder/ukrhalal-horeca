@@ -6,8 +6,8 @@ export const contacts = {
     { display: '+38093 192 01 55', href: 'tel:+380931920155' },
   ],
   email: 'TODO: info@ukrhalal.ua',
-  telegram: 'TODO: https://t.me/ukrhalal',
-  whatsapp: 'TODO: https://wa.me/380XXXXXXXXX',
-  viber: 'TODO: viber://chat?number=%2B380XXXXXXXXX',
+  telegram: 'https://t.me/+380933035949',
+  whatsapp: 'https://wa.me/380933035949',
+  viber: 'viber://chat?number=%2B380933035949',
   city: 'TODO: Київ',
 };

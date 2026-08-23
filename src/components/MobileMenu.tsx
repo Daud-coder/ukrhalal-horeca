@@ -1,8 +1,17 @@
+import { TelegramLogo, WhatsappLogo } from '@phosphor-icons/react'
 import { useEffect, useState } from 'react'
 import { LAYER } from '../constants/layers'
+import { contacts } from '../data/contacts'
 import { withBase } from '../lib/asset'
 import { Button } from './ui/Button'
+import { ViberLogo } from './icons/ViberLogo'
 import { navLinks } from '../data/nav'
+
+const mobileMessengerItems = [
+  { label: 'Telegram', href: contacts.telegram, icon: <TelegramLogo size={22} weight="fill" className="text-[#229ED9]" aria-hidden="true" /> },
+  { label: 'WhatsApp', href: contacts.whatsapp, icon: <WhatsappLogo size={22} weight="fill" className="text-[#25D366]" aria-hidden="true" /> },
+  { label: 'Viber', href: contacts.viber, icon: <ViberLogo size={22} className="text-[#7360F2]" aria-hidden="true" /> },
+].map((item) => ({ ...item, enabled: !/^TODO:/i.test(item.href.trim()) }))
 
 type MobileMenuProps = {
   open: boolean
@@ -65,9 +74,19 @@ export function MobileMenu({ open, onClose, onLoginClick, onPriceClick }: Mobile
           {navLinks.map((link, index) => <li key={link.href}><a href={link.href} onClick={onClose} style={{ transitionDelay: `${40 + index * 40}ms` }} className={`block font-display text-h3 font-semibold text-ink transition-[transform,opacity] duration-320 ease-drawer hover:text-brand motion-reduce:transform-none motion-reduce:opacity-100 motion-reduce:transition-none ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>{link.label}</a></li>)}
         </ul>
       </nav>
-      <div className="mt-auto flex flex-col gap-3 pt-8">
-        <Button style={{ transitionDelay: `${40 + navLinks.length * 40}ms` }} className={`!rounded-[6px] transition-[transform,opacity] duration-320 ease-drawer motion-reduce:transform-none motion-reduce:opacity-100 motion-reduce:transition-none ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`} onClick={() => { onClose(); onPriceClick() }}>Отримати прайс</Button>
-        <Button variant="outline" style={{ transitionDelay: `${40 + (navLinks.length + 1) * 40}ms` }} className={`transition-[transform,opacity] duration-320 ease-drawer motion-reduce:transform-none motion-reduce:opacity-100 motion-reduce:transition-none ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`} onClick={() => { onClose(); onLoginClick() }}>Увійти в кабінет</Button>
+      <div className="mt-auto flex flex-col gap-5 pt-8">
+        <div
+          style={{ transitionDelay: `${40 + navLinks.length * 40}ms` }}
+          className={`flex items-center justify-center gap-4 transition-[transform,opacity] duration-320 ease-drawer motion-reduce:transform-none motion-reduce:opacity-100 motion-reduce:transition-none ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}
+        >
+          {mobileMessengerItems.filter((item) => item.enabled).map((item) => (
+            <a key={item.label} href={item.href} aria-label={item.label} onClick={onClose} className="flex size-11 items-center justify-center rounded-full border border-hairline text-brand transition-colors hover:bg-brand-soft">
+              {item.icon}
+            </a>
+          ))}
+        </div>
+        <Button style={{ transitionDelay: `${40 + (navLinks.length + 1) * 40}ms` }} className={`!rounded-[6px] transition-[transform,opacity] duration-320 ease-drawer motion-reduce:transform-none motion-reduce:opacity-100 motion-reduce:transition-none ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`} onClick={() => { onClose(); onPriceClick() }}>Отримати прайс</Button>
+        <Button variant="outline" style={{ transitionDelay: `${40 + (navLinks.length + 2) * 40}ms` }} className={`transition-[transform,opacity] duration-320 ease-drawer motion-reduce:transform-none motion-reduce:opacity-100 motion-reduce:transition-none ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`} onClick={() => { onClose(); onLoginClick() }}>Увійти в кабінет</Button>
       </div>
     </div>
   )
