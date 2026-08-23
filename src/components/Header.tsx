@@ -128,15 +128,17 @@ export function Header({ onLoginClick, onPriceClick }: HeaderProps) {
                       exit={reduce ? { opacity: 0 } : { opacity: 0, transform: 'scale(0.95)' }}
                       transition={{ duration: 0.16, ease: EASE_OUT }}
                       style={{ transformOrigin: 'top right' }}
-                      className="absolute right-0 top-full mt-2 flex flex-col items-stretch gap-1 rounded-[8px] border border-hairline bg-white p-1.5 shadow-[0_12px_30px_-16px_rgba(16,32,26,0.45)] focus:outline-none"
+                      className="absolute right-0 top-full mt-2 flex min-w-[11rem] flex-col gap-1.5 focus:outline-none"
                     >
                       {messengerItems.map((item) => item.enabled ? (
-                        <a key={item.label} href={item.href} role="menuitem" aria-label={item.label} className="flex items-center justify-center rounded-[5px] px-2.5 py-2 text-brand transition-colors hover:bg-brand-soft focus-visible:bg-brand-soft">
+                        <a key={item.label} href={item.href} role="menuitem" className="flex min-h-9 w-full items-center gap-2 whitespace-nowrap rounded-[6px] bg-brand/65 px-3 py-2 text-body-sm font-semibold text-white transition-[background-color,transform] duration-200 hover:-translate-y-px hover:bg-brand active:scale-[0.98] focus-visible:bg-brand motion-reduce:transform-none">
                           {item.icon}
+                          {item.label}
                         </a>
                       ) : (
-                        <span key={item.label} role="menuitem" aria-disabled="true" aria-label={item.label} className="flex cursor-not-allowed items-center justify-center rounded-[5px] px-2.5 py-2 text-ink-muted/55">
+                        <span key={item.label} role="menuitem" aria-disabled="true" className="flex min-h-9 w-full cursor-not-allowed items-center gap-2 whitespace-nowrap rounded-[6px] bg-ink-muted/20 px-3 py-2 text-body-sm font-semibold text-ink-muted/55">
                           {item.icon}
+                          {item.label}
                         </span>
                       ))}
                     </motion.div>

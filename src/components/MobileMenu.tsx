@@ -77,11 +77,12 @@ export function MobileMenu({ open, onClose, onLoginClick, onPriceClick }: Mobile
       <div className="mt-auto flex flex-col gap-5 pt-8">
         <div
           style={{ transitionDelay: `${40 + navLinks.length * 40}ms` }}
-          className={`flex items-center justify-center gap-4 transition-[transform,opacity] duration-320 ease-drawer motion-reduce:transform-none motion-reduce:opacity-100 motion-reduce:transition-none ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}
+          className={`flex flex-col gap-2 transition-[transform,opacity] duration-320 ease-drawer motion-reduce:transform-none motion-reduce:opacity-100 motion-reduce:transition-none ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}
         >
           {mobileMessengerItems.filter((item) => item.enabled).map((item) => (
-            <a key={item.label} href={item.href} aria-label={item.label} onClick={onClose} className="flex size-11 items-center justify-center rounded-full border border-hairline text-brand transition-colors hover:bg-brand-soft">
+            <a key={item.label} href={item.href} onClick={onClose} className="flex min-h-9 w-full items-center gap-2 rounded-[6px] bg-brand/65 px-4 py-2.5 text-body-sm font-semibold text-white transition-colors hover:bg-brand">
               {item.icon}
+              {item.label}
             </a>
           ))}
         </div>
