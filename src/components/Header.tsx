@@ -17,9 +17,9 @@ const messengerItems = [
   { label: 'WhatsApp', href: contacts.whatsapp, icon: <WhatsappLogo size={20} weight="fill" className="shrink-0 text-[#25D366]" aria-hidden="true" /> },
   { label: 'Viber', href: contacts.viber, icon: <ViberLogo size={20} className="shrink-0 text-[#7360F2]" aria-hidden="true" /> },
 ].map((item) => ({ ...item, enabled: !/^TODO:/i.test(item.href.trim()) }))
-type HeaderProps = { onLoginClick: () => void; onPriceClick: () => void }
+type HeaderProps = { onPriceClick: () => void }
 
-export function Header({ onLoginClick, onPriceClick }: HeaderProps) {
+export function Header({ onPriceClick }: HeaderProps) {
   const reduce = useReducedMotion()
   const scrolled = useScrolled()
   const [menuOpen, setMenuOpen] = useState(false)
@@ -95,14 +95,8 @@ export function Header({ onLoginClick, onPriceClick }: HeaderProps) {
                 className="h-auto w-full object-contain [filter:drop-shadow(0_0_3px_rgba(255,255,255,0.98))_drop-shadow(0_0_10px_rgba(255,248,220,0.82))_drop-shadow(0_0_22px_rgba(255,248,220,0.42))]"
               />
             </a>
-            <nav aria-label="Основна навігація" className="ml-auto hidden nav:block">
-              <ul className="flex items-center gap-6">
-                {headerNavLinks.map((link) => <li key={link.href}><a href={link.href} className="inline-flex min-h-9 items-center whitespace-nowrap rounded-[6px] bg-brand/65 px-3 py-2 text-body-sm font-medium text-white transition-[background-color,transform] duration-200 hover:-translate-y-px hover:bg-brand active:scale-[0.98] focus-visible:bg-brand focus-visible:outline-offset-3 motion-reduce:transform-none">{link.label}</a></li>)}
-              </ul>
-            </nav>
-            <div className="hidden shrink-0 items-center gap-3 nav:flex">
-              <button type="button" onClick={onLoginClick} className="min-h-9 rounded-[6px] bg-brand/65 px-3 py-2 text-body-sm font-semibold text-white transition-[background-color,transform] duration-200 hover:-translate-y-px hover:bg-brand active:scale-[0.98] focus-visible:bg-brand motion-reduce:transform-none">Увійти в кабінет</button>
-              <div ref={messengersRef} className="relative">
+            <div className="ml-auto hidden items-center gap-6 nav:flex">
+              <div ref={messengersRef} className="relative shrink-0">
                 <button
                   ref={messengersButtonRef}
                   type="button"
@@ -145,6 +139,11 @@ export function Header({ onLoginClick, onPriceClick }: HeaderProps) {
                   )}
                 </AnimatePresence>
               </div>
+              <nav aria-label="Основна навігація">
+                <ul className="flex items-center gap-6">
+                  {headerNavLinks.map((link) => <li key={link.href}><a href={link.href} className="inline-flex min-h-9 items-center whitespace-nowrap rounded-[6px] bg-brand/65 px-3 py-2 text-body-sm font-medium text-white transition-[background-color,transform] duration-200 hover:-translate-y-px hover:bg-brand active:scale-[0.98] focus-visible:bg-brand focus-visible:outline-offset-3 motion-reduce:transform-none">{link.label}</a></li>)}
+                </ul>
+              </nav>
             </div>
             <button type="button" aria-label={menuOpen ? 'Закрити меню' : 'Відкрити меню'} aria-expanded={menuOpen} onClick={() => setMenuOpen(true)} className="ml-auto rounded-[4px] p-2 nav:hidden">
               <span className="relative block h-5 w-6">
@@ -155,7 +154,7 @@ export function Header({ onLoginClick, onPriceClick }: HeaderProps) {
           </div>
         </div>
       </header>
-      <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} onLoginClick={onLoginClick} onPriceClick={onPriceClick} />
+      <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} onPriceClick={onPriceClick} />
     </>
   )
 }

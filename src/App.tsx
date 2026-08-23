@@ -10,12 +10,11 @@ import { Modal } from './components/ui/Modal'
 import { navLinks } from './data/nav'
 
 function App() {
-  const [loginOpen, setLoginOpen] = useState(false)
   const [priceOpen, setPriceOpen] = useState(false)
 
   return (
     <>
-      <Header onLoginClick={() => setLoginOpen(true)} onPriceClick={() => setPriceOpen(true)} />
+      <Header onPriceClick={() => setPriceOpen(true)} />
 
       <main id="top">
         <Hero onPriceClick={() => setPriceOpen(true)} />
@@ -29,10 +28,6 @@ function App() {
           return null
         })}
       </main>
-
-      <Modal open={loginOpen} onClose={() => setLoginOpen(false)} title="Увійти в кабінет">
-        <p className="measure text-body">Форма входу буде додана на наступному етапі.</p>
-      </Modal>
 
       <Modal open={priceOpen} onClose={() => setPriceOpen(false)} title="Запросити прайс">
         <PriceRequestForm onDone={() => setPriceOpen(false)} />

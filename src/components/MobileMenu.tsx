@@ -16,11 +16,10 @@ const mobileMessengerItems = [
 type MobileMenuProps = {
   open: boolean
   onClose: () => void
-  onLoginClick: () => void
   onPriceClick: () => void
 }
 
-export function MobileMenu({ open, onClose, onLoginClick, onPriceClick }: MobileMenuProps) {
+export function MobileMenu({ open, onClose, onPriceClick }: MobileMenuProps) {
   const [render, setRender] = useState(open)
   const [mounted, setMounted] = useState(false)
 
@@ -87,7 +86,6 @@ export function MobileMenu({ open, onClose, onLoginClick, onPriceClick }: Mobile
           ))}
         </div>
         <Button style={{ transitionDelay: `${40 + (navLinks.length + 1) * 40}ms` }} className={`!rounded-[6px] transition-[transform,opacity] duration-320 ease-drawer motion-reduce:transform-none motion-reduce:opacity-100 motion-reduce:transition-none ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`} onClick={() => { onClose(); onPriceClick() }}>Отримати прайс</Button>
-        <Button variant="outline" style={{ transitionDelay: `${40 + (navLinks.length + 2) * 40}ms` }} className={`transition-[transform,opacity] duration-320 ease-drawer motion-reduce:transform-none motion-reduce:opacity-100 motion-reduce:transition-none ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`} onClick={() => { onClose(); onLoginClick() }}>Увійти в кабінет</Button>
       </div>
     </div>
   )
