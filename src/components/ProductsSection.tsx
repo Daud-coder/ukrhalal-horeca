@@ -1,18 +1,19 @@
-import { ArrowUpRight } from '@phosphor-icons/react'
+import { ArrowLeft, ArrowUpRight } from '@phosphor-icons/react'
 import { motion, useReducedMotion } from 'motion/react'
 import { Fragment, useState } from 'react'
 import { categories, type Category } from '../data/categories'
-import { productsByCategory } from '../data/products'
+import { productsByCategory, type ProductItem } from '../data/products'
 import { EASE_OUT, useReveal } from '../hooks/useReveal'
 import { withBase } from '../lib/asset'
 
+const GRID_CLASSES = 'grid gap-x-[14px] gap-y-[18px] sm:grid-cols-2 lg:grid-cols-4'
+
 type ProductCardProps = Pick<Category, 'title' | 'image'> & {
   expandable: boolean
-  open: boolean
-  onToggle: () => void
+  onOpen: () => void
 }
 
-function ProductCard({ title, image, expandable, open, onToggle }: ProductCardProps) {
+function ProductCard({ title, image, expandable, onOpen }: ProductCardProps) {
   const content = (
     <>
       <div className="aspect-[1.68/1] overflow-hidden bg-[#e6e1d8]">
@@ -26,7 +27,7 @@ function ProductCard({ title, image, expandable, open, onToggle }: ProductCardPr
           size={27}
           weight="light"
           aria-hidden="true"
-          className={`shrink-0 text-[#b8883b] transition-transform duration-300 motion-reduce:transform-none ${expandable ? (open ? 'rotate-180' : '') : 'group-hover:-translate-y-1 group-hover:translate-x-1'}`}
+          className="shrink-0 text-[#b8883b] transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 motion-reduce:transform-none"
         />
       </div>
     </>
@@ -34,7 +35,7 @@ function ProductCard({ title, image, expandable, open, onToggle }: ProductCardPr
 
   if (expandable) {
     return (
-      <button type="button" onClick={onToggle} aria-expanded={open} className="group block w-full text-left active:scale-[0.99] transition-transform duration-150 focus-visible:z-10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#b78b3e] motion-reduce:transform-none">
+      <button type="button" onClick={onOpen} className="group block w-full text-left active:scale-[0.99] transition-transform duration-150 focus-visible:z-10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#b78b3e] motion-reduce:transform-none">
         {content}
       </button>
     )
@@ -47,10 +48,30 @@ function ProductCard({ title, image, expandable, open, onToggle }: ProductCardPr
   )
 }
 
+function ProductItemCard({ item }: { item: ProductItem }) {
+  return (
+    <div className="flex flex-col">
+      <div className="aspect-square overflow-hidden bg-[#e6e1d8]">
+        {item.image && (
+          <img src={withBase(item.image)} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover" />
+        )}
+      </div>
+      <div className="mt-2 bg-[#103328] px-3 py-2 text-center text-[0.92rem] font-semibold leading-snug text-white">
+        {item.name}
+      </div>
+      <div className="mt-1.5 self-center rounded-full bg-[#b8883b] px-4 py-1 text-[0.88rem] font-semibold text-white">
+        {item.price === null ? 'За запитом' : `${item.price} грн за 1 кг`}
+      </div>
+    </div>
+  )
+}
+
 function ProductsSection() {
   const reveal = useReveal()
   const reduce = useReducedMotion()
   const [openSlug, setOpenSlug] = useState<string | null>(null)
+  const openCategory = categories.find((category) => category.slug === openSlug)
+  const openSections = openSlug ? productsByCategory[openSlug] : undefined
 
   return (
     <section id="products" className="scroll-mt-24 bg-[#f3eee4] py-14 text-[#103328] md:py-20 lg:py-24">
@@ -72,61 +93,63 @@ function ProductsSection() {
           </p>
         </motion.div>
 
-        <div className="mt-12 grid gap-x-[14px] gap-y-[18px] sm:grid-cols-2 lg:mt-12 lg:grid-cols-4">
-          {categories.map((category, index) => {
-            const sections = productsByCategory[category.slug]
-            const isOpen = openSlug === category.slug
-            return (
-              <Fragment key={category.slug}>
-                <motion.div {...reveal(index * 0.05)} className={`relative ${index % 2 !== 1 ? 'after:absolute after:-right-[7px] after:inset-y-0 after:w-px after:bg-[#17392c] sm:after:content-[\"\"]' : ''} ${index % 4 !== 3 ? 'lg:after:absolute lg:after:-right-[7px] lg:after:inset-y-0 lg:after:w-px lg:after:bg-[#17392c] lg:after:content-[\"\"]' : 'lg:after:content-none'}`}>
-                  <ProductCard
-                    title={category.title}
-                    image={category.image}
-                    expandable={!!sections}
-                    open={isOpen}
-                    onToggle={() => setOpenSlug((prev) => (prev === category.slug ? null : category.slug))}
-                  />
-                </motion.div>
-                {sections && isOpen && (
-                  <motion.div
-                    initial={reduce ? { opacity: 0 } : { opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
-                    transition={{ duration: 0.25, ease: EASE_OUT }}
-                    className="col-span-full overflow-hidden"
-                  >
-                    <div className="rounded-[8px] border border-[#17392c]/15 bg-white/70 p-4 sm:p-6">
-                      <p className="mb-4 text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-[#a77b32]">Ціни вказані за 1 кг</p>
-                      {sections.map((section, sectionIndex) => (
-                        <div key={section.label ?? sectionIndex} className={sectionIndex > 0 ? 'mt-6' : ''}>
-                          {section.label && (
-                            <h4 className="mb-2 text-[0.78rem] font-semibold uppercase tracking-[0.15em] text-[#103328]/70">{section.label}</h4>
-                          )}
-                          <ul>
-                            {section.items.map((item) => (
-                              <li key={item.name} className="flex items-center justify-between gap-3 border-b border-[#17392c]/10 py-3 last:border-b-0">
-                                <div className="flex min-w-0 items-center gap-3">
-                                  {item.image ? (
-                                    <img src={withBase(item.image)} alt="" className="size-[72px] shrink-0 rounded-[6px] bg-[#e6e1d8] object-cover" />
-                                  ) : (
-                                    <div className="size-[72px] shrink-0 rounded-[6px] bg-[#e6e1d8]" aria-hidden="true" />
-                                  )}
-                                  <span className="truncate text-[1rem] text-[#103328]">{item.name}</span>
-                                </div>
-                                <span className={`shrink-0 whitespace-nowrap text-[1rem] ${item.price === null ? 'italic text-[#3f4d47]/70' : 'font-semibold text-[#103328]'}`}>
-                                  {item.price === null ? 'За запитом' : `${item.price} грн`}
-                                </span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      ))}
-                    </div>
-                  </motion.div>
+        {openCategory && openSections ? (
+          <motion.div
+            key={openCategory.slug}
+            initial={reduce ? { opacity: 0 } : { opacity: 0, transform: 'translateY(8px)' }}
+            animate={{ opacity: 1, transform: 'translateY(0px)' }}
+            transition={{ duration: 0.22, ease: EASE_OUT }}
+            className="mt-12"
+          >
+            <div className="mb-6 flex items-center gap-4">
+              <button
+                type="button"
+                onClick={() => setOpenSlug(null)}
+                className="flex min-h-9 items-center gap-2 whitespace-nowrap rounded-[6px] bg-[#103328] px-3 py-2 text-body-sm font-semibold text-white transition-[background-color,transform] duration-200 hover:-translate-y-px hover:bg-[#17392c] active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#b78b3e] motion-reduce:transform-none"
+              >
+                <ArrowLeft size={18} weight="bold" aria-hidden="true" />
+                Назад
+              </button>
+              <p className="text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-[#a77b32]">Ціни вказані за 1 кг</p>
+            </div>
+
+            {openSections.map((section, sectionIndex) => (
+              <div key={section.label ?? sectionIndex} className={sectionIndex > 0 ? 'mt-8' : ''}>
+                {section.label && (
+                  <h4 className="mb-3 text-[0.85rem] font-semibold uppercase tracking-[0.15em] text-[#103328]/70">{section.label}</h4>
                 )}
-              </Fragment>
-            )
-          })}
-        </div>
+                <div className={GRID_CLASSES}>
+                  {section.items.map((item) => (
+                    <ProductItemCard key={item.name} item={item} />
+                  ))}
+                </div>
+              </div>
+            ))}
+          </motion.div>
+        ) : (
+          <motion.div
+            initial={reduce ? { opacity: 0 } : { opacity: 0, transform: 'translateY(8px)' }}
+            animate={{ opacity: 1, transform: 'translateY(0px)' }}
+            transition={{ duration: 0.22, ease: EASE_OUT }}
+            className={`mt-12 ${GRID_CLASSES} lg:mt-12`}
+          >
+            {categories.map((category, index) => {
+              const sections = productsByCategory[category.slug]
+              return (
+                <Fragment key={category.slug}>
+                  <motion.div {...reveal(index * 0.05)} className={`relative ${index % 2 !== 1 ? 'after:absolute after:-right-[7px] after:inset-y-0 after:w-px after:bg-[#17392c] sm:after:content-[\"\"]' : ''} ${index % 4 !== 3 ? 'lg:after:absolute lg:after:-right-[7px] lg:after:inset-y-0 lg:after:w-px lg:after:bg-[#17392c] lg:after:content-[\"\"]' : 'lg:after:content-none'}`}>
+                    <ProductCard
+                      title={category.title}
+                      image={category.image}
+                      expandable={!!sections}
+                      onOpen={() => setOpenSlug(category.slug)}
+                    />
+                  </motion.div>
+                </Fragment>
+              )
+            })}
+          </motion.div>
+        )}
       </div>
     </section>
   )
