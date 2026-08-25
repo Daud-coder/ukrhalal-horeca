@@ -60,7 +60,7 @@ function ProductItemCard({ item }: { item: ProductItem }) {
         {item.name}
       </div>
       <div className="mt-1.5 self-center rounded-full bg-[#b8883b] px-4 py-1 text-[0.88rem] font-semibold text-white">
-        {item.price === null ? 'За запитом' : `${item.price} грн за 1 кг`}
+        {item.price === null ? 'За запитом' : item.unit ? `${item.price} грн/${item.unit}` : `${item.price} грн за 1 кг`}
       </div>
     </div>
   )
@@ -110,7 +110,11 @@ function ProductsSection() {
                 <ArrowLeft size={18} weight="bold" aria-hidden="true" />
                 Назад
               </button>
-              <p className="text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-[#a77b32]">Ціни вказані за 1 кг</p>
+              <p className="text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-[#a77b32]">
+                {openSections.some((section) => section.items.some((item) => item.unit))
+                  ? 'Одиниця вказана під ціною'
+                  : 'Ціни вказані за 1 кг'}
+              </p>
             </div>
 
             {openSections.map((section, sectionIndex) => (
