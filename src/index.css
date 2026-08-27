@@ -221,6 +221,50 @@ h4 {
   }
 }
 
+@keyframes partner-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.partner-marquee-track {
+  animation: partner-marquee 42s linear infinite;
+}
+
+.partner-marquee:hover .partner-marquee-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .partner-marquee-track {
+    animation: none;
+  }
+}
+
+.image-lens-hit {
+  pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .image-lens-hit {
+    pointer-events: auto;
+  }
+}
+
+.image-lens {
+  opacity: 0;
+  transition: opacity 150ms var(--ease-out), transform 150ms var(--ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .image-lens {
+    transition: none;
+  }
+}
+
 @media (min-width: 1024px) {
   .about-year-slot {
     height: clamp(22.5rem, 31vw, 27rem);

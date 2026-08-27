@@ -1,7 +1,7 @@
-import { ArrowUpRight, FacebookLogo, InstagramLogo, TiktokLogo } from '@phosphor-icons/react'
+import { ArrowUpRight, FacebookLogo, InstagramLogo, TelegramLogo, TiktokLogo } from '@phosphor-icons/react'
 import { motion } from 'motion/react'
 import { contacts } from '../data/contacts'
-import { useReveal } from '../hooks/useReveal'
+import { useRevealCascade } from '../hooks/useReveal'
 import { withBase } from '../lib/asset'
 
 const socialPlaceholders = [
@@ -29,7 +29,7 @@ const socialPlaceholders = [
 ]
 
 function ContactSection() {
-  const reveal = useReveal()
+  const cascade = useRevealCascade(0.18, 0.08)
 
   return (
     <section id="contact" className="scroll-mt-24 overflow-hidden bg-ink py-5 text-white sm:py-7 lg:py-9">
@@ -37,8 +37,8 @@ function ContactSection() {
         <div className="relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.02] shadow-[0_20px_65px_rgba(0,0,0,0.35)]">
           <span className="pointer-events-none absolute inset-4 rounded-[1rem] border border-white/8" aria-hidden="true" />
 
-          <div className="grid lg:grid-cols-[1.12fr_1fr_0.72fr]">
-            <motion.figure {...reveal()} className="relative flex min-h-[280px] flex-col items-center justify-center overflow-hidden px-4 pb-10 pt-8 sm:min-h-[360px] sm:px-8 lg:min-h-0 lg:px-4 lg:pb-10 lg:pt-9">
+          <motion.div {...cascade.container} className="grid lg:grid-cols-[1.12fr_1fr_0.72fr]">
+            <motion.figure {...cascade.item} className="relative flex min-h-[280px] flex-col items-center justify-center overflow-hidden px-4 pb-10 pt-8 sm:min-h-[360px] sm:px-8 lg:min-h-0 lg:px-4 lg:pb-10 lg:pt-9">
               <span
                 aria-hidden="true"
                 className="pointer-events-none absolute left-1/2 top-1/2 h-[78%] w-[90%] -translate-x-1/2 -translate-y-1/2 opacity-90 blur-[50px]"
@@ -48,7 +48,7 @@ function ContactSection() {
                 }}
               />
               <p className="relative z-10 mb-3 max-w-[19rem] text-center text-[0.72rem] font-semibold uppercase leading-snug tracking-[0.13em] text-white/80">
-                Обслуговуємо <span className="text-[#b78b3e]">200+</span> закладів по всій Україні
+                Основна зона власної логістики — <span className="text-[#b78b3e]">Київ і найближча область</span>. Постачання в інші регіони узгоджуємо окремо
               </p>
               <img
                 src={withBase('/images/ukraine-map-cutout.webp')}
@@ -62,16 +62,16 @@ function ContactSection() {
               </figcaption>
             </motion.figure>
 
-            <motion.div {...reveal(0.08)} className="relative flex flex-col justify-center border-t border-white/12 px-7 py-8 sm:px-12 sm:py-10 lg:border-l lg:border-t-0 lg:px-[clamp(2.25rem,3vw,3.4rem)] lg:py-9">
+            <motion.div {...cascade.item} className="relative flex flex-col justify-center border-t border-white/12 px-7 py-8 sm:px-12 sm:py-10 lg:border-l lg:border-t-0 lg:px-[clamp(2.25rem,3vw,3.4rem)] lg:py-9">
               <div className="flex items-center gap-4 text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-[#b78b3e]">
                 <span className="h-px w-12 bg-[#b78b3e]" aria-hidden="true" />
                 Контакти
               </div>
-              <h2 className="mt-5 max-w-[11ch] text-[clamp(2.15rem,2.9vw,2.9rem)] font-light uppercase leading-[0.96] tracking-[-0.015em] text-white" style={{ fontFamily: "'Alumni Sans', sans-serif" }}>
-                Обговоріть умови співпраці HoReCa
+              <h2 className="mt-5 max-w-[15ch] text-[clamp(2.15rem,2.9vw,2.9rem)] font-light uppercase leading-[0.96] tracking-[-0.015em] text-white" style={{ fontFamily: "'Alumni Sans', sans-serif" }}>
+                Отримайте пропозицію під ваше меню
               </h2>
               <p className="mt-3 max-w-[29rem] text-[0.86rem] leading-[1.6] text-white/60">
-                Зателефонуйте — підберемо асортимент, формат обробки та зручний графік постачання для вашого закладу.
+                Розкажіть, які позиції та обсяги потрібні вашому закладу. Підберемо продукцію, погодимо формат обробки, документи й графік постачання.
               </p>
 
               <div className="mt-6 border-t border-[#b78b3e]/70">
@@ -84,9 +84,17 @@ function ContactSection() {
                   </a>
                 ))}
               </div>
+
+              <a href={contacts.telegram} target="_blank" rel="noopener noreferrer" className="group mt-5 inline-flex min-h-12 w-fit items-center gap-3 rounded-[6px] bg-brand px-6 py-3 text-body-sm font-semibold text-white transition-colors duration-200 hover:bg-brand-dark">
+                <TelegramLogo size={19} weight="fill" aria-hidden="true" className="shrink-0" />
+                Написати менеджеру
+              </a>
+              <p className="mt-3 max-w-[29rem] text-[0.72rem] leading-[1.5] text-white/45">
+                Для розрахунку достатньо переліку позицій та орієнтовних обсягів.
+              </p>
             </motion.div>
 
-            <motion.aside {...reveal(0.14)} className="relative flex flex-col justify-center border-t border-white/12 px-7 py-8 sm:px-12 sm:py-10 lg:border-l lg:border-t-0 lg:px-[clamp(1.75rem,2.3vw,2.5rem)] lg:py-9" aria-label="Соціальні мережі">
+            <motion.aside {...cascade.item} className="relative flex flex-col justify-center border-t border-white/12 px-7 py-8 sm:px-12 sm:py-10 lg:border-l lg:border-t-0 lg:px-[clamp(1.75rem,2.3vw,2.5rem)] lg:py-9" aria-label="Соціальні мережі">
               <div className="flex items-center gap-4 text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-[#b78b3e]">
                 <span className="h-px w-12 bg-[#b78b3e]" aria-hidden="true" />
                 Ми онлайн
@@ -109,7 +117,7 @@ function ContactSection() {
               </div>
               <p className="mt-4 text-[0.62rem] uppercase tracking-[0.18em] text-white/35">Посилання будуть додані</p>
             </motion.aside>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

@@ -3,8 +3,9 @@ import { motion, useReducedMotion } from 'motion/react'
 import { Fragment, useState } from 'react'
 import { categories, type Category } from '../data/categories'
 import { productsByCategory, type ProductItem } from '../data/products'
-import { EASE_OUT, useReveal } from '../hooks/useReveal'
+import { EASE_OUT, useReveal, useRevealCascade } from '../hooks/useReveal'
 import { withBase } from '../lib/asset'
+import ImageLens from './ImageLens'
 
 const GRID_CLASSES = 'grid gap-x-[14px] gap-y-[18px] sm:grid-cols-2 lg:grid-cols-4'
 
@@ -51,9 +52,12 @@ function ProductCard({ title, image, expandable, onOpen }: ProductCardProps) {
 function ProductItemCard({ item }: { item: ProductItem }) {
   return (
     <div className="flex flex-col">
-      <div className="aspect-square overflow-hidden bg-[#e6e1d8]">
+      <div className="relative aspect-square overflow-hidden bg-[#e6e1d8]">
         {item.image && (
-          <img src={withBase(item.image)} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover" />
+          <>
+            <img src={withBase(item.image)} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover" />
+            <ImageLens src={withBase(item.image)} zoom={2.4} size={110} />
+          </>
         )}
       </div>
       <div className="mt-2 bg-[#103328] px-3 py-2 text-center text-[0.92rem] font-semibold leading-snug text-white">
@@ -68,13 +72,14 @@ function ProductItemCard({ item }: { item: ProductItem }) {
 
 function ProductsSection() {
   const reveal = useReveal()
+  const cascade = useRevealCascade()
   const reduce = useReducedMotion()
   const [openSlug, setOpenSlug] = useState<string | null>(null)
   const openCategory = categories.find((category) => category.slug === openSlug)
   const openSections = openSlug ? productsByCategory[openSlug] : undefined
 
   return (
-    <section id="products" className="scroll-mt-24 bg-[#f3eee4] py-14 text-[#103328] md:py-20 lg:py-24">
+    <section id="products" className="scroll-mt-24 bg-[#f3eee4] pb-14 pt-6 text-[#103328] md:pb-20 md:pt-8 lg:pb-24 lg:pt-10">
       <div className="mx-auto w-full max-w-[1500px] px-5 sm:px-7 lg:px-10">
         <motion.div {...reveal()} className="grid gap-8 lg:grid-cols-[minmax(0,1.78fr)_minmax(280px,0.52fr)] lg:items-end lg:gap-14">
           <div>
@@ -89,7 +94,7 @@ function ProductsSection() {
             </div>
           </div>
           <p className="max-w-[430px] border-l border-[#b8883b] py-1 pl-6 text-[clamp(1rem,1.35vw,1.28rem)] leading-[1.55] text-[#3f4d47] lg:mb-2">
-            Відібрані відруби та м’ясні вироби для стабільної якості страв у ресторанах, готелях і закладах громадського харчування.
+            М’ясо та м’ясні вироби для професійної кухні. Допоможемо підібрати позиції, формат обробки й фасування відповідно до вашого меню.
           </p>
         </motion.div>
 
@@ -122,36 +127,41 @@ function ProductsSection() {
                 {section.label && (
                   <h4 className="mb-3 text-[0.85rem] font-semibold uppercase tracking-[0.15em] text-[#103328]/70">{section.label}</h4>
                 )}
-                <div className={GRID_CLASSES}>
+                <motion.div {...cascade.container} className={GRID_CLASSES}>
                   {section.items.map((item) => (
-                    <ProductItemCard key={item.name} item={item} />
+                    <motion.div {...cascade.item} key={item.name}>
+                      <ProductItemCard item={item} />
+                    </motion.div>
                   ))}
-                </div>
+                </motion.div>
               </div>
             ))}
           </motion.div>
         ) : (
           <motion.div
+            key="grid"
             initial={reduce ? { opacity: 0 } : { opacity: 0, transform: 'translateY(8px)' }}
             animate={{ opacity: 1, transform: 'translateY(0px)' }}
             transition={{ duration: 0.22, ease: EASE_OUT }}
-            className={`mt-12 ${GRID_CLASSES} lg:mt-12`}
+            className="mt-12 lg:mt-12"
           >
-            {categories.map((category, index) => {
-              const sections = productsByCategory[category.slug]
-              return (
-                <Fragment key={category.slug}>
-                  <motion.div {...reveal(index * 0.05)} className={`relative ${index % 2 !== 1 ? 'after:absolute after:-right-[7px] after:inset-y-0 after:w-px after:bg-[#17392c] sm:after:content-[\"\"]' : ''} ${index % 4 !== 3 ? 'lg:after:absolute lg:after:-right-[7px] lg:after:inset-y-0 lg:after:w-px lg:after:bg-[#17392c] lg:after:content-[\"\"]' : 'lg:after:content-none'}`}>
-                    <ProductCard
-                      title={category.title}
-                      image={category.image}
-                      expandable={!!sections}
-                      onOpen={() => setOpenSlug(category.slug)}
-                    />
-                  </motion.div>
-                </Fragment>
-              )
-            })}
+            <motion.div {...cascade.container} className={GRID_CLASSES}>
+              {categories.map((category, index) => {
+                const sections = productsByCategory[category.slug]
+                return (
+                  <Fragment key={category.slug}>
+                    <motion.div {...cascade.item} className={`relative ${index % 2 !== 1 ? 'after:absolute after:-right-[7px] after:inset-y-0 after:w-px after:bg-[#17392c] sm:after:content-[\"\"]' : ''} ${index % 4 !== 3 ? 'lg:after:absolute lg:after:-right-[7px] lg:after:inset-y-0 lg:after:w-px lg:after:bg-[#17392c] lg:after:content-[\"\"]' : 'lg:after:content-none'}`}>
+                      <ProductCard
+                        title={category.title}
+                        image={category.image}
+                        expandable={!!sections}
+                        onOpen={() => setOpenSlug(category.slug)}
+                      />
+                    </motion.div>
+                  </Fragment>
+                )
+              })}
+            </motion.div>
           </motion.div>
         )}
       </div>

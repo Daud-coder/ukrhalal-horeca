@@ -10,14 +10,14 @@ const trustItems = [
   },
   {
     icon: Truck,
-    title: 'Своя логістика',
-    description: 'Оперативна доставка',
+    title: 'Власна логістика',
+    description: 'Контроль доставки',
     tabular: false,
   },
   {
     icon: Handshake,
-    title: 'Індивідуальний підхід',
-    description: 'До кожного закладу',
+    title: 'Персональний менеджер',
+    description: 'Швидка відповідь на запити',
     tabular: false,
   },
 ]
