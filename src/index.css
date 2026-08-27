@@ -238,6 +238,27 @@ h4 {
   animation-play-state: paused;
 }
 
+@keyframes card-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card-reveal {
+  animation: card-reveal 0.5s var(--ease-drawer) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-reveal {
+    animation: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .partner-marquee-track {
     animation: none;

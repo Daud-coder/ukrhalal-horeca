@@ -1,9 +1,9 @@
 import { ArrowLeft, ArrowUpRight } from '@phosphor-icons/react'
-import { motion, useReducedMotion } from 'motion/react'
+import { motion } from 'motion/react'
 import { Fragment, useState } from 'react'
 import { categories, type Category } from '../data/categories'
 import { productsByCategory, type ProductItem } from '../data/products'
-import { EASE_OUT, useReveal, useRevealCascade } from '../hooks/useReveal'
+import { useReveal } from '../hooks/useReveal'
 import { withBase } from '../lib/asset'
 import ImageLens from './ImageLens'
 
@@ -72,8 +72,6 @@ function ProductItemCard({ item }: { item: ProductItem }) {
 
 function ProductsSection() {
   const reveal = useReveal()
-  const cascade = useRevealCascade()
-  const reduce = useReducedMotion()
   const [openSlug, setOpenSlug] = useState<string | null>(null)
   const openCategory = categories.find((category) => category.slug === openSlug)
   const openSections = openSlug ? productsByCategory[openSlug] : undefined
@@ -99,13 +97,7 @@ function ProductsSection() {
         </motion.div>
 
         {openCategory && openSections ? (
-          <motion.div
-            key={openCategory.slug}
-            initial={reduce ? { opacity: 0 } : { opacity: 0, transform: 'translateY(8px)' }}
-            animate={{ opacity: 1, transform: 'translateY(0px)' }}
-            transition={{ duration: 0.22, ease: EASE_OUT }}
-            className="mt-12"
-          >
+          <div key={openCategory.slug} className="mt-12">
             <div className="mb-6 flex items-center gap-4">
               <button
                 type="button"
@@ -127,42 +119,36 @@ function ProductsSection() {
                 {section.label && (
                   <h4 className="mb-3 text-[0.85rem] font-semibold uppercase tracking-[0.15em] text-[#103328]/70">{section.label}</h4>
                 )}
-                <motion.div {...cascade.container} className={GRID_CLASSES}>
-                  {section.items.map((item) => (
-                    <motion.div {...cascade.item} key={item.name}>
+                <div className={GRID_CLASSES}>
+                  {section.items.map((item, itemIndex) => (
+                    <div key={item.name} className="card-reveal" style={{ animationDelay: `${Math.min(itemIndex, 12) * 40}ms` }}>
                       <ProductItemCard item={item} />
-                    </motion.div>
+                    </div>
                   ))}
-                </motion.div>
+                </div>
               </div>
             ))}
-          </motion.div>
+          </div>
         ) : (
-          <motion.div
-            key="grid"
-            initial={reduce ? { opacity: 0 } : { opacity: 0, transform: 'translateY(8px)' }}
-            animate={{ opacity: 1, transform: 'translateY(0px)' }}
-            transition={{ duration: 0.22, ease: EASE_OUT }}
-            className="mt-12 lg:mt-12"
-          >
-            <motion.div {...cascade.container} className={GRID_CLASSES}>
+          <div key="grid" className="mt-12 lg:mt-12">
+            <div className={GRID_CLASSES}>
               {categories.map((category, index) => {
                 const sections = productsByCategory[category.slug]
                 return (
                   <Fragment key={category.slug}>
-                    <motion.div {...cascade.item} className={`relative ${index % 2 !== 1 ? 'after:absolute after:-right-[7px] after:inset-y-0 after:w-px after:bg-[#17392c] sm:after:content-[\"\"]' : ''} ${index % 4 !== 3 ? 'lg:after:absolute lg:after:-right-[7px] lg:after:inset-y-0 lg:after:w-px lg:after:bg-[#17392c] lg:after:content-[\"\"]' : 'lg:after:content-none'}`}>
+                    <div className={`card-reveal relative ${index % 2 !== 1 ? 'after:absolute after:-right-[7px] after:inset-y-0 after:w-px after:bg-[#17392c] sm:after:content-[\"\"]' : ''} ${index % 4 !== 3 ? 'lg:after:absolute lg:after:-right-[7px] lg:after:inset-y-0 lg:after:w-px lg:after:bg-[#17392c] lg:after:content-[\"\"]' : 'lg:after:content-none'}`} style={{ animationDelay: `${index * 40}ms` }}>
                       <ProductCard
                         title={category.title}
                         image={category.image}
                         expandable={!!sections}
                         onOpen={() => setOpenSlug(category.slug)}
                       />
-                    </motion.div>
+                    </div>
                   </Fragment>
                 )
               })}
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         )}
       </div>
     </section>
