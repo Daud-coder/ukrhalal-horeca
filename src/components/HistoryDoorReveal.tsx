@@ -1,7 +1,24 @@
 import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from 'motion/react'
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useReveal, useRevealCascade } from '../hooks/useReveal'
 import { DoorCornerFlourish } from './icons/DoorCornerFlourish'
+
+const DESKTOP_QUERY = '(min-width: 1024px)'
+
+/** The door mechanism is scroll-jacked and only ever shown at `lg` (`hidden lg:block`) — below that, skip straight to the static layout instead of driving unused motion values. */
+function useIsDesktop() {
+  const [isDesktop, setIsDesktop] = useState(() => (typeof window === 'undefined' ? true : window.matchMedia(DESKTOP_QUERY).matches))
+
+  useEffect(() => {
+    const mql = window.matchMedia(DESKTOP_QUERY)
+    const onChange = () => setIsDesktop(mql.matches)
+    onChange()
+    mql.addEventListener('change', onChange)
+    return () => mql.removeEventListener('change', onChange)
+  }, [])
+
+  return isDesktop
+}
 
 const milestones = [
   {
@@ -90,6 +107,7 @@ function Timeline({ motionStyles }: { motionStyles?: MilestoneMotionStyle[] }) {
 
 function HistoryDoorReveal() {
   const reduce = useReducedMotion()
+  const isDesktop = useIsDesktop()
   const reveal = useReveal()
   const wrapperRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({ target: wrapperRef, offset: ['start start', 'end end'] })
@@ -112,7 +130,7 @@ function HistoryDoorReveal() {
     { opacity: m3Opacity, y: m3Y, scale: m3Scale },
   ]
 
-  if (reduce) {
+  if (reduce || !isDesktop) {
     return (
       <div className="grid gap-10 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1.18fr)_minmax(0,1.22fr)] lg:gap-[clamp(1.75rem,2.5vw,3rem)]">
         <motion.div {...reveal(0.05)} className="about-year-slot self-start" aria-label="2011 рік">
