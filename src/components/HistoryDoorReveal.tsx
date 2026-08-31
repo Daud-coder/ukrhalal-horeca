@@ -86,7 +86,7 @@ function Timeline({ motionStyles }: { motionStyles?: MilestoneMotionStyle[] }) {
           style={motionStyles ? { opacity: motionStyles[index].opacity, y: motionStyles[index].y, scale: motionStyles[index].scale } : undefined}
           className={`relative grid gap-2 py-5 sm:grid-cols-[7.5rem_1fr] sm:gap-6 ${index > 0 ? 'border-t border-[#b08a4a]' : ''}`}
         >
-          <span className="absolute -left-[2.27rem] top-8 size-4 rounded-full border-[4px] border-[#b08a4a] bg-[#f4efe5] sm:-left-[3.27rem] lg:-left-[2.48rem]" aria-hidden="true" />
+          <span className="absolute -left-[1.2rem] top-8 size-4 rounded-full border-[4px] border-[#b08a4a] bg-[#f4efe5] sm:-left-[1.8rem] lg:-left-[2.48rem]" aria-hidden="true" />
           <p
             className="tabular text-[clamp(4.75rem,7.5vw,7rem)] font-extralight leading-[0.8] tracking-[-0.03em] text-[#0d2d21]"
             style={{ fontFamily: "'Alumni Sans', sans-serif" }}
@@ -132,7 +132,7 @@ function HistoryDoorReveal() {
 
   if (reduce || !isDesktop) {
     return (
-      <div className="grid gap-10 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1.18fr)_minmax(0,1.22fr)] lg:gap-[clamp(1.75rem,2.5vw,3rem)]">
+      <div className="mx-auto grid w-full max-w-[1440px] gap-10 px-6 sm:px-10 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1.18fr)_minmax(0,1.22fr)] lg:gap-[clamp(1.75rem,2.5vw,3rem)] lg:px-[clamp(3rem,4vw,4.25rem)]">
         <motion.div {...reveal(0.05)} className="about-year-slot self-start" aria-label="2011 рік">
           <p
             className="about-year tabular text-[clamp(9rem,14vw,16rem)] font-light leading-[0.76] tracking-[-0.07em] text-[#0d2d21]"
