@@ -152,6 +152,12 @@ export function Header({ onPriceClick }: HeaderProps) {
               </span>
             </button>
           </div>
+          <nav aria-label="Швидка навігація" className="flex gap-2 overflow-x-auto px-5 pb-3 sm:px-6 nav:hidden [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            <a href="#about" className="inline-flex min-h-8 shrink-0 items-center whitespace-nowrap rounded-[6px] bg-brand/65 px-3 py-1.5 text-caption font-medium text-white transition-colors duration-200 active:bg-brand focus-visible:bg-brand">Про нас</a>
+            <a href="#products" className="inline-flex min-h-8 shrink-0 items-center whitespace-nowrap rounded-[6px] bg-brand/65 px-3 py-1.5 text-caption font-medium text-white transition-colors duration-200 active:bg-brand focus-visible:bg-brand">HoReCa продукція</a>
+            <button type="button" onClick={onPriceClick} className="inline-flex min-h-8 shrink-0 items-center whitespace-nowrap rounded-[6px] bg-brand/65 px-3 py-1.5 text-caption font-semibold text-white transition-colors duration-200 active:bg-brand focus-visible:bg-brand">Прайс</button>
+            <a href="#contact" className="inline-flex min-h-8 shrink-0 items-center whitespace-nowrap rounded-[6px] bg-brand/65 px-3 py-1.5 text-caption font-medium text-white transition-colors duration-200 active:bg-brand focus-visible:bg-brand">Месенджери</a>
+          </nav>
         </div>
       </header>
       <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} onPriceClick={onPriceClick} />

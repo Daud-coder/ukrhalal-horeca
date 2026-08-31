@@ -43,7 +43,7 @@ function Hero({ onPriceClick }: HeroProps) {
         <div className="absolute inset-0 bg-[linear-gradient(270deg,rgba(7,18,13,0.78)_0%,rgba(7,18,13,0.42)_24%,rgba(7,18,13,0)_44%),linear-gradient(90deg,rgba(7,18,13,0.42)_0%,rgba(7,18,13,0.28)_42%,rgba(7,18,13,0.08)_74%,rgba(7,18,13,0.04)_100%)] max-md:bg-[linear-gradient(180deg,rgba(7,18,13,0.58)_0%,rgba(7,18,13,0.42)_58%,rgba(7,18,13,0.65)_100%)]" />
       </div>
 
-      <div className="relative flex w-full flex-col px-5 pb-0 pt-32 sm:px-6 md:pt-36 lg:px-8 lg:pt-40">
+      <div className="relative flex w-full flex-col px-5 pb-0 pt-40 sm:px-6 lg:px-8 nav:pt-40">
         <div className="relative flex flex-1 flex-col justify-center gap-12 pb-12 md:block lg:pb-24">
           <div className="min-w-0 md:max-w-[62%]">
             <motion.p {...rise(0)} className="relative -top-6 text-[clamp(1.5rem,2.2vw,2rem)] font-black italic leading-none tracking-[0.09em] text-[#2f9855] drop-shadow-[0_2px_12px_rgba(4,18,11,0.98)]">УКРХАЛЯЛЬ · HoReCa</motion.p>
