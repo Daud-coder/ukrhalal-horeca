@@ -5,7 +5,15 @@ import { withBase } from '../lib/asset'
 
 type HeroProps = { onPriceClick: () => void }
 
-const categoryLinks = ['Яловичина', 'Баранина', 'Курка', 'Стейки', 'Індичка', 'Ковбасні вироби', 'Напівфабрикати']
+const categoryLinks = [
+  { label: 'Яловичина', slug: 'beef' },
+  { label: 'Баранина', slug: 'lamb' },
+  { label: 'Курка', slug: 'chicken' },
+  { label: 'Стейки', slug: 'steaks' },
+  { label: 'Індичка', slug: 'turkey' },
+  { label: 'Ковбасні вироби', slug: 'sausages' },
+  { label: 'Напівфабрикати', slug: 'semi' },
+]
 const railItems = [
   { label: 'HORECA', Icon: ForkKnife },
   { label: 'КИЇВ ТА ОБЛАСТЬ', Icon: MapPin },
@@ -53,9 +61,17 @@ function Hero({ onPriceClick }: HeroProps) {
 
           <nav aria-label="Категорії продукції" className="min-w-0 md:absolute md:right-[-16px] md:top-0 md:w-[260px] lg:w-[320px]">
             <ul className="grid grid-cols-1 gap-x-8 min-[560px]:grid-cols-2 md:grid-cols-1">
-              {categoryLinks.map((label, index) => (
+              {categoryLinks.map(({ label, slug }, index) => (
                 <motion.li {...rise(0.24 + index * 0.045)} key={label}>
-                  <a href="#products" className="group flex min-h-12 items-center justify-between gap-4 border-b border-white/40 py-3 font-display text-[clamp(1.1rem,1.9vw,1.55rem)] font-medium tracking-[-0.02em] text-white drop-shadow-[0_2px_6px_rgba(0,0,0,0.95)] transition-[color,border-color] duration-200 hover:border-[#63c779] hover:text-white focus-visible:border-[#63c779] focus-visible:text-white focus-visible:outline-white">
+                  <a
+                    href={`#products-${slug}`}
+                    onClick={(e) => {
+                      e.preventDefault()
+                      window.location.hash = `products-${slug}`
+                      document.getElementById('products')?.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' })
+                    }}
+                    className="group flex min-h-12 items-center justify-between gap-4 border-b border-white/40 py-3 font-display text-[clamp(1.1rem,1.9vw,1.55rem)] font-medium tracking-[-0.02em] text-white drop-shadow-[0_2px_6px_rgba(0,0,0,0.95)] transition-[color,border-color] duration-200 hover:border-[#63c779] hover:text-white focus-visible:border-[#63c779] focus-visible:text-white focus-visible:outline-white"
+                  >
                     <span className="origin-left transition-transform duration-200 ease-out group-hover:scale-[1.055] group-focus-visible:scale-[1.055] motion-reduce:transform-none">{label}</span>
                     <ArrowRight size={18} weight="light" aria-hidden="true" className="shrink-0 text-white transition-[color,transform] duration-200 group-hover:translate-x-1 group-hover:text-[#63c779] group-focus-visible:translate-x-1 group-focus-visible:text-[#63c779] motion-reduce:transform-none" />
                   </a>

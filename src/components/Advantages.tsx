@@ -46,12 +46,15 @@ function Advantages() {
               <motion.article
                 {...cascade.item}
                 key={item.title}
-                className={`border-[#285b45] py-8 lg:min-h-[200px] lg:px-[clamp(1.5rem,2.5vw,3rem)] lg:py-8 ${index > 0 ? 'border-t' : ''} ${index === 1 ? 'lg:border-t-0' : ''} ${index % 2 === 1 ? 'lg:border-l' : ''}`}
+                className={`border-[#285b45] py-8 lg:min-h-[218px] lg:px-[clamp(1.5rem,2.5vw,3rem)] lg:py-8 ${index > 0 ? 'border-t' : ''} ${index === 1 ? 'lg:border-t-0' : ''} ${index % 2 === 1 ? 'lg:border-l' : ''}`}
               >
-                <p className="tabular text-[clamp(3.2rem,4.2vw,5.25rem)] font-light leading-[0.8] tracking-[-0.02em] text-[#175239]" style={{ fontFamily: "'Alumni Sans', sans-serif" }}>
+                <p
+                  className="tabular text-[clamp(4rem,6vw,5.75rem)] font-extralight leading-[0.8] tracking-[-0.03em] text-[#0d2d21]"
+                  style={{ fontFamily: "'Alumni Sans', sans-serif", fontVariationSettings: "'wght' 200" }}
+                >
                   {String(index + 1).padStart(2, '0')}
                 </p>
-                <h3 className="mt-6 max-w-[22rem] text-[clamp(1.35rem,1.65vw,1.7rem)] font-semibold uppercase leading-[0.98] tracking-[0.005em] text-ink" style={{ fontFamily: "'Alumni Sans', sans-serif" }}>
+                <h3 className="mt-7 max-w-[22rem] text-[clamp(1.35rem,1.65vw,1.7rem)] font-semibold uppercase leading-[0.98] tracking-[0.005em] text-ink" style={{ fontFamily: "'Alumni Sans', sans-serif" }}>
                   {item.title}
                 </h3>
                 <p className="mt-4 max-w-[24rem] text-body-sm text-ink-muted">{item.description}</p>

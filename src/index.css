@@ -288,7 +288,7 @@ h4 {
 
 @media (min-width: 1024px) {
   .about-year-slot {
-    height: clamp(22.5rem, 31vw, 27rem);
+    height: clamp(24rem, 32vw, 29rem);
     overflow: visible;
   }
 
@@ -297,7 +297,7 @@ h4 {
     width: max-content;
     font-size: clamp(20rem, 26vw, 25rem);
     line-height: 0.76;
-    transform: scaleX(0.44) scaleY(1.38);
+    transform: scaleX(0.44) scaleY(1.5);
     transform-origin: left top;
     white-space: nowrap;
   }

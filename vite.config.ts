@@ -8,4 +8,7 @@ export default defineConfig(({ command }) => ({
   // (daud-coder.github.io/ukrhalal-horeca/); dev server keeps serving from root.
   base: command === 'build' ? '/ukrhalal-horeca/' : '/',
   plugins: [react(), tailwindcss()],
+  server: {
+    port: process.env.PORT ? Number(process.env.PORT) : 5173,
+  },
 }))

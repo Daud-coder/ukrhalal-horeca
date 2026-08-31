@@ -1,6 +1,6 @@
 import { ArrowLeft, ArrowUpRight } from '@phosphor-icons/react'
 import { motion } from 'motion/react'
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { categories, type Category } from '../data/categories'
 import { productsByCategory, type ProductItem } from '../data/products'
 import { useReveal } from '../hooks/useReveal'
@@ -75,6 +75,19 @@ function ProductsSection() {
   const [openSlug, setOpenSlug] = useState<string | null>(null)
   const openCategory = categories.find((category) => category.slug === openSlug)
   const openSections = openSlug ? productsByCategory[openSlug] : undefined
+
+  useEffect(() => {
+    const applyHash = () => {
+      const match = window.location.hash.match(/^#products-(.+)$/)
+      const slug = match?.[1]
+      if (slug && categories.some((category) => category.slug === slug)) {
+        setOpenSlug(slug)
+      }
+    }
+    applyHash()
+    window.addEventListener('hashchange', applyHash)
+    return () => window.removeEventListener('hashchange', applyHash)
+  }, [])
 
   return (
     <section id="products" className="scroll-mt-24 bg-[#f3eee4] pb-14 pt-6 text-[#103328] md:pb-20 md:pt-8 lg:pb-24 lg:pt-10">
