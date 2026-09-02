@@ -19,7 +19,7 @@ function Advantages() {
   const reduce = useReducedMotion()
   const bandRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({ target: bandRef, offset: ['start end', 'end start'] })
-  const bandY = useTransform(scrollYProgress, [0, 1], ['38%', '62%'])
+  const bandY = useTransform(scrollYProgress, [0, 1], [-28, 28])
 
   return (
     <section
@@ -63,13 +63,18 @@ function Advantages() {
           </motion.div>
         </div>
       </div>
-      <motion.div
+      <div
         ref={bandRef}
-        className="h-44 bg-cover sm:h-52 lg:h-[clamp(10rem,14vw,14rem)]"
-        style={{ backgroundImage: `url('${withBase('/images/advantages-steaks-board.png')}')`, backgroundPositionX: 'center', backgroundPositionY: reduce ? '50%' : bandY }}
+        className="relative h-44 overflow-hidden sm:h-52 lg:h-[clamp(10rem,14vw,14rem)]"
         role="img"
         aria-label="М’ясні вирізки на дерев’яній дошці"
-      />
+      >
+        <motion.div
+          aria-hidden="true"
+          className="absolute -top-10 -bottom-10 inset-x-0 bg-cover bg-center"
+          style={{ backgroundImage: `url('${withBase('/images/advantages-steaks-board.webp')}')`, y: reduce ? 0 : bandY }}
+        />
+      </div>
     </section>
   )
 }
