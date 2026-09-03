@@ -82,7 +82,7 @@ function Advantages({ onPriceClick }: AdvantagesProps) {
       </div>
       <div
         ref={bandRef}
-        className="relative h-44 overflow-hidden sm:h-52 lg:h-[clamp(10rem,14vw,14rem)]"
+        className="relative h-44 overflow-hidden sm:h-52 lg:hidden"
         role="img"
         aria-label="М’ясні вирізки на дерев’яній дошці"
       >
