@@ -1,4 +1,3 @@
-import { ArrowRight } from '@phosphor-icons/react'
 import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react'
 import { useRef } from 'react'
 import { useReveal, useRevealCascade } from '../hooks/useReveal'
@@ -24,7 +23,7 @@ function Advantages() {
   return (
     <section
       id="advantages"
-      className="overflow-hidden bg-[#f4efe5]"
+      className="scroll-mt-[92px] overflow-hidden bg-[#f4efe5]"
     >
       <div className="bg-[#f4efe5]">
         <div className="mx-auto grid max-w-[1440px] lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)]">
@@ -35,10 +34,6 @@ function Advantages() {
               ПОСТАЧАННЯ, НА ЯКЕ МОЖНА РОЗРАХОВУВАТИ
             </h2>
             <p className="mt-8 max-w-[32rem] text-body-lg text-ink-muted">Погоджуємо продукцію, формат обробки, документи та логістику під щоденну роботу вашого закладу.</p>
-            <a href="#terms" className="group mt-8 inline-flex min-h-12 w-fit items-center gap-5 bg-[#113f2c] px-6 py-3 text-body-sm font-semibold tracking-[0.12em] text-white transition-colors duration-200 hover:bg-[#1a6837]">
-              УМОВИ СПІВПРАЦІ
-              <ArrowRight size={19} weight="light" aria-hidden="true" className="text-[#c69b53] transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transform-none motion-reduce:transition-none" />
-            </a>
           </motion.div>
 
           <motion.div {...cascade.container} className="grid px-6 pb-14 sm:px-10 lg:grid-cols-2 lg:px-[clamp(2rem,4vw,4.5rem)] lg:py-[clamp(2.5rem,4vw,4.5rem)]">
