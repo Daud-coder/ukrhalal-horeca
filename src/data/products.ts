@@ -197,7 +197,6 @@ export const productsByCategory: Record<string, ProductSection[]> = {
     {
       label: 'Преміум-ВІ',
       items: [
-        { name: 'ВІ Махан (конина)', price: 840 },
         { name: 'ВІ Курхан', price: 800, image: '/images/products/sausages-vi-kurkhan.jpg' },
         { name: 'ВІ Салямі яловича с/к', price: 800, image: '/images/products/sausages-vi-salyami-yalovycha.jpg' },
         { name: 'ВІ Кримські', price: 305, image: '/images/products/sausages-vi-krymski.jpg' },
@@ -224,7 +223,6 @@ export const productsByCategory: Record<string, ProductSection[]> = {
     {
       label: 'Ковбаси Н/К та С/К',
       items: [
-        { name: 'Салямі Київська н/к (УкрХаляль)', price: 360 },
         { name: 'Голандська з сиром', price: 540, image: '/images/products/sausages-holandska-z-syrom.jpg' },
         { name: 'Татарська в/с', price: 520, image: '/images/products/sausages-tatarska-v-s.jpg' },
         { name: 'Ковбаса Харківська с/к', price: 730, image: '/images/products/sausages-kovbasa-kharkivska-s-k.jpg' },
