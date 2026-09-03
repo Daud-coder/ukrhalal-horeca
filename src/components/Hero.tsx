@@ -68,7 +68,10 @@ function Hero({ onPriceClick }: HeroProps) {
                     onClick={(e) => {
                       e.preventDefault()
                       window.location.hash = `products-${slug}`
-                      document.getElementById('products')?.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' })
+                      // 'instant', not 'auto': the page sets `scroll-behavior: smooth`
+                      // globally, and 'auto' defers to that CSS — the owner wants the
+                      // category to open immediately, without scrolling the whole page.
+                      document.getElementById('products')?.scrollIntoView({ behavior: 'instant' })
                     }}
                     className="group flex min-h-12 items-center justify-between gap-4 border-b border-white/40 py-3 font-display text-[clamp(1.1rem,1.9vw,1.55rem)] font-medium tracking-[-0.02em] text-white drop-shadow-[0_2px_6px_rgba(0,0,0,0.95)] transition-[color,border-color] duration-200 hover:border-[#63c779] hover:text-white focus-visible:border-[#63c779] focus-visible:text-white focus-visible:outline-white"
                   >
