@@ -106,16 +106,15 @@ function ContactSection() {
 
               <div className="mt-4 grid gap-2">
                 {socialPlaceholders.map(({ key, label, badge }) => (
-                  <div key={key} className="flex min-h-[50px] items-center justify-between border border-white/15 px-4 text-white transition-colors hover:border-[#b78b3e]/60" title="Посилання буде додано">
+                  <div key={key} className="flex min-h-[50px] items-center justify-between border border-dashed border-white/12 px-4 text-white/70">
                     <span className="flex items-center gap-2.5 text-[0.84rem] font-semibold">
                       {badge}
                       {label}
                     </span>
-                    <ArrowUpRight size={17} weight="light" aria-hidden="true" className="text-[#b78b3e]" />
+                    <span className="text-[0.6rem] uppercase tracking-[0.16em] text-white/35">Скоро</span>
                   </div>
                 ))}
               </div>
-              <p className="mt-4 text-[0.62rem] uppercase tracking-[0.18em] text-white/35">Посилання будуть додані</p>
             </motion.aside>
           </motion.div>
         </div>

@@ -27,6 +27,31 @@ export function Header({ onPriceClick }: HeaderProps) {
   const messengersRef = useRef<HTMLDivElement>(null)
   const messengersButtonRef = useRef<HTMLButtonElement>(null)
   const messengersMenuRef = useRef<HTMLDivElement>(null)
+  const quickNavRef = useRef<HTMLElement>(null)
+  // The quick-nav row is wider than a phone screen; fade whichever edge still
+  // has pills hidden behind it so the row reads as scrollable.
+  const [quickNavOverflow, setQuickNavOverflow] = useState({ start: false, end: false })
+
+  useEffect(() => {
+    const el = quickNavRef.current
+    if (!el) return () => undefined
+
+    const update = () => {
+      const maxScroll = el.scrollWidth - el.clientWidth
+      setQuickNavOverflow({ start: el.scrollLeft > 4, end: el.scrollLeft < maxScroll - 4 })
+    }
+
+    update()
+    el.addEventListener('scroll', update, { passive: true })
+    const observer = new ResizeObserver(update)
+    observer.observe(el)
+    return () => {
+      el.removeEventListener('scroll', update)
+      observer.disconnect()
+    }
+  }, [])
+
+  const quickNavMask = `linear-gradient(to right, ${quickNavOverflow.start ? 'transparent 0, #000 1.75rem' : '#000 0'}, ${quickNavOverflow.end ? '#000 calc(100% - 1.75rem), transparent 100%' : '#000 100%'})`
 
   useEffect(() => {
     const query = window.matchMedia(`(min-width: ${NAV_BREAKPOINT}px)`)
@@ -152,7 +177,12 @@ export function Header({ onPriceClick }: HeaderProps) {
               </span>
             </button>
           </div>
-          <nav aria-label="Швидка навігація" className="flex gap-2 overflow-x-auto px-5 pb-3 sm:px-6 nav:hidden [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <nav
+            ref={quickNavRef}
+            aria-label="Швидка навігація"
+            style={{ WebkitMaskImage: quickNavMask, maskImage: quickNavMask }}
+            className="flex gap-2 overflow-x-auto px-5 pb-3 sm:px-6 nav:hidden [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          >
             <a href="#about" className="inline-flex min-h-8 shrink-0 items-center whitespace-nowrap rounded-[6px] bg-brand/65 px-3 py-1.5 text-caption font-medium text-white transition-colors duration-200 active:bg-brand focus-visible:bg-brand">Про нас</a>
             <a href="#products" className="inline-flex min-h-8 shrink-0 items-center whitespace-nowrap rounded-[6px] bg-brand/65 px-3 py-1.5 text-caption font-medium text-white transition-colors duration-200 active:bg-brand focus-visible:bg-brand">HoReCa продукція</a>
             <button type="button" onClick={onPriceClick} className="inline-flex min-h-8 shrink-0 items-center whitespace-nowrap rounded-[6px] bg-brand/65 px-3 py-1.5 text-caption font-semibold text-white transition-colors duration-200 active:bg-brand focus-visible:bg-brand">Прайс</button>

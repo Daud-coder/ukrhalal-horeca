@@ -84,7 +84,7 @@ function Timeline({ motionStyles }: { motionStyles?: MilestoneMotionStyle[] }) {
           {...(motionStyles ? {} : cascade.item)}
           key={item.year}
           style={motionStyles ? { opacity: motionStyles[index].opacity, y: motionStyles[index].y, scale: motionStyles[index].scale } : undefined}
-          className={`relative grid gap-2 py-5 sm:grid-cols-[7.5rem_1fr] sm:gap-6 ${index > 0 ? 'border-t border-[#b08a4a]' : ''}`}
+          className={`relative grid gap-2 py-5 sm:grid-cols-[minmax(7.5rem,max-content)_minmax(0,1fr)] sm:gap-6 ${index > 0 ? 'border-t border-[#b08a4a]' : ''}`}
         >
           <span className="absolute -left-[1.2rem] top-8 size-4 rounded-full border-[4px] border-[#b08a4a] bg-[#f4efe5] sm:-left-[1.8rem] lg:-left-[2.48rem]" aria-hidden="true" />
           <p
