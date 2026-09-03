@@ -11,7 +11,7 @@ type PriceRequestFormProps = {
   onDone: () => void
 }
 
-type FieldName = 'name' | 'company' | 'phone' | 'email' | 'consent'
+type FieldName = 'name' | 'company' | 'address' | 'phone' | 'email' | 'consent'
 type FormErrors = Partial<Record<FieldName, string>>
 type Status = 'idle' | 'sending' | 'error' | 'success'
 
@@ -26,13 +26,16 @@ const submitErrorMessages: Record<Exclude<SubmitResult, { ok: true }>['reason'],
   'not-configured': 'Форма ще не підключена до сервера. Напишіть менеджеру напряму',
 }
 
-function validateField(field: FieldName, values: { name: string; company: string; phone: string; email: string; consent: boolean }) {
+function validateField(field: FieldName, values: { name: string; company: string; address: string; phone: string; email: string; consent: boolean }) {
   if (field === 'name') {
     if (!values.name.trim()) return 'Вкажіть імʼя, щоб ми знали, до кого звертатись'
     if (values.name.trim().length < 2) return 'Імʼя закоротке. Введіть щонайменше дві літери'
   }
   if (field === 'company' && !values.company.trim()) {
     return 'Вкажіть назву закладу, це потрібно для розрахунку цін'
+  }
+  if (field === 'address' && !values.address.trim()) {
+    return 'Вкажіть адресу — від неї залежить графік і вартість доставки'
   }
   if (field === 'phone') {
     if (!values.phone.trim()) return 'Вкажіть телефон, менеджер зателефонує протягом робочого дня'
@@ -54,6 +57,7 @@ export function PriceRequestForm({ onDone }: PriceRequestFormProps) {
   const reduce = useReducedMotion()
   const [name, setName] = useState('')
   const [company, setCompany] = useState('')
+  const [address, setAddress] = useState('')
   const [phone, setPhone] = useState('')
   const [email, setEmail] = useState('')
   const [consent, setConsent] = useState(false)
@@ -64,12 +68,13 @@ export function PriceRequestForm({ onDone }: PriceRequestFormProps) {
 
   const nameRef = useRef<HTMLInputElement>(null)
   const companyRef = useRef<HTMLInputElement>(null)
+  const addressRef = useRef<HTMLInputElement>(null)
   const phoneRef = useRef<HTMLInputElement>(null)
   const emailRef = useRef<HTMLInputElement>(null)
   const consentRef = useRef<HTMLInputElement>(null)
 
-  const values = { name, company, phone, email, consent }
-  const refs = { name: nameRef, company: companyRef, phone: phoneRef, email: emailRef, consent: consentRef }
+  const values = { name, company, address, phone, email, consent }
+  const refs = { name: nameRef, company: companyRef, address: addressRef, phone: phoneRef, email: emailRef, consent: consentRef }
 
   const validateOne = (field: FieldName) => {
     const error = validateField(field, values)
@@ -93,7 +98,7 @@ export function PriceRequestForm({ onDone }: PriceRequestFormProps) {
     if (status === 'sending') return
 
     setSubmittedOnce(true)
-    const fields: FieldName[] = ['name', 'company', 'phone', 'email', 'consent']
+    const fields: FieldName[] = ['name', 'company', 'address', 'phone', 'email', 'consent']
     const nextErrors = Object.fromEntries(
       fields.flatMap((field) => {
         const error = validateField(field, values)
@@ -113,6 +118,7 @@ export function PriceRequestForm({ onDone }: PriceRequestFormProps) {
     const result = await submitLead({
       name: name.trim(),
       company: company.trim(),
+      address: address.trim(),
       phone: phone.trim(),
       ...(email.trim() ? { email: email.trim() } : {}),
     })
@@ -160,6 +166,16 @@ export function PriceRequestForm({ onDone }: PriceRequestFormProps) {
               <label htmlFor="price-company" className="block text-body-sm font-medium text-ink">Назва закладу</label>
               <input ref={companyRef} id="price-company" name="company" value={company} onChange={(event) => setCompany(event.target.value)} onBlur={() => handleBlur('company')} maxLength={120} autoComplete="organization" className={fieldClassName('company')} aria-invalid={errors.company ? true : undefined} aria-describedby={errors.company ? 'price-company-error' : undefined} />
               {errors.company && <p id="price-company-error" role="alert" className={errorClass}>{errors.company}</p>}
+            </div>
+
+            <div className="space-y-2">
+              <label htmlFor="price-address" className="block text-body-sm font-medium text-ink">Адреса закладу</label>
+              <input ref={addressRef} id="price-address" name="address" value={address} onChange={(event) => setAddress(event.target.value)} onBlur={() => handleBlur('address')} maxLength={160} autoComplete="street-address" className={fieldClassName('address')} aria-invalid={errors.address ? true : undefined} aria-describedby={errors.address ? 'price-address-error' : 'price-address-hint'} />
+              {errors.address ? (
+                <p id="price-address-error" role="alert" className={errorClass}>{errors.address}</p>
+              ) : (
+                <p id="price-address-hint" className="text-body-sm text-ink-muted">Місто і вулиця — щоб одразу порахувати доставку.</p>
+              )}
             </div>
 
             <div className="space-y-2">

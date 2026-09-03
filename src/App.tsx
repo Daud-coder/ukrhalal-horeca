@@ -18,7 +18,7 @@ function App() {
 
       <main id="top">
         <Hero onPriceClick={() => setPriceOpen(true)} />
-        <Advantages />
+        <Advantages onPriceClick={() => setPriceOpen(true)} />
         <AboutSection />
 
         {navLinks.map((link) => {

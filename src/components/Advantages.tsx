@@ -1,3 +1,4 @@
+import { ArrowRight } from '@phosphor-icons/react'
 import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react'
 import { useRef } from 'react'
 import { useReveal, useRevealCascade } from '../hooks/useReveal'
@@ -12,7 +13,9 @@ const advantages = [
   { title: 'ДОКУМЕНТИ ТА ПІДТВЕРДЖЕНИЙ ХАЛЯЛЬ', description: 'Надаємо супровідні документи на продукцію та підтвердження для відповідних халяльних позицій.' },
 ]
 
-function Advantages() {
+type AdvantagesProps = { onPriceClick: () => void }
+
+function Advantages({ onPriceClick }: AdvantagesProps) {
   const reveal = useReveal(0.25)
   const cascade = useRevealCascade(0.2)
   const reduce = useReducedMotion()
@@ -34,6 +37,25 @@ function Advantages() {
               ПОСТАЧАННЯ, НА ЯКЕ МОЖНА РОЗРАХОВУВАТИ
             </h2>
             <p className="mt-8 max-w-[32rem] text-body-lg text-ink-muted">Погоджуємо продукцію, формат обробки, документи та логістику під щоденну роботу вашого закладу.</p>
+
+            <button
+              type="button"
+              onClick={onPriceClick}
+              className="group mt-8 inline-flex min-h-12 w-fit items-center gap-5 bg-[#113f2c] px-6 py-3 text-body-sm font-semibold tracking-[0.12em] text-white transition-[background-color,transform] duration-200 hover:-translate-y-px hover:bg-[#1a6837] active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#b08a4a] motion-reduce:transform-none"
+            >
+              ОТРИМАТИ ПРОПОЗИЦІЮ
+              <ArrowRight size={19} weight="light" aria-hidden="true" className="text-[#c69b53] transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transform-none motion-reduce:transition-none" />
+            </button>
+
+            <img
+              src={withBase('/images/advantages-meat-prep-v3.webp')}
+              alt="Обвалювання яловичої вирізки на професійній кухні"
+              width="1254"
+              height="941"
+              loading="lazy"
+              decoding="async"
+              className="mt-10 hidden w-full max-w-[30rem] object-cover lg:block"
+            />
           </motion.div>
 
           <motion.div {...cascade.container} className="grid px-6 pb-14 sm:px-10 lg:grid-cols-2 lg:px-[clamp(2rem,4vw,4.5rem)] lg:py-[clamp(2.5rem,4vw,4.5rem)]">
