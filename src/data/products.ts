@@ -110,14 +110,13 @@ export const productsByCategory: Record<string, ProductSection[]> = {
         { name: 'Гуляш', price: 290, image: '/images/products/gen-lamb-hulyash.jpg' },
         { name: 'Фарш', price: 295, image: '/images/products/gen-lamb-farsh.jpg' },
         { name: 'Ребро', price: 282, image: '/images/products/lamb-rebro.jpg' },
-        { name: 'Ребро та грудина без кістки', price: 302, image: '/images/products/lamb-rebro.jpg' },
         { name: 'Ошийок на кістці', price: 301, image: '/images/products/gen-lamb-oshyiok-na-kistci.jpg' },
         { name: 'Ошийок без кістки', price: 360, image: '/images/products/gen-lamb-oshyiok-bez-kistky.jpg' },
         { name: 'Біток без кістки (контрфіле)', price: 590, image: '/images/products/gen-lamb-bitok.jpg' },
-        { name: 'Рулька ПЕРЕДНЯ', price: 360, image: '/images/products/gen-lamb-rulka-perednya.jpg' },
+        { name: 'Рулька ПЕРЕДНЯ', price: 360, image: '/images/products/lamb-rulka-perednya-v2.jpg' },
         { name: 'Рулька ЗАДНЯ', price: 440, image: '/images/products/gen-lamb-rulka-zadnya.jpg' },
-        { name: 'Вирізка', price: 570 },
-        { name: 'Тушка баранини', price: null, image: '/images/products/gen-lamb-tushka.jpg' },
+        { name: 'Вирізка', price: 570, image: '/images/products/lamb-vyrizka.jpg' },
+        { name: 'Тушка баранини', price: null, image: '/images/products/lamb-tushka-v2.jpg' },
       ],
     },
     {
@@ -135,7 +134,7 @@ export const productsByCategory: Record<string, ProductSection[]> = {
   'young-lamb': [
     {
       items: [
-        { name: 'Лопатка на кістці', price: 335, image: '/images/products/gen-younglamb-lopatka-na-kistci.jpg' },
+        { name: 'Лопатка на кістці', price: 335, image: '/images/products/younglamb-lopatka-na-kistci-v2.jpg' },
         { name: 'Лопатка без кістки', price: 384, image: '/images/products/gen-younglamb-lopatka-bez-kistky.jpg' },
         { name: 'Задня частина без кістки', price: 452, image: '/images/products/gen-younglamb-zadnya-bez-kistky.jpg' },
         { name: 'Задня частина на кістці', price: 367, image: '/images/products/gen-younglamb-zadnya-na-kistci.jpg' },
@@ -192,7 +191,7 @@ export const productsByCategory: Record<string, ProductSection[]> = {
     {
       label: 'Ковбаси варені',
       items: [
-        { name: 'Ковбаса Елітна вар.', price: 447 },
+        { name: 'Ковбаса Елітна вар.', price: 447, image: '/images/products/sausages-elitna-varena.jpg' },
       ],
     },
     {
@@ -200,7 +199,7 @@ export const productsByCategory: Record<string, ProductSection[]> = {
       items: [
         { name: 'ВІ Махан (конина)', price: 840 },
         { name: 'ВІ Курхан', price: 800, image: '/images/products/sausages-vi-kurkhan.jpg' },
-        { name: 'ВІ Салямі яловича с/к', price: 800 },
+        { name: 'ВІ Салямі яловича с/к', price: 800, image: '/images/products/sausages-vi-salyami-yalovycha.jpg' },
         { name: 'ВІ Кримські', price: 305, image: '/images/products/sausages-vi-krymski.jpg' },
         { name: 'ВІ Болгарська', price: 375, image: '/images/products/sausages-vi-bolharska.jpg' },
       ],
@@ -235,9 +234,9 @@ export const productsByCategory: Record<string, ProductSection[]> = {
     {
       label: 'Нові позиції',
       items: [
-        { name: 'Шинка Лідер', price: 430 },
-        { name: 'Дитячі Лідер', price: 310 },
-        { name: 'Молочна ковбаса', price: 400 },
+        { name: 'Шинка Лідер', price: 430, image: '/images/products/sausages-shynka-lider.jpg' },
+        { name: 'Дитячі Лідер', price: 310, image: '/images/products/sausages-dytiachi-lider.jpg' },
+        { name: 'Молочна ковбаса', price: 400, image: '/images/products/sausages-molochna-kovbasa.jpg' },
         { name: 'Сервелат Баварський', price: 420, image: '/images/products/sausages-servelat-bavarskyi.jpg' },
         { name: 'Сардельки телячі', price: 360, image: '/images/products/sausages-sardelky-teliachi.jpg' },
       ],
@@ -252,9 +251,9 @@ export const productsByCategory: Record<string, ProductSection[]> = {
         { name: 'Пельмені з баранини (900 г)', price: 280, unit: 'уп.', image: '/images/products/semi-pelmeni-z-baranyny-900-h.jpg' },
         { name: "Пельмені Мікс (ялов.+курка) 900 г", price: 260, unit: 'уп.', image: '/images/products/semi-pelmeni-miks-ialov-kurka-900-h.jpg' },
         { name: 'Пельмені з індички 500 г', price: 193, unit: 'уп.', image: '/images/products/semi-pelmeni-z-indychky-500-h.jpg' },
-        { name: 'Міні пельмені з курятиною', price: 170, unit: 'шт.' },
-        { name: 'Міні пельмені з яловичиною', price: 175, unit: 'шт.' },
-        { name: 'Міні пельмені з баранини', price: 180, unit: 'шт.' },
+        { name: 'Міні пельмені з курятиною', price: 170, unit: 'шт.', image: '/images/products/semi-pelmeni-kuriachi-900-h.jpg' },
+        { name: 'Міні пельмені з яловичиною', price: 175, unit: 'шт.', image: '/images/products/semi-pelmeni-ialovychi-900-h.jpg' },
+        { name: 'Міні пельмені з баранини', price: 180, unit: 'шт.', image: '/images/products/semi-pelmeni-z-baranyny-900-h.jpg' },
         { name: 'Пельмені Малюкам (400 г)', price: 190, unit: 'уп.', image: '/images/products/semi-pelmeni-maliukam-400-h.jpg' },
       ],
     },
@@ -277,13 +276,13 @@ export const productsByCategory: Record<string, ProductSection[]> = {
         { name: 'Долма', price: 380, unit: 'уп.', image: '/images/products/semi-dolma.jpg' },
         { name: 'Голубці з яловичиною', price: 310, unit: 'уп.', image: '/images/products/semi-holubtsi-z-ialovychynoiu.jpg' },
         { name: 'Чебуреки яловичі 400 г', price: 160, unit: 'уп.', image: '/images/products/semi-chebureky-ialovychi-400-h.jpg' },
-        { name: 'Люля-кебаб з яловичини', price: 280, unit: 'уп.' },
+        { name: 'Люля-кебаб з яловичини', price: 280, unit: 'уп.', image: '/images/products/semi-liulia-kebab-z-yalovychyny.jpg' },
       ],
     },
     {
       label: 'Дитячі та снекові',
       items: [
-        { name: 'Нагетси курячі (400 г)', price: 170, unit: 'уп.' },
+        { name: 'Нагетси курячі (400 г)', price: 170, unit: 'уп.', image: '/images/products/semi-nagetsy-kuriachi-400-h.jpg' },
         { name: 'Тефтельки Дитячі (400 г)', price: 185, unit: 'уп.', image: '/images/products/semi-teftelky-dytiachi-400-h.jpg' },
         { name: 'Сирники ванільні (400 г)', price: 175, unit: 'уп.', image: '/images/products/semi-syrnyky-vanilni-400-h.jpg' },
         { name: 'Млинці з куркою', price: 170, unit: 'уп.', image: '/images/products/semi-mlyntsi-z-kurkoiu.jpg' },
@@ -302,8 +301,8 @@ export const productsByCategory: Record<string, ProductSection[]> = {
       label: 'Тушонка',
       items: [
         { name: 'Тушонка з яловичини в/с ДСТУ', price: 175, unit: 'уп.' },
-        { name: 'Тушонка з баранини в/с ДСТУ', price: 180, unit: 'уп.', image: '/images/products/semi-tushonka-z-baranyny-v-s-dstu.jpg' },
-        { name: 'Тушонка з курятини ж/б 525 г', price: 140, unit: 'уп.', image: '/images/products/semi-tushonka-z-kuriatyny-zh-b-525-h.jpg' },
+        { name: 'Тушонка з баранини в/с ДСТУ', price: 180, unit: 'уп.', image: '/images/products/semi-tushonka-z-baranyny-v-s-dstu-v2.jpg' },
+        { name: 'Тушонка з курятини ж/б 525 г', price: 140, unit: 'уп.', image: '/images/products/semi-tushonka-z-kuriatyny-zh-b-525-h-v2.jpg' },
       ],
     },
   ],

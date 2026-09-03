@@ -127,20 +127,13 @@ function ProductsSection() {
               </p>
             </div>
 
-            {openSections.map((section, sectionIndex) => (
-              <div key={section.label ?? sectionIndex} className={sectionIndex > 0 ? 'mt-8' : ''}>
-                {section.label && (
-                  <h4 className="mb-3 text-[0.85rem] font-semibold uppercase tracking-[0.15em] text-[#103328]/70">{section.label}</h4>
-                )}
-                <div className={GRID_CLASSES}>
-                  {section.items.map((item, itemIndex) => (
-                    <div key={item.name} className="card-reveal" style={{ animationDelay: `${Math.min(itemIndex, 12) * 40}ms` }}>
-                      <ProductItemCard item={item} />
-                    </div>
-                  ))}
+            <div className={GRID_CLASSES}>
+              {openSections.flatMap((section) => section.items).map((item, itemIndex) => (
+                <div key={item.name} className="card-reveal" style={{ animationDelay: `${Math.min(itemIndex, 12) * 40}ms` }}>
+                  <ProductItemCard item={item} />
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         ) : (
           <div key="grid" className="mt-12 lg:mt-12">
