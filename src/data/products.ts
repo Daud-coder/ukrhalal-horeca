@@ -134,8 +134,8 @@ export const productsByCategory: Record<string, ProductSection[]> = {
   'young-lamb': [
     {
       items: [
-        { name: 'Лопатка на кістці', price: 335, image: '/images/products/younglamb-lopatka-na-kistci-v2.jpg' },
-        { name: 'Лопатка без кістки', price: 384, image: '/images/products/gen-younglamb-lopatka-bez-kistky.jpg' },
+        { name: 'Лопатка на кістці', price: 335, image: '/images/products/younglamb-lopatka-na-kistci-v3.jpg' },
+        { name: 'Лопатка без кістки', price: 384, image: '/images/products/younglamb-lopatka-bez-kistky-v2.jpg' },
         { name: 'Задня частина без кістки', price: 452, image: '/images/products/gen-younglamb-zadnya-bez-kistky.jpg' },
         { name: 'Задня частина на кістці', price: 367, image: '/images/products/gen-younglamb-zadnya-na-kistci.jpg' },
         { name: 'Каре (12–13 ребер)', price: 641, image: '/images/products/gen-younglamb-kare.jpg' },
@@ -143,7 +143,7 @@ export const productsByCategory: Record<string, ProductSection[]> = {
         { name: 'Фарш', price: 297, image: '/images/products/gen-younglamb-farsh.jpg' },
         { name: 'Ребро', price: 290, image: '/images/products/gen-younglamb-rebro.jpg' },
         { name: 'Вирізка', price: 585, image: '/images/products/gen-younglamb-vyrizka.jpg' },
-        { name: 'Тушка ягнятини', price: null },
+        { name: 'Тушка ягнятини', price: null, image: '/images/products/lamb-tushka-v2.jpg' },
       ],
     },
   ],
@@ -219,7 +219,6 @@ export const productsByCategory: Record<string, ProductSection[]> = {
       items: [
         { name: 'Сосиски молочні', price: 275, image: '/images/products/sausages-sosysky-molochni.jpg' },
         { name: 'Сосиски з сиром', price: 345, image: '/images/products/sausages-sosysky-z-syrom.jpg' },
-        { name: 'Сосиски Дитячі в/с (УкрХаляль)', price: 342, image: '/images/products/sausages-sosysky-dytiachi-v-s-ukrkhalial.jpg' },
       ],
     },
     {
@@ -235,7 +234,7 @@ export const productsByCategory: Record<string, ProductSection[]> = {
       label: 'Нові позиції',
       items: [
         { name: 'Шинка Лідер', price: 430, image: '/images/products/sausages-shynka-lider.jpg' },
-        { name: 'Дитячі Лідер', price: 310, image: '/images/products/sausages-dytiachi-lider.jpg' },
+        { name: 'Дитячі Лідер', price: 310, image: '/images/products/sausages-sosysky-dytiachi-v-s-ukrkhalial.jpg' },
         { name: 'Молочна ковбаса', price: 400, image: '/images/products/sausages-molochna-kovbasa.jpg' },
         { name: 'Сервелат Баварський', price: 420, image: '/images/products/sausages-servelat-bavarskyi.jpg' },
         { name: 'Сардельки телячі', price: 360, image: '/images/products/sausages-sardelky-teliachi.jpg' },
@@ -294,13 +293,13 @@ export const productsByCategory: Record<string, ProductSection[]> = {
       items: [
         { name: 'Бургер курячий', price: 230, image: '/images/products/semi-burher-kuriachyi.jpg' },
         { name: 'Бургер яловичина охолоджений', price: 255, image: '/images/products/semi-burher-ialovychyna-okholodzhenyi.jpg' },
-        { name: 'Бургер Мікс (баранина+яловичина)', price: 265 },
+        { name: 'Бургер Мікс (баранина+яловичина)', price: 265, image: '/images/products/semi-burher-ialovychyna-okholodzhenyi.jpg' },
       ],
     },
     {
       label: 'Тушонка',
       items: [
-        { name: 'Тушонка з яловичини в/с ДСТУ', price: 175, unit: 'уп.' },
+        { name: 'Тушонка з яловичини в/с ДСТУ', price: 175, unit: 'уп.', image: '/images/products/semi-tushonka-z-yalovychyny-v-s-dstu.jpg' },
         { name: 'Тушонка з баранини в/с ДСТУ', price: 180, unit: 'уп.', image: '/images/products/semi-tushonka-z-baranyny-v-s-dstu-v2.jpg' },
         { name: 'Тушонка з курятини ж/б 525 г', price: 140, unit: 'уп.', image: '/images/products/semi-tushonka-z-kuriatyny-zh-b-525-h-v2.jpg' },
       ],

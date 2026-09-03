@@ -111,7 +111,7 @@ function ProductsSection() {
 
         {openCategory && openSections ? (
           <div key={openCategory.slug} className="mt-12">
-            <div className="mb-6 flex items-center gap-4">
+            <div className="mb-6 flex flex-wrap items-center gap-x-4 gap-y-2">
               <button
                 type="button"
                 onClick={() => setOpenSlug(null)}
@@ -120,7 +120,8 @@ function ProductsSection() {
                 <ArrowLeft size={18} weight="bold" aria-hidden="true" />
                 Назад
               </button>
-              <p className="text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-[#a77b32]">
+              <h3 className="text-[1.05rem] font-semibold uppercase tracking-[0.02em] text-[#103328]">{openCategory.title}</h3>
+              <p className="text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-[#a77b32] sm:ml-auto">
                 {openSections.some((section) => section.items.some((item) => item.unit))
                   ? 'Одиниця вказана під ціною'
                   : 'Ціни вказані за 1 кг'}
