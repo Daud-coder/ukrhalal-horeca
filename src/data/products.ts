@@ -182,23 +182,17 @@ export const productsByCategory: Record<string, ProductSection[]> = {
     {
       label: 'Копченості та паштети',
       items: [
-        { name: 'Паштет курячий (УкрХаляль)', price: 200 },
         { name: 'Грудинка теляча копчена (крафт)', price: 500, image: '/images/products/sausages-hrudynka-teliacha-kopchena-kraft.jpg' },
-        { name: 'Ребро копчене (крафт)', price: 410 },
         { name: 'Балик теляч. копчений (крафт)', price: 1045, image: '/images/products/sausages-balyk-teliach-kopchenyi-kraft.jpg' },
         { name: 'Джерки яловичі (ворчестер)', price: 1650, image: '/images/products/sausages-dzherky-ialovychi-vorchester.jpg' },
         { name: 'Джерки курячі', price: 1650, image: '/images/products/sausages-dzherky-kuriachi.jpg' },
-        { name: 'Крило куряче копчене (УкрХаляль)', price: 290 },
-        { name: 'Гомілка копчена (УкрХаляль)', price: 320 },
         { name: 'Філе Янтарне с/к (УкрХаляль)', price: 650, image: '/images/products/sausages-file-iantarne-s-k-ukrkhalial.jpg' },
       ],
     },
     {
       label: 'Ковбаси варені',
       items: [
-        { name: 'Ковбаса Лікарська в/с (УкрХаляль)', price: 380 },
         { name: 'Ковбаса Елітна вар.', price: 447 },
-        { name: 'Шинка Делікатесна в/с (УкрХаляль)', price: 405 },
       ],
     },
     {
@@ -227,14 +221,11 @@ export const productsByCategory: Record<string, ProductSection[]> = {
         { name: 'Сосиски молочні', price: 275, image: '/images/products/sausages-sosysky-molochni.jpg' },
         { name: 'Сосиски з сиром', price: 345, image: '/images/products/sausages-sosysky-z-syrom.jpg' },
         { name: 'Сосиски Дитячі в/с (УкрХаляль)', price: 342, image: '/images/products/sausages-sosysky-dytiachi-v-s-ukrkhalial.jpg' },
-        { name: 'Сардельки «Житомирські» в/с (УкрХаляль)', price: 360 },
       ],
     },
     {
       label: 'Ковбаси Н/К та С/К',
       items: [
-        { name: 'Столична н/к в/с (УкрХаляль)', price: 570 },
-        { name: 'Віденська н/к 1с (УкрХаляль)', price: 455 },
         { name: 'Салямі Київська н/к (УкрХаляль)', price: 360 },
         { name: 'Голандська з сиром', price: 540, image: '/images/products/sausages-holandska-z-syrom.jpg' },
         { name: 'Татарська в/с', price: 520, image: '/images/products/sausages-tatarska-v-s.jpg' },
