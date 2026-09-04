@@ -86,7 +86,7 @@ export function PriceRequestForm({ onDone }: PriceRequestFormProps) {
   }
 
   const fieldClassName = (field: FieldName) => [
-    'w-full rounded-[var(--radius-btn)] bg-white px-4 py-3 text-body text-ink caret-brand ring-1 ring-hairline outline-none transition-shadow duration-150 focus:ring-2 focus:ring-brand disabled:cursor-not-allowed disabled:opacity-60',
+    'w-full rounded-[var(--radius-btn)] bg-white px-4 py-2.5 text-body text-ink caret-brand ring-1 ring-hairline outline-none transition-shadow duration-150 focus:ring-2 focus:ring-brand disabled:cursor-not-allowed disabled:opacity-60',
     errors[field] ? 'ring-2 ring-red-600 focus:ring-red-600' : '',
   ].filter(Boolean).join(' ')
 
@@ -155,20 +155,20 @@ export function PriceRequestForm({ onDone }: PriceRequestFormProps) {
         </motion.div>
       ) : (
         <motion.form key="form" onSubmit={handleSubmit} noValidate exit={exitMotion} transition={{ duration: 0.2, ease: EASE_OUT }}>
-          <fieldset disabled={disabled} className="space-y-4">
-            <div className="space-y-2">
+          <fieldset disabled={disabled} className="space-y-3">
+            <div className="space-y-1.5">
               <label htmlFor="price-name" className="block text-body-sm font-medium text-ink">Ваше імʼя</label>
               <input ref={nameRef} id="price-name" name="name" value={name} onChange={(event) => setName(event.target.value)} onBlur={() => handleBlur('name')} maxLength={80} autoComplete="name" className={fieldClassName('name')} aria-invalid={errors.name ? true : undefined} aria-describedby={errors.name ? 'price-name-error' : undefined} />
               {errors.name && <p id="price-name-error" role="alert" className={errorClass}>{errors.name}</p>}
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-1.5">
               <label htmlFor="price-company" className="block text-body-sm font-medium text-ink">Назва закладу</label>
               <input ref={companyRef} id="price-company" name="company" value={company} onChange={(event) => setCompany(event.target.value)} onBlur={() => handleBlur('company')} maxLength={120} autoComplete="organization" className={fieldClassName('company')} aria-invalid={errors.company ? true : undefined} aria-describedby={errors.company ? 'price-company-error' : undefined} />
               {errors.company && <p id="price-company-error" role="alert" className={errorClass}>{errors.company}</p>}
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-1.5">
               <label htmlFor="price-address" className="block text-body-sm font-medium text-ink">Адреса закладу</label>
               <input ref={addressRef} id="price-address" name="address" value={address} onChange={(event) => setAddress(event.target.value)} onBlur={() => handleBlur('address')} maxLength={160} autoComplete="street-address" className={fieldClassName('address')} aria-invalid={errors.address ? true : undefined} aria-describedby={errors.address ? 'price-address-error' : 'price-address-hint'} />
               {errors.address ? (
@@ -178,13 +178,13 @@ export function PriceRequestForm({ onDone }: PriceRequestFormProps) {
               )}
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-1.5">
               <label htmlFor="price-phone" className="block text-body-sm font-medium text-ink">Телефон</label>
               <input ref={phoneRef} id="price-phone" name="phone" type="tel" inputMode="tel" value={phone} onChange={(event) => setPhone(event.target.value)} onBlur={() => handleBlur('phone')} maxLength={20} autoComplete="tel" className={fieldClassName('phone')} aria-invalid={errors.phone ? true : undefined} aria-describedby={errors.phone ? 'price-phone-error' : undefined} />
               {errors.phone && <p id="price-phone-error" role="alert" className={errorClass}>{errors.phone}</p>}
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-1.5">
               <label htmlFor="price-email" className="block text-body-sm font-medium text-ink">Email</label>
               <input ref={emailRef} id="price-email" name="email" type="email" inputMode="email" value={email} onChange={(event) => setEmail(event.target.value)} onBlur={() => handleBlur('email')} maxLength={120} autoComplete="email" className={fieldClassName('email')} aria-invalid={errors.email ? true : undefined} aria-describedby={errors.email ? 'price-email-error' : 'price-email-hint'} />
               {errors.email ? (
@@ -194,7 +194,7 @@ export function PriceRequestForm({ onDone }: PriceRequestFormProps) {
               )}
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-1.5">
               <div className="flex items-start gap-3">
                 <input ref={consentRef} id="price-consent" name="consent" type="checkbox" checked={consent} onChange={(event) => setConsent(event.target.checked)} onBlur={() => handleBlur('consent')} className="mt-1 h-5 w-5 shrink-0 cursor-pointer accent-brand caret-brand disabled:cursor-not-allowed" aria-invalid={errors.consent ? true : undefined} aria-describedby={errors.consent ? 'price-consent-error' : undefined} />
                 <label htmlFor="price-consent" className="text-body-sm font-medium text-ink">Погоджуюсь на обробку персональних даних</label>
